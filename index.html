@@ -1,8 +1,477 @@
-<p>Hello 大家好</p>
-<p>我是霸都丶傲天，这是我的个人网站。 </p>
-<p>很高兴你来到这里, 你可以在以下的网站找到我</p>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Project Title</title>
+        <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1">  
+        <style>
+            /* background and font set up */
+            body {
+                margin:0; 
+                padding:0; 
+                font-size: 0; /* avoid space between inline blovk */
+                background: rgb(201, 201, 201); 
+                font-family: Arial, Helvetica, sans-serif;
+            }
+            
 
-<ul>
-  <li> <a href="https://www.zhihu.com/people/AJLoveChina">知乎</a> </li>
-  <li> <a href="http://hejie.nigeerhuo.com">我的博客(已经不更细了,现在在知乎写文章)</a> </li>
-</ul>
+            /* Page Level, A4/letter size */
+            page[size="A4"] {width: 210mm; height: 297mm;}
+            page[size="letter"] {width: 215.9mm; height: 279.4mm;}
+            page {
+                background: rgb(255, 255, 255);
+                display: block;
+                margin: 0.5cm auto;
+                box-sizing: border-box;
+                padding: 0mm 20mm;
+                box-shadow: 0cm 0cm 0.2cm rgb(100, 100, 100);
+                border: 1px soild black;
+                page-break-after:always; /* page-break-inside: avoid; */
+            }
+            table {table-layout: fixed}
+            
+            /* header and footer */
+            pageHeader, pageFooter {
+                display: block; 
+                box-sizing: border-box;
+                margin: 0mm;
+                padding: 0mm;
+                width: 100%;
+                height: 20mm;
+                color: grey;            
+            }
+            pageHeader table, pageFooter table {
+                border-collapse: collapse; 
+                width: 100%;
+                height: 100%;
+                font-size: 8px;
+            }
+            pageHeader tr, pageFooter tr{ vertical-align: center;} 
+            pageHeader td.left, pageFooter td.left {width: 30%; text-align: left;}
+            pageHeader td.mid, pageFooter td.mid {width: 40%; text-align: center;}
+            pageHeader td.right, pageFooter td.right {width: 30%; text-align: right;}
+            
+
+            /* Content area of each log table */
+            pageContent {
+                display: block; 
+                padding: 2px;
+                box-sizing: border-box;
+                border: 2px solid black;
+                width: 100%;
+                height: calc(100% - 40mm);
+                color: black;
+            }
+            /* layout level 1*/
+            pageContent table {
+                padding: 0;
+                word-break:break-all;
+                border-collapse: collapse;  
+                width: 100%; 
+                height: 100%; 
+                font-size: 9px;
+            }
+            pageContent table, pageContent tr, pageContent td {border: 1px solid black;}
+            /* some text direction */
+            pageContent span.btlr {writing-mode: vertical-rl; writing-mode: tb-lr; transform: rotate(180deg)}
+            
+            .noborder, .noborder tr, .noborder td {border: none}
+            
+            div.ermlogo {
+                height: 100%;
+                width:45%;
+                display: inline-block;
+                vertical-align: middle;
+                background-image: url("data:image/svg+xml,%3Csvg version='1.1' id='_x33_43_x2F_430_Coated' xmlns='http://www.w3.org/2000/svg' x='0' y='0' viewBox='0 0 80.4 94.4' style='enable-background:new 0 0 80.4 94.4' xml:space='preserve'%3E%3Cstyle%3E.st0%7Bfill:none%3Bstroke:%23636466%3Bstroke-width:.325%3Bstroke-miterlimit:1%7D.st1%7Bfill:%23636466%7D%3C/style%3E%3Cpath class='st0' d='M15.1 23.1H63v37.3H15.1zM63 56.4H15.1M63 52.2H15.1M63 44.1H15.1M63 39.9H15.1M63 35.6H15.1M63 31.4H15.1M63 27.2H15.1M59.2 60.4V23.1M55.1 60.4V23.1M47.2 60.4V23.1M43.2 60.4V23.1M39.2 60.4V23.1M35.1 60.4V23.1M31.1 60.4V23.1M27.1 60.4V23.1M23.2 60.4V23.1M19.2 60.4V23.1M63 48.1H15.1M51.1 60.4V23.1'/%3E%3Cpath class='st1' d='M14.6 82.2v-.6c.5-.2.8-.4 1.1-.7 0-.3.1-.8.1-1.5.1-1.3.1-2.2.1-2.8v-7.3c0-.9-.1-1.4-.2-1.6 0-.1-.1-.1-.2-.2-.2-.1-.7-.2-1.6-.2v-1l2.6.1h5l2.3-.1h1.7c.1 0 .2 0 .4.1l.1.1-.2 1.6c0 .1 0 .7-.1 1.6h-.9c0-.9 0-1.4-.1-1.6 0-.1-.1-.2-.1-.2-.1-.1-.4-.1-.9-.2-.7-.1-1.5-.1-2.2-.1-.7 0-1.4 0-2.1.1-.1.9-.2 1.9-.2 3.3v2.3c.5 0 1.1.1 1.6.1h1.9c.4 0 .6 0 .7-.1.1 0 .1-.1.2-.2.1-.3.1-.8.2-1.4h.9v5h-1c0-.9 0-1.4-.2-1.6-.1-.2-.3-.2-.5-.3-.5-.1-1.2-.1-2-.1-.7 0-1.3 0-1.8.1V81c.6 0 1.3.1 2.2.1.8 0 1.6 0 2.3-.1.7-.1 1.1-.1 1.3-.2.1 0 .1-.1.1-.2.1-.4.3-1 .4-2.1h.9c-.2 1.5-.3 2.7-.3 3.7l-.1-.1c-.5.1-1.2.1-2.1.1h-5.5c-.2-.1-1.4-.1-3.8 0zM27.2 67.2v-.9h6c.9 0 1.7-.1 2.3-.1 1.2 0 2.1.1 2.7.3.6.2 1.1.5 1.5 1.1.4.5.6 1.2.6 2 0 .9-.3 1.7-.9 2.5-.6.7-1.4 1.3-2.6 1.8.2.3.4.7.6 1 .2.4.4.6.4.6 0 .1.1.1.1.2l1.8 2.6c.5.7.7 1.1.8 1.1.6.8.9 1.2 1 1.3.1.1.3.2.4.3.1.1.4.1.7.1v.9h-4.3c0-.2-.1-.4-.3-.6l-2.4-4c-.7-1.1-1.3-2.1-1.8-2.7-.2-.3-.5-.6-.7-.7l.1-.4c.9 0 1.6-.1 2.1-.3.5-.2.9-.6 1.2-1.2.3-.6.5-1.2.5-1.9s-.2-1.3-.5-1.7c-.3-.5-.7-.8-1.2-1-.3-.1-.9-.2-1.7-.2-.4 0-.7 0-1.1.1 0 .3 0 .9-.1 1.8 0 2.1-.1 3.6-.1 4.3v3.6c0 1.6.1 2.4.1 2.7 0 .4.1.7.1.8 0 .1.1.1.1.2.1 0 .2.1.3.1.2 0 .6.1 1.3.1v1c-1.3 0-2.6-.1-3.9-.1-1.2 0-2.3 0-3.3.1v-1c.9 0 1.4-.1 1.5-.1.1 0 .2-.1.2-.1 0-.1.1-.2.1-.3.1-.3.1-.7.1-1.3l.1-3.3v-6.6c0-.9-.1-1.5-.1-1.7 0-.1-.1-.1-.2-.2 0 0-.5-.1-1.5-.2zM43.5 82.2v-1c.9-.1 1.4-.1 1.5-.2.1 0 .2-.1.2-.2.1-.1.1-.2.1-.4.1-.4.1-1.4.1-2.8V69.9c0-1.2-.1-1.9-.1-2.1 0-.1-.1-.2-.1-.2-.1-.1-.2-.1-.4-.1-.5-.1-1-.1-1.4-.1v-1c1.6 0 2.6.1 3.2.1.8 0 1.6 0 2.3-.1l1 2.2.8 1.7 3.6 7.4c.8-1.5 1.3-2.6 1.7-3.5l1.5-3.1c.8-1.8 1.3-2.8 1.5-3.2.2-.4.4-.9.6-1.5 1 .1 1.6.1 1.9.1l3.4-.1v1h-.2c-.8 0-1.2.1-1.5.3-.2.2-.3.5-.3 1.1v1.4l-.1 3.2v5.7c.1 1 .1 1.5.2 1.8 0 .1.1.2.1.3.1.1.1.1.3.1.1 0 .6.1 1.4.1v1l-3.6-.1-3.5.1v-1c.9 0 1.5-.1 1.6-.2.1-.1.2-.3.3-.5.1-.3.1-1.2.1-2.8v-8.3l-2.6 5.3-1.1 2.5c-.3.7-.8 1.7-1.4 3-.4.8-.7 1.4-.9 1.9H53c-.3-.6-.7-1.5-1.2-2.6-.9-1.9-1.5-3.3-2-4.2l-3-6.1V78.3c0 1.3.1 2 .1 2.2 0 .2.1.3.1.4.1.1.2.1.3.2.2.1.6.1 1.4.1v1c-.8 0-1.7-.1-2.6-.1-1.1 0-2 0-2.6.1zM47.2 59.7l15-15.5-7.2-7.6-3.3 3.7-.6-.4 3.8-4.1 8.1 8.3-15.8 16.3-32.3-33 .4-.4z'/%3E%3Cpath d='M22.8 49.3c.1-.1-.1-.3-.4-.2-.1-.5-.4-.4-.4-.6-.2-.1.3-.5.4-.4l-.2-.2v-.2H22l-.4-.4c-.3-.2-.4-.3-.2-.4.2-.2-.2-.5-.4-.4 0 .1-.2 0-.2-.2l-.1-.3c-.2.1-.3 0-.2-.2.1-.2 0-.2-.2-.2-.4 0-.4-.2-.2-.4.3 0 .2-.1 0-.2h-.4v-.2l.2-.4-.2-.4c-.3.5-.4-.2-.2-.4l-.2-.2c-.1 0-.3-.4-.4-.8-.3 0-.3-.4 0-.4h.2c.5.1.3-.3-.2-.4-.1-.1-.1 0-.2 0l-.2-.2v-.2l-.2-.2.2-.2.2-.2-.2-.4h-.2c-.1 0-.1-.2 0-.4-.1-.1-.3-.2-.2-.2v-.2l-.4-.2v-.6l-.2-.2v-.4l-.2-.2c-.4 0-.3-.1 0-.2 0-.1-.1-.2-.4-.2-.2 0-.3-.1-.4-.2.1 0 .2-.1.2-.2.4 0 .4-.2.2-.4v.2c.2 0 .1-.2 0-.2v-.2c-.3.1-.3-.3-.2-.4.2-.2.2-.3-.2-.6v-.4l-.4-.2v-.2l-.2-.2h.2c.5-.1.2-.7-.2-.8l.2-.2c.3 0 .3-.2.2-.4V33l-.2-.2c-.2.1-.3 0-.2-.4-.1 0-.1-.1 0-.2.3-.3.2-.3-.2-.4-.5 0-.3-.4 0-.4.2-.1.3-.3 0-.4-.1-.1-.2-.3-.2-.4l-.2-.2v-.2h.2c-.1-.2 0-.4 0-.4.1-.3.1-.5-.2-.6V29h.2l-.2-.2c-.5.1-.4-.6-.4-.8-.1-.2 0-.4 0-.6v-2.1l-.4-.2c.1-.1-.1-.3-.2-.4v-.2c.2-.1.1-.5 0-.8l.2-.4c.4 0 .1-.3-.2-.4v-.2l.2-.2c.1 0 .1-.1 0-.2l-.2-.4v.1c-.2-.4-.1-.6 0-.8.1 0 0-.4-.2-.8v-.2c-.1-.2-.1-.3.2-.4.1-.1 0-.3 0-.6-.6-.4-.2-.4 0-1V17.6c-.3-.3-.1-.6 0-.6l.2-.2c-.1-.1-.1-.2 0-.2v-.4c-.3.1-.2-.1-.2-.2.1-.2 0-.2-.2-.2v-.2c.1 0 .2-.1.2-.2s.1-.2.2-.2c-.1-.1-.1-.3 0-.4v-.4c-.2-.1-.2-.4 0-.4 0-.1.1-.3.2-.4-.1-.1-.1-.2 0-.2.1-.3.2-.3.4 0v.6c.1-.1.1 0 0 0v.4c.2 0 .2.2 0 .4.1 0 .1.1.2.2v.4c.1 0 .1.2 0 .4 0 0 0 .1 0 0V18.1c.1 0 .1.1 0 .2v.4c.2-.1.3.1.2.2 0 .2 0 .6.2.8-.1.3-.1.5 0 .6 0 .2.1 1.7.2 1.9.2 0 .2 1 0 1.3.2.3.2.5.2.8 0 .1.2.6.2 1v.4c-.1 0 0 .2 0 .4.1-.1.2 0 .2.2h-.2v.2c.3.1.3.8.2 1 .3.1.5 1.2.4 1.3l.2.4h-.2v.4c.2.2.2.3.2.8.2.1.4.8.4 1.2.2.1.2.6.2.6v.4c0 .1.1.2.2.4-.1.2 0 .2 0 .4.1.3.1.4.2.6 0 .1.3.8.4 1.2.1.2.2.5.2.8l.2.5c-.1.2-.1.2 0 .2l.1.3c.1-.2.2.5.2.6.1.2.1.2.2.2.1.2.1.6 0 .6v.4c.1.1.2.2.2.4v.6c.4-.2.6.4.6 1 .2.1.3.1.4.2-.1.3 0 .6 0 .8.2.1.4.3.4.4 0 .3.2.6.2.6.5.5.5.6.6.8.1.2.3.3.2.6.1-.1.2 0 .2.2.3.2.3.3.2.6-.1 0 0 .3.2.4.7.3.7.4.8.8V46c.2.3 1 1.2 1.3 1.7.3 0 .3.2.2.4.2-.1.4.2.4.4.2 0 .4.3.2.5l.4.2.2.2v.2c0 .1.1.1.2.2.1 0 .2.1.4 0v.2c-.2.2 0 .4.2.4.2.1.3.3.4.6 0 0 .2.1.2.4l.6.4c.4-.2.4.1.4.4l.2.2.2.2.2.2H29l.2.2h.2l.2.2.4.2.2.2c0 .2.1.4.2.3.1 0 .3.2.4.2l.2.2c.1 0 .4.1.6.2.1.2.3.3.6.4.2.2.9.6 1.3 1 .1 0 .1 0 0 .2 1.3.1 1.3.7 1.3 1.2h.4l.2-.2c.5-.3.8 0 1 .2 0 0 .2 0 .2.2.1 0 .1 0 .2.2 0 .1.3.2.4.2.1-.1.3-.1.4 0h.4l.4.2c.1-.1.3 0 .4 0 .1.2.3.2.4 0 .1.1.3.1.4.2l.6.2h.8c.5-.1 1 .2 1.2.2l.2.2v-.2h.2v.2h.6-.2v-.2h.4v.2h.4c.1.1.6 0 .8-.2H45.8c.1.1.9.1 1 0 0 .1.1.2.2 0 .2.1 1.1 0 1.2 0 .2.1.2 0 .4-.2.2 0 .8-.2 1-.2.2.1.8-.1.8-.2.1-.1.4-.3.6-.4h.2l.2-.2h.2c.1-.1.1-.1.2 0 0-.2.2-.4.4-.2.1.1.1 0 .2-.2.1-.3.5-.4.8-.4.1.1.2 0 .4-.2 0-.1.4-.3.6-.2.1-.1.3-.2.4-.2.1-.2.1-.2.2-.2.1-.1.3 0 .4 0 .2 0 .3-.1.2-.2.1-.2.4-.5.6-.4.2 0 .7-.2.8-.6 0-.4.4-.6.6-.6.2.3.3 0 .4-.4v-.2c-.1.1 0 .1.2 0 .3.2.4 0 .4-.2.1-.5 0-.4.2-.6v-.2h.2v-.2h.2v-.2l.2-.2.2-.2H59c.1-.1.1-.1 0 0 0-.3.1-.4.2-.4s.3-.1.2-.2c-.3-.4 0-.5.2-.6.1-.2.2-.2 0-.4v-.2l.4-.2v-.4s0-.2.2-.4c-.1 0 .1-.1.2-.2-.1-.3-.1-.4 0-.5 0 0 .1 0 0-.2 0-.1.1-.3.2-.4.1 0 .2-.2.2-.2-.2-.3-.1-.3 0-.4 0 0 .1-.2 0-.4 0 0 0-.1.2-.2-.1-.1 0-.1 0-.2-.1-.3-.1-.9 0-1.2-.1-.1 0-.1 0-.2-.4-.3-.3-.5 0-.6V44c-.2-.1-.1-.4 0-.4V43c-.2-.2-.1-.2 0-.2v-.2c-.2-.2-.2-.3-.2-.6.1-.1.1-.1 0-.4-.2-.2-.2-.2 0-.6-.2-.2-.2-.4 0-.6.1-.1.1-.1 0-.2l-.4-.4c-.1-.2 0-.3-.2-.4-.1 0-.2-.1-.2-.2-.3-.1-.2-.5-.2-.6l-.2-.2c-.4-.3-.2-.5 0-.6.4-.3 0-.5-.4-.4-.2.5-.3.4-.4.2-.2 0-.3-.1-.4-.2.1-.1.1-.1 0-.2.1-.1.1-.1 0-.2-.2.1-.4 0-.6-.2 0 0 0-.1-.2-.2-.1.1-.6 0-.8-.2-.2 0-.3 0-.4-.4-.1 0-.1-.2-.2-.2l-.2-.2-.1.4c-.1 0-.4-.1-.4-.2 0-.2-.2-.2-.2 0-.1 0-.7.3-1.2.3L54 36c-.3 0-1 .4-1.2.8l-.3.2c0 .3-.1.4-.2.4-.3.1-.4.3-.2.4l-.2.2v.2l-.2.2c-.1.4 0 .6.2.6h.2l.2.2c-.1-.1.2-.2.4-.2.1-.2.4-.3.8-.2.4-.6.8-.3.8 0 .1.2.6.4.8.4.2-.2.4.2.2.4v.2l.2.2v.2h.4c.1 0 .1.3-.2.3l-.2.2c-.2.3.1.3.2.2.3-.1.3.3.2.8v.2l.2.2c.1.2.1.3 0 .4-.2 0-.5.2-.6 0-.2 0-.3 0-.4-.2l-.2.4H54.3l-.3.1c-.2.3-.3.3-.4.2-.1 0-.2.1-.4.4-.2.1-.4.1-.4 0 .1-.3-.1-.5-.2-.4l-.2.2h-.2v.2H52c-.5-.2-.3-.2 0-.4l.2.2.2-.2V42.4l-.2-.2c-.2.1-.3 0-.2-.2-.1-.1-.4-.1-.4 0v.4c0 .1-.2.2-.2-.2H51c-.4.2-.5-.1-.4-.4.1 0 .1-.1-.2-.2l-.2-.2c.1 0 0-.1-.2-.2-.1.1-.1.1-.2 0-.3-.2-.4-.3-.2-.4.2-.2.1-.3-.2-.4V40c-.3-.4.1-.6.2-.4.6-.2.3-.5 0-.4 0 .1-.1.1-.3 0-.2-.4-.1-.6.2-.8v-.2c-.4-.1-.2-.3-.2-.4l.2-.2.2-.2c.3 0 .2-.2 0-.4-.2.2-.2-.1-.2-.2v-.4c.1 0 .1-.1.2-.2-.1 0 0-.2 0-.4.3 0 .5-.2.4-.2v-.2c.3-.2.4-.5.2-.6.1-.1.3-.4.4-.4.1 0 .2-.1.2-.2.2-.1.2-.3.4-.4.1 0 .3-.1.4-.2l.4-.6c0 .1.2 0 .4-.2h.2c.6.1.6 0 .6-.2-.2-.1 0 0 .2 0h.4c.1.2.4.1.4 0l.2-.4h.2v.4l.4-.2h.4c.2.1.9.2 1.2.4.3.1.5.1.6.2h.2c.3 0 .5.2.8.4v.2h.4c.1 0 .5.1.8.6l.2.2.4.4.4.2v.2l.4.4h-.4l-.2-.4c-.1-.1-.2-.3-.6-.2-.1-.2-.3.2-.2.2.2 0 .2.2.2.2-.1.1-.2.3.2.2.4-.1.4 0 .4.2-.2.3.3.3.6.2 1.2.3 1.1.5 1.2.7-.3 0-.4.3-.2.4.3.1.2.4 0 .4-.1-.1-.2 0 0 .2-.1.1 0 .2 0 .2h.2c-.1 0 0 0 0 0-.1.2 0 .3.2.4.3 0 .3.3.2.6-.2 0 0 .3.2.2.3 0 .4.1.4.2.3.1.2.3 0 .4v.5c.1.1.5.3.4.6.2.1.2.2 0 .2.2.1.2.4 0 .4.3.1.2.4 0 .4.1 0 .1.4 0 .4.2.1.2.2.2.2-.1.1-.1.4-.2.4.2.1.4.2.4.4.1.1.1.2 0 .2s-.2.2-.2.4c-.1 0-.1.6 0 .7v.6l-.7.3h.2v.2H63v.4c.2.1.1.5 0 .6v.6c.1 0 0 .5-.2.6 0 0-.1.3-.2.4.1.2.1.5-.2.8-.1 0-.1 0 0 .2.1.1.1.2 0 .4v.4c0 .1-.1.2-.4.2v.2c0 .1 0 .3-.2.2 0 .4-.2.3-.4.2v-.2c-.6.1-.4.6-.2.4.2-.1.3 0 .4.2h-.2v.4c0-.1-.2.1-.2.2.1.2 0 .5-.2.6-.4 0-.5.5-.4.6-.1.2-.3.5-.4.4 0 0-.2.1-.2.4l-.6.4v.4c.2.4-.1.6-.4.6 0 .1 0 .4-.2.4-.2.1-.3.3-.4.4.1.1.1.1 0 .2 0 .1-.1.1-.2.2v.2H58c.1-.1-.2 0-.2.2s-.2.4-.2.4c-.1 0-.2 0-.2.2-.1.2-.2.1-.4.2-.4-.2-.5-.1-.4.2-.1 0-.1 0 0 .2-.1.2-.3.3-.4.2-.2.1-.3.1-.4.2 0 .2 0 .3-.2.2-.4.1-.6.1-.8.2.1.3-.1.4-.6.4l-.2.2h-.2c.2.2.1.4-.2.4h-.2v.2H53v-.3h-.2l-.4.4-.2-.2h-.6c-.2-.2-.5 0-.6.2l.2.4h.2l-.8.2-.2.2-.2-.2h-.4c0-.1-.1-.1-.2.2h-.2V61.2H49V61c.1.1.2-.1.2-.2v-.4c.1-.2.1-.2.2-.2.2-.1.3-.3 0-.4v-.2c.2-.1.2-.3-.2-.4H49l-.2.2v1c-.1-.1-.2 0-.2.2h-.2l.2.2v.2c.3 0 .2.2 0 .4h-.2l-.2-.2-.2.2c-.1-.4-.5-.4-.6-.2H47c-.1-.1-.2-.2-.4 0-.1.1-.3.1-.6-.2v-.4c.1 0 .3.1.4.2.2-.2.2-.3 0-.4H46c0 .2-.3.4-.6.4l-.3.2c-.4-.1-.2.1-.2.4h.2v.4h-.4c-.1-.1-.1-.4-.2-.4-.1-.5-.4-.3-.3 0 0 .7-.3.5-.6 0H43c.1-.4-.2-.3-.4-.2-.2-.1-.3 0-.4.2 0 .4-.2.3-.2 0-.1-.3-.3-.2-.4 0l-.2-.2-.2.2-.2-.2h-.2c-.1-.2-.2-.2-.4 0-.1.3-.2.2-.2-.2 0-.2 0-.2-.4-.2-.3-.2-.6-.1-.8 0-.3 0-.2.1 0 .2.6 0 .2.4 0 .2-.1-.1-.1-.2-.2-.2v-.2c-.2-.2-.1-.4 0-.4 0-.2.2-.3.4-.4-.1-.6-.6-.2-1 .4-.2 0-.5.4-1 .2-.1-.1-.1-.2-.2-.2.1-.2.2-.3.2-.2.1-.2.2-.4-.2-.4v-.2s-.1-.1-.2 0c-.1.2-.2.1-.4 0 .1-.2 0-.3-.2-.2v.2H35.6l-.2-.2c-.1 0-.2 0-.4.2-.3.1-.6.1-.6-.2-.2-.2-.6-.4-1-.4l-.4-.2c0 .1-.1 0-.2 0 0-.2.1-.3.2-.4v-.2c-.2-.5.4-.5.6-.4h.4v-.2h-.2c.2-.2-.1-.3-.2-.2-.2.1-.3.2-.6 0-.1 0-.2-.1-.2-.2.1-.1.1-.2.2-.2v-.2c0-.5-.3-.3-.2 0h-.2l-.2.2c-.2 0-.3.1-.4.2 0 0 .1.2.2.2.3-.1.4-.1.6 0l.4.2-.2.3-.2.2c0-.3-.4-.1-.4.2.4.4.1.4-.2.2-.9-.1-.9-.4-.8-1.2h-.2l-.4-.2-.3-.1c-.1 0-.1-.2 0-.2h-.2c-.2-.1-.3-.3-.2-.2h-.4l-.2-.2c.1-.1 0-.2-.2-.2-.2-.1-.6 0-.6-.2v-.2c-.1-.3-.4-.6-.6-.6-.4.1-.3-.1-.2-.2.1-.2-.1-.7-.4-.8h-.2l-.4-.6h-.8l-.2-.4.2-.2H26.7v.4h.2l.2.2c.6 0 .5-.2.2-.4l-.4-.2c-.4-.7-1-.3-1 0h-.4l.2-.2-.2-.2h-.4l-.2-.2.2-.2c.4-.2.4-.4.2-.4l-.4-.2c0-.1 0-.1-.2-.2.4-.3.3-.5 0-.6l-.2-.4h-.2l-.2.2-.2-.2h-.4l.2-.2h.4c.5 0 .3-.3 0-.4H24v-.2h.2c.2-.2-.1-.4-.4-.2l-.2.2-.2.2c0 .5 0 .5-.4 0-.1-.2-.1-.2 0-.2-.1.1-.2 0-.2-.3zm28.3 8.1zM16.6 34.5c0 .4.2.2.2 0 .2-.1 0-.1-.2 0zm1.2 2.9c0 .3.1.2.2 0 0-.1-.2-.2-.2 0zm-.2 0c-.5 0-.3.2 0 .4.2-.2.1-.4 0-.4zm.4.7v.4h.2c.3-.2.1-.4 0-.4H18zm2.1 4.6s-.1-.1-.2 0c-.2.1 0 .3.2.2.1.1.2 0 0-.2zm.4 1.4-.2.2h.4c.1 0 .1-.3-.2-.2zm.4 1.5c.1.1.2 0 .2 0 .1-.2 0-.3 0-.2-.3 0-.4 0-.2.2zm2.3 2.5c-.1-.3-.3-.2-.4 0 .3.3.3.2.4 0zm.4-.2h-.2c-.1.5.3.3.2 0zm.3.1h-.2c.2.3.5.2.2 0zm-.3.7v.2h.2c.1 0 .2-.2.2-.4-.1-.3-.4-.1-.4 0v.2zm1.5 1c-.1-.2-.3-.2-.4 0 0 .5.3.3.4 0zm.4 1.5c0 .3.3.3.4 0-.1-.2-.3-.2-.4 0zm2.9 1.9c0 .1.1.2.2 0h-.2zm-.2 1.4c0 .2.1.2.2 0-.1-.1-.2-.1-.2 0zm1.5.4c-.1-.1-.2 0-.2 0 .3.3.3 0 .2 0zm.4.5.2-.2c.2-.4 0-.4-.2-.2-.1-.2-.3.1-.2.2l.2.2zm1.6 1.4c-.2 0 0 .2.2.2h.2v-.2c.1-.1.2-.1.2-.4 0-.2-.4-.2-.4 0-.1.1-.2.3-.2.4zm2.9 0c0-.2-.3-.2-.4 0 .1.3.4.2.4 0zm-1.2 1.9c0 .2.3.1.4 0-.1-.3-.4-.3-.4 0zm2.1-.6s.1 0 0 0c.1.2 0 .2 0 0zm.6.2v-.2l-.2.2h.2zm-.6.8c.5.2.6 0 .6-.4-.1-.1-.4-.2-.6 0-.2.2-.2.3 0 .4zm6.4 1.8h.2c-.2-.2-.2-.2-.2 0zm.5-.5c0 .3.2.2.2 0 .1-.1-.2 0-.2 0zm.8.4c0-.3-.2-.3-.2 0 0 .4.3.4.2 0zm.6.2c.1-.1-.1-.1-.2 0 .1.4.3.4.2 0zm7.3-2.1-.2.2h.2l.2.4h.2v-.2l.2.2c.6 0 .1-.3-.4-.4v-.4c.6-.6.2-.7 0-.6l-.2.8zm1.5.2h.2c-.5-.2-.3.1-.2 0zm.4-.9c-.2 0-.2 0-.2.2h.2v-.2zm.4-.1c0 .2.1.1.2 0h-.2zm1.9-.3c.2-.1.2-.1.2-.2-.1-.3-.4-.2-.6-.2-.1.2 0 .4.4.4zm-.4.3c-.2 0-.1.2 0 .2v-.2zm1-.7c-.1-.1-.2 0-.2 0v.2h.2v.2h.2v-.4h-.2zm-.2-1.4c0 .3.4.3.8.2.2.1.2.1.4-.2.1-.1.1-.3-.2-.2h-.2l-.2-.2h-.2c-.5-.3-.6.3-.4.4zm.6-.7c-.1-.1-.3-.1-.4 0 .1.2.3.2.4 0zm2.3-.8c-.7 0-.5.5-.2.6.5-.2.4-.6.2-.6zm-.6-.4c.2.1.2.2.4 0 .3 0 .3 0 .2-.2-.1-.3-.3-.3-.4-.2-.2.3-.2.3-.2.4zm2.5-5.2h.2c.2.1.4.1.4 0v-.4l-.2-.2c0 .1-.4.1-.4 0V48.9zm1 0h.2-.2zm-.2-.4h.4c-.2-.4-.4-.2-.6 0h.2zm.6-.3c-.1 0-.2 0-.2.2.2.4.7.2.8 0-.1-.3-.2-.5-.2-.6.1-.2.1-.3-.2-.6-.3-.1-.5.2-.2.4v.6zM54 39.9c-.2 0-.4.1-.2.2.2.3.3 0 .2-.2zm.2.9c0-.1 0-.2-.2-.2l-.2.4c.1.5.5.1.2-.2h.2zm.5.6c-.2 0-.1.3 0 .4h.2c.1 0 .1-.4 0-.4.1-.1-.2 0-.2 0zm-1.5-1c-.2 0-.2.1 0 .2v-.2zm-.6.2h.2v-.2c-.1-.1-.2.1-.2.2zm0-.9-.2-.2c-.1-.1-.3 0-.2.2h.4zm-1.7.9c-.1 0-.2.1-.2.2.2.1.3 0 .2-.2zm-.4 0c.2-.1.1-.4 0-.4-.4 0-.4.2 0 .4zm1.4-5.5c0 .1-.1.2 0 0zm1.5-1.2c0 .3.3.2.2 0 .1-.4-.2-.4-.2 0zm1.2 1.4v-.4c-.2-.1-.2.2 0 .4zm2.8.9c-.4-.2-.5.2-.2.6.2.2.5.2.6 0 .2.1.3-.4 0-.4-.1-.1-.2-.2-.4-.2zm5.2 4.2h-.2c.2.2.2 0 .2 0zm-1.3.8c.3.1.4-.1.4-.2-.2-.2-.5-.2-.6 0 .1.2.1.2.2.2zm.2 3.5c.1-.1 0-.2-.2 0 .1.1.2.1.2 0zm.2 1.5c0 .2.2.1.2-.2h-.2c-.1-.1-.2 0 0 .2zm.5-.2c.1.2 0 .2 0 0zm.6 0c-.1 0-.3-.1-.2.2.2.2.2-.1.2-.2z' style='fill:%23008061'/%3E%3C/svg%3E") ;
+                background-repeat:no-repeat;
+                background-position:top;
+            }
+            div.ermtitle{
+                font-size: 9px;
+                text-align: left;
+                vertical-align: middle;
+                width: 53%; 
+                display: inline-block;
+            }
+
+            @media print {
+                body {margin: 0; background-color: white;}
+                page {
+                    margin: 0;
+                    box-shadow: none;
+                    border: 2px soild rgb(0, 0, 0);
+                }
+                ul {display: none;}
+
+            }
+
+            /* Nav Bar */
+            ul.pagination {
+                /* padding: 0;
+                margin: 5px; */
+                position: fixed;
+                font-size: 15px;
+                top: 0px;
+                left: 0px;
+                width: 20px;
+            }
+            ul.pagination li {
+                display: inline;
+            }
+            ul.pagination li a {
+                color: black;
+                text-indent:10px;
+                margin: 5px 10px;
+                width: 2px;
+                float: left;
+                padding: 1px 1px;
+                text-decoration: none;
+                border-radius: 2px;
+            }  
+            ul.pagination li a.active {
+                background-color: #4CAF50;
+                color: white;
+                border-radius: 2px;
+            }
+            ul.pagination li a:hover:not(.active) {
+                background-color: #ddd;
+            } 
+            
+        </style>
+        <script>
+            alert("hello")
+        </script>
+    </head>
+    <body>
+        <ul class="pagination">              
+            <li><a href="#page1">Page1</a></li>
+            <li><a class="active" href="#page2">Page2</a></li>
+        </ul>
+      
+
+        <page id = "page1" size="A4">
+            <!-- page header -->
+            <pageHeader>
+                <table>
+                    <tr class="pageHeader">
+                        <td class="left"></td>
+                        <td class="mid">Annex B - Log of Borehloe</td>
+                        <td class="right"></td>
+                    </tr>
+                </table>
+            </pageHeader>
+            <!-- log content -->
+            <pageContent>
+                <table style="text-align: center;">
+                    <colgroup>
+                        <col style="width: 9%"/>
+                        <col style="width: 9%"/>
+                        <col style="width:10%"/>
+                        <col style="width:22%"/>
+                        <col style="width: 6%"/>
+                        <col style="width:14%"/>
+                        <col style="width: 6%"/>
+                        <col style="width: 6%"/>
+                        <col style="width:18%"/>
+                    </colgroup>
+                    <tr class="titleRow" style="height: 10%">
+                        <td colspan="3">
+                            <div class="ermlogo"></div>
+                            <div class="ermtitle">
+                                <!-- erm title -->
+                                <span style="font-weight: bold; line-height: 200%;">
+                                    ERM Shanghai Ltd.<br>
+                                </span>
+                                <!-- erm address -->
+                                <span style="font-size: smaller; line-height: 120%;"> 
+                                    Suite 2005, Litong Plaza<br>
+                                    North Sichuan Road<br>
+                                    Shanghai 200080 CHINA<br>
+                                    Tel: +8621 5385 3050<br>
+                                    Fax: +8621 6469 2185
+                                </span>
+                            </div>
+                        </td>
+                        <td colspan="6" style="padding: 1.5% 2%;">
+                            <table style="text-align:left; " class="noborder"> 
+                                <colgroup>
+                                    <col style="width: 13%"/>
+                                    <col style="width: 45%"/>
+                                    <col style="width:13%"/>
+                                    <col style="width:29%"/>
+                                </colgroup>
+                                <tr style="font-size: 160%; font-weight: bold; height: 40%;" >
+                                    <td colspan="4">LOG OF BOREHOLE: &nbsp &nbsp<span class="boreholeID" style="text-decoration-line: underline;">MW-1</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Project No:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">0613276</span></td>
+                                    <td>GPS Coord:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Project Title:</td>
+                                    <td><span class="projectTitle" style="text-decoration-line: underline;">S&GW Investigation</span></td>
+                                    <td>Longitude:</td>
+                                    <td><span class="longitude" style="text-decoration-line: underline;">121°36'55.95''</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Client:</td>
+                                    <td><span class="client" style="text-decoration-line: underline;">L'Oreal R&D China</span></td>
+                                    <td>Latitude:</td>
+                                    <td><span class="latitude" style="text-decoration-line: underline;">31°15'03.90''</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="subtitle1" style="height: 2.5%">
+                        <td colspan="5">SUBSURFACE PROFILE</td>
+                        <td colspan="3">SAMPLE</td>
+                        <td rowspan="2">Well Completion<br>Details</td>
+                    </tr>
+                    <tr class="subtitle2" style="height: 9.5%">
+                        <td><span class="btlr">Depth (m)</span></td>
+                        <td><span class="btlr">Symbol</span></td>
+                        <td colspan="2"><span class="btlr">Description</span></td>
+                        <td><span class="btlr">Elev/Depth (m)</span></td>
+                        <td><span class="btlr">Sample ID</span></td>
+                        <td><span class="btlr">PID (ppm)</span></td>
+                        <td><span class="btlr">Lab Analysis</span></td>
+                    </tr>
+                    <tr class="drawing" style="height: 66%"> 
+                        <td></td>
+                        <td></td>
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="legend" style="height: 12%">
+                        <td  colspan="9" style="padding: 1% 2%;">  
+                            <table style="text-align:left;"  class="noborder">
+                                <colgroup>
+                                    <col style="width:14%"/>
+                                    <col style="width:6%"/>
+                                    <col style="width:13%"/>
+                                    <col style="width:14%"/>
+                                    <col style="width:6%"/>
+                                    <col style="width:13%"/> 
+                                    <col style="width:14%"/>
+                                    <col style="width:20%"/>
+                                </colgroup>
+                                <tr>
+                                    <td>Hole Size:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">130</span></td>
+                                    <td>&nbsp mm</td>
+                                    <td>Screen Interval:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">0.5 - 6.4</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Drilled By:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">Senpin</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Casing Size:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">63</span></td>
+                                    <td>&nbsp mm</td>
+                                    <td>Initial Water Level:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">3.1</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Drill Date:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">16 Sep, 2021</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Well Depth:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">6.5</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Static Water Level:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">2.043</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Drill Method:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">HA</span></td>
+                                </tr>
+                                <tr style="height: 50%;">
+                                    <td colspan="8"><strong>Legend:</strong></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </pageContent>
+            <!-- page footer -->
+            <pageFooter>
+                <table>
+                    <tr class="pageFooter">
+                        <td class="left">www.erm.com<br>verison .01</td>
+                        <td class="mid">Project No.: 0000000<br>Client: ABC</td>
+                        <td class="right">Page 1 of 1<br>2020/03/09</td>                   </td>
+                    </tr>
+                </table>
+            </pageFooter>
+            <pageFooter></pageFooter>
+        </page>
+        <page id = "page2" size="A4">
+            <!-- page header -->
+            <pageHeader>
+                <table>
+                    <tr class="pageHeader">
+                        <td class="left"></td>
+                        <td class="mid">Annex B - Log of Borehloe</td>
+                        <td class="right"></td>
+                    </tr>
+                </table>
+            </pageHeader>
+            <!-- log content -->
+            <pageContent>
+                <table style="text-align: center;">
+                    <colgroup>
+                        <col style="width: 9%"/>
+                        <col style="width: 9%"/>
+                        <col style="width:10%"/>
+                        <col style="width:22%"/>
+                        <col style="width: 6%"/>
+                        <col style="width:14%"/>
+                        <col style="width: 6%"/>
+                        <col style="width: 6%"/>
+                        <col style="width:18%"/>
+                    </colgroup>
+                    <tr class="titleRow" style="height: 10%">
+                        <td colspan="3">
+                            <div class="ermlogo"></div>
+                            <div class="ermtitle">
+                                <!-- erm title -->
+                                <span style="font-weight: bold; line-height: 200%;">
+                                    ERM Shanghai Ltd.<br>
+                                </span>
+                                <!-- erm address -->
+                                <span style="font-size: smaller; line-height: 120%;"> 
+                                    Suite 2005, Litong Plaza<br>
+                                    North Sichuan Road<br>
+                                    Shanghai 200080 CHINA<br>
+                                    Tel: +8621 5385 3050<br>
+                                    Fax: +8621 6469 2185
+                                </span>
+                            </div>
+                        </td>
+                        <td colspan="6" style="padding: 1.5% 2%;">
+                            <table style="text-align:left; " class="noborder"> 
+                                <colgroup>
+                                    <col style="width: 13%"/>
+                                    <col style="width: 45%"/>
+                                    <col style="width:13%"/>
+                                    <col style="width:29%"/>
+                                </colgroup>
+                                <tr style="font-size: 160%; font-weight: bold; height: 40%;" >
+                                    <td colspan="4">LOG OF BOREHOLE: &nbsp &nbsp<span class="boreholeID" style="text-decoration-line: underline;">MW-1</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Project No:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">0613276</span></td>
+                                    <td>GPS Coord:</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Project Title:</td>
+                                    <td><span class="projectTitle" style="text-decoration-line: underline;">S&GW Investigation</span></td>
+                                    <td>Longitude:</td>
+                                    <td><span class="longitude" style="text-decoration-line: underline;">121°36'55.95''</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Client:</td>
+                                    <td><span class="client" style="text-decoration-line: underline;">L'Oreal R&D China</span></td>
+                                    <td>Latitude:</td>
+                                    <td><span class="latitude" style="text-decoration-line: underline;">31°15'03.90''</span></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr class="subtitle1" style="height: 2.5%">
+                        <td colspan="5">SUBSURFACE PROFILE</td>
+                        <td colspan="3">SAMPLE</td>
+                        <td rowspan="2">Well Completion<br>Details</td>
+                    </tr>
+                    <tr class="subtitle2" style="height: 9.5%">
+                        <td><span class="btlr">Depth (m)</span></td>
+                        <td><span class="btlr">Symbol</span></td>
+                        <td colspan="2"><span class="btlr">Description</span></td>
+                        <td><span class="btlr">Elev/Depth (m)</span></td>
+                        <td><span class="btlr">Sample ID</span></td>
+                        <td><span class="btlr">PID (ppm)</span></td>
+                        <td><span class="btlr">Lab Analysis</span></td>
+                    </tr>
+                    <tr class="drawing" style="height: 66%"> 
+                        <td></td>
+                        <td></td>
+                        <td colspan="2"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr class="legend" style="height: 12%">
+                        <td  colspan="9" style="padding: 1% 2%;">  
+                            <table style="text-align:left;"  class="noborder">
+                                <colgroup>
+                                    <col style="width:14%"/>
+                                    <col style="width:6%"/>
+                                    <col style="width:13%"/>
+                                    <col style="width:14%"/>
+                                    <col style="width:6%"/>
+                                    <col style="width:13%"/> 
+                                    <col style="width:14%"/>
+                                    <col style="width:20%"/>
+                                </colgroup>
+                                <tr>
+                                    <td>Hole Size:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">130</span></td>
+                                    <td>&nbsp mm</td>
+                                    <td>Screen Interval:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">0.5 - 6.4</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Drilled By:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">Senpin</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Casing Size:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">63</span></td>
+                                    <td>&nbsp mm</td>
+                                    <td>Initial Water Level:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">3.1</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Drill Date:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">16 Sep, 2021</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Total Well Depth:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">6.5</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Static Water Level:</td>
+                                    <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">2.043</span></td>
+                                    <td>&nbsp m bgs</td>
+                                    <td>Drill Method:</td>
+                                    <td><span class="projectNo" style="text-decoration-line: underline;">HA</span></td>
+                                </tr>
+                                <tr style="height: 50%;">
+                                    <td colspan="8"><strong>Legend:</strong></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </pageContent>
+            <!-- page footer -->
+            <pageFooter>
+                <table>
+                    <tr class="pageFooter">
+                        <td class="left">www.erm.com<br>verison .01</td>
+                        <td class="mid">Project No.: 0000000<br>Client: ABC</td>
+                        <td class="right">Page 1 of 1<br>2020/03/09</td>                   </td>
+                    </tr>
+                </table>
+            </pageFooter>
+            <pageFooter></pageFooter>
+        </page>
+    </body>
+</html>
