@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>BoreLogOnline</title>
+    <title>BoringTool</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
@@ -92,10 +92,6 @@
                     </a>
                 </div>
                 <div class="inputArea">
-                    <details >
-                        <summary>GRAPHIC SETTING</summary>
-                        
-                    </details>
                     <details >
                         <summary>PROJECT DETIALS</summary>
                             <div class="fillingField">
@@ -215,26 +211,26 @@
                     <details open>
                         <summary>SUBSURFACE PROFILE</summary>
                         <div id="profileTable">
-                            <div class="profileTableHeader">
-                                <div class="profileTableCell column0">#</div>
-                                <div class="profileTableCell column1">Depth Interval</div>
-                                <div class="profileTableCell column2">Material Type</div>
-                                <div class="profileTableCell column3">Description</div>
+                            <div class="TableHeader">
+                                <div class="TableCell column0">#</div>
+                                <div class="TableCell column1">Depth Interval</div>
+                                <div class="TableCell column2">Material Type</div>
+                                <div class="TableCell column3">Description</div>
                             </div>
-                            <div class="profileTableRow"> 
-                                <div class="profileTableCell column0">
-                                    <span class="highCyc" title="Add a line before" onclick="addRow(event, -1)">+</span>
+                            <div class="TableRow"> 
+                                <div class="TableCell column0">
+                                    <span class="highCyc" title="Add a line before">+</span>
                                     <span class="rowNo" title="Adjust line order">1</span>
-                                    <span class="lowCyc" title="Add a line after" onclick="addRow(event, 1)">+</span>
+                                    <span class="lowCyc" title="Add a line after">+</span>
                                 </div>
-                                <div class="profileTableCell column1">
+                                <div class="TableCell column1">
                                     <input type="text" class="depth">~<input type="text" class="depth">
                                 </div>
-                                <div class="profileTableCell column2">
+                                <div class="TableCell column2">
                                     <span class="soilLegend" title="Add a line after"></span>
                                     <input type="text" class="soilType">
                                 </div>
-                                <div class="profileTableCell column3">
+                                <div class="TableCell column3">
                                     <textarea class="description"></textarea>
                                     <span class="editThisLine">
                                         <svg  viewBox="0 0 24 24">
@@ -246,91 +242,65 @@
                                             <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
                                         </svg>
                                     </span>
-                                </div>
-                            </div>
-                            <div class="profileTableRow"> 
-                                <div class="profileTableCell column0">
-                                    <span class="highCyc" title="Add a line before" onclick="addRow(event, -1)">+</span>
-                                    <span class="rowNo" title="Adjust line order">2</span>
-                                    <span class="lowCyc" title="Add a line after" onclick="addRow(event, 1)">+</span>
-                                </div>
-                                <div class="profileTableCell column1">
-                                    <input type="text" class="depth">~<input type="text" class="depth">
-                                </div>
-                                <div class="profileTableCell column2">
-                                    <span class="soilLegend" title="Add a line after"></span>
-                                    <input type="text" class="soilType">
-                                </div>
-                                <div class="profileTableCell column3">
-                                    <textarea class="description"></textarea>
-                                    <span class="editThisLine">
-                                        <svg  viewBox="0 0 24 24">
-                                            <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="deleteThisLine">
-                                        <svg  viewBox="0 0 24 24">
-                                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="profileTableRow"> 
-                                <div class="profileTableCell column0">
-                                    <span class="highCyc" title="Add a line before" onclick="addRow(event, -1)">+</span>
-                                    <span class="rowNo" title="Adjust line order">3</span>
-                                    <span class="lowCyc" title="Add a line after" onclick="addRow(event, 1)">+</span>
-                                </div>
-                                <div class="profileTableCell column1">
-                                    <input type="text" class="depth">~<input type="text" class="depth">
-                                </div>
-                                <div class="profileTableCell column2">
-                                    <span class="soilLegend" title="Add a line after"></span>
-                                    <input type="text" class="soilType">
-                                </div>
-                                <div class="profileTableCell column3">
-                                    <textarea class="description"></textarea>
-                                    <span class="editThisLine">
-                                        <svg  viewBox="0 0 24 24">
-                                            <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-                                        </svg>
-                                    </span>
-                                    <span class="deleteThisLine">
-                                        <svg  viewBox="0 0 24 24">
-                                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-                                        </svg>
-                                    </span>
-                                </div>
-                            </div>
-
-
-
-                            <div class="profileTableFooter">
-                                <div class="profileTableCell column0">
-                                    <span  onclick="addRow(event, -1)">+</span>
-                                </div>
-                                <div class="profileTableCell column1">
-                                    <span  onclick="addRow(event, -1)">Add New Line</span>
                                 </div>
                             </div>
                             
+                            <div class="TableFooter">
+                                <div class="TableCell column0">
+                                    <span class="addNewLine">+</span>
+                                </div>
+                                <div class="TableCell column1">
+                                    <span class="addNewLine">Add New Line</span>
+                                </div>
+                            </div>
                         </div>
 
                     </details>
                     <details open>
                         <summary>SAMPLE & ANALYSIS</summary>
-                        <div></div>
+                        <div id="sampleTable">
+                            <div class="TableHeader">
+                                <div class="TableCell column0">#</div>
+                                <div class="TableCell column1">Depth Interval</div>
+                                <div class="TableCell column2">PID Reading</div>
+                                <div class="TableCell column3">Sample ID
+                                    <span style="float: right; font-size:8px;">Lab Analysis</span>
+                                </div>
+                            </div>
+                            <div class="TableRow"> 
+                                <div class="TableCell column0">
+                                    <span class="highCyc" title="Add a line before">+</span>
+                                    <span class="rowNo" title="Adjust line order">1</span>
+                                    <span class="lowCyc" title="Add a line after">+</span>
+                                </div>
+                                <div class="TableCell column1">
+                                    <input type="text" class="depth">~<input type="text" class="depth">
+                                </div>
+                                <div class="TableCell column2">
+                                    <input type="text" class="PIDReading">
+                                </div>
+                                <div class="TableCell column3">
+                                    <textarea class="description"></textarea>
+                                    <span class="labAnalysis">
+                                       <input type="checkbox">
+                                    </span>
+                                    <span class="deleteThisLine">
+                                        <svg  viewBox="0 0 24 24">
+                                            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="TableFooter">
+                                <div class="TableCell column0">
+                                    <span class="addNewLine">+</span>
+                                </div>
+                                <div class="TableCell column1">
+                                    <span class="addNewLine">Add New Line</span>
+                                </div>
+                            </div>
+                        </div>
                     </details>
-                          
-                   
-
-
-
-
-
-
-
-
                 </div>
             </div>
             <div id="eidtPanle" hidden="true" >
@@ -349,13 +319,18 @@
         <div id="resizeBar"></div>
         <div id="previewPanel">
             <div id="pageSelecter">
-                <select name="" id="">
-                    <option value="">MW-1</option>
-                    <option value="">MW-2</option>
-                </select>
+                <span id="currentPage">MW-1</span> 
+                <ul id="pageList" class="hidden">
+                    <li><a href="#page1">DEMO</a><span><span><span></span></span></span></li>
+                    <li><a href="#page2">MW-1</a><span><span><span></span></span></span></li>
+                    <li><a href="#page3">MW-2</a><span><span><span></span></span></span></li>
+                </ul>
             </div>
             <div id="scaleHolder">
-                <page id = "page1" size="A4">
+                <page id = "page1" class ='pages' data-size="A4">
+                
+                </page>
+                <page id = "page2"  class ='pages' data-size="A4">
                     <!-- page header -->
                     <pageHeader>
                         <table>
@@ -517,7 +492,7 @@
                     </pageFooter>
                     <pageFooter></pageFooter>
                 </page>
-                <page id = "page1" size="A4">
+                <page id = "page3"  class ='pages' data-size="A4">
                     <!-- page header -->
                     <pageHeader>
                         <table>
@@ -569,7 +544,7 @@
                                             <col style="width:29%"/>
                                         </colgroup>
                                         <tr style="font-size: 160%; font-weight: bold; height: 40%;" >
-                                            <td colspan="4">LOG OF BOREHOLE: &nbsp &nbsp<span class="boreholeID" style="text-decoration-line: underline;">MW-1</span></td>
+                                            <td colspan="4">LOG OF BOREHOLE: &nbsp &nbsp<span class="boreholeID" style="text-decoration-line: underline;">MW-2</span></td>
                                         </tr>
                                         <tr>
                                             <td>Project No:</td>
@@ -688,20 +663,20 @@
             <span id="problem#">⛔ 0</span>
             <span id="warning#"> ⚠️ 0</span>
         </span>
-        <span id="notification" title="No Notifications">
+        <span id="notification" title="No Notifications" class="right"> 
             <svg id="notificationIcon" width="14px" height="14px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
             </svg>
         </span>
-        <span id="emialMe" title="Feedback to DW" url="daniel.wang@erm.com">
+        <span id="emialMe" title="Feedback to DW" url="daniel.wang@erm.com"  class="right">
             <svg id="emialIcon" width="14px" height="14px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
             </svg>
         </span>
-        <span id="zoomFactorHolder">  
+        <span id="zoomFactorHolder" class="right">  
             <output id="zoomFactor" for="zoomSlider" value="100%"></output>
         </span>
-        <span id="zoomSliderHolder">
+        <span id="zoomSliderHolder" class="right">
             <svg id="zoomOutIcon" width="14px" height="14px" fill="none" stroke="currentColor" viewBox="-4 -4 32 32" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="square" stroke-width="2.5" d="M20 12H4"></path>
             </svg>
@@ -709,9 +684,17 @@
             <svg id="zoomInIcon" width="14px" height="14px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="square" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
             </svg>
+            <!-- <output id="zoomFactor" for="zoomSlider" value="100%"></output> -->
+        </span>
+        <span class="right">
+            Paper Size: A4
+        </span>
+        <span class="right">
+            Page 1 of 2
         </span>
     </div>
 
     <script type="text/javascript" src="main.js" defer="defer"></script>
+    <script type="text/javascript" src="draw.js" defer="defer"></script>
 </body>
 </html>

@@ -1,0 +1,225 @@
+
+/* ///////////////////////////// */
+#sampleTable {position: relative;}
+
+div.sampleTableRow,
+div.sampleTableHeader,
+div.sampleTableFooter { 
+    width: 100%; height: 35px;
+    display: flex;
+}
+div.sampleTableHeader {
+    font-size: 9px;
+    color:  rgb(114, 114, 114);
+}
+
+/* placeholder to be shown when adjust line  */
+div.placeHolderLine{
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%; 
+    height: 35px;
+    border: 1px dashed rgb(114, 114, 114, 0.3);
+}
+
+/* when darged selectedLine will be add to class list  */
+div.draggedLine {
+    box-shadow: 0 0 8px 0px rgba(114, 114, 114, 0.486);
+    position:absolute;
+    z-index: 999;
+}
+div.sampleTableFooter {
+    font-size: 9px;
+    color:  var(--statusBar-bgcolor-highlight);
+}
+div.sampleTableFooter span:hover{cursor: pointer;}
+
+div.sampleTableFooter:hover,
+div.sampleTableRow:hover{
+    box-shadow: 0 0 3px 0px rgba(114, 114, 114, 0.486);
+}
+
+div.sampleTableRow > div.column0:hover ~ div{
+    border-top: 1px dashed var(--statusBar-bgcolor-highlight);
+    border-bottom: 1px dashed var(--statusBar-bgcolor-highlight);
+    padding: 7px 5px;
+}
+div.sampleTableRow > div.column0:hover{
+    border-top: 1px dashed var(--statusBar-bgcolor-highlight);
+    border-bottom: 1px dashed var(--statusBar-bgcolor-highlight);
+    border-left: 1px dashed var(--statusBar-bgcolor-highlight);
+    padding: 7px 5px 7px 4px;
+}
+div.sampleTableRow > div.column0:hover ~ div.column3{
+    border-right: 1px dashed var(--statusBar-bgcolor-highlight);
+    padding: 7px 4px 7px 5px;
+}
+
+div.sampleTableRow > div.column1:hover,
+div.sampleTableRow > div.column2:hover,
+div.sampleTableRow > div.column3:hover,
+div.sampleTableRow > div.column4:hover{
+    border: 1px dashed var(--statusBar-bgcolor-highlight);
+    padding: 7px 4px;
+}
+
+div.column1,
+div.column2,
+div.column3,
+div.column4,
+div.column0 {
+    box-sizing: border-box;
+    display: inline-block;
+    height: 100%;
+    font-size: 11px;
+    line-height: 19px;
+    padding: 8px 5px;
+}
+div.column0 {width: 20px; text-align: center;}
+div.column1 {width: 90px;}
+div.column2 {width: 90px;}
+div.column3 {width: calc(100% - 220px)}
+div.column4 {width: 20px;}
+
+div.sampleTableCell{
+    position: relative;
+}
+
+/* small cycles to addrow before or after  */
+span.highCyc, span.lowCyc {
+    box-sizing: border-box;
+    font-size: 0;
+    position: absolute;
+    text-align: center;
+    height: 6px;
+    width: 6px;
+    line-height: 10px;
+    border-radius: 3px;
+    color: var(--statusBar-bgcolor-highlight);
+    left: 6px;
+    border: 1px solid var(--statusBar-bgcolor-highlight);
+    background-color: var(--controlPanel-bgcolor);
+    display: none;
+    transition: 0.2s;
+}
+span.highCyc{top:-3.5px;} span.lowCyc {bottom:-3.5px;}
+
+/* show small cycle when row No hovered  */
+div.sampleTableRow > div.column0:hover span.highCyc,
+div.sampleTableRow > div.column0:hover span.lowCyc {
+    display: block;
+    cursor: pointer;
+}
+
+/* change appreance to big cycle when small cycle hovered  */
+span.highCyc:hover{
+    top:-6.5px;
+    font-size: 12px;
+    height: 12px;
+    width: 12px;
+    border-radius: 6px;
+    left: 3px;
+} 
+span.lowCyc:hover {
+    bottom:-6.5px;
+    font-size: 12px;
+    height: 12px;
+    width: 12px;
+    border-radius: 6px;
+    left: 3px;
+}
+
+/* row Nomver style  */
+span.rowNo{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+}
+span.rowNo:hover{
+    cursor: grab;
+    box-shadow: 0 0 2px 0px rgba(114, 114, 114,0.75);
+}
+
+/* input field for depth interval  */
+div.sampleTableRow input {
+    height: 14px;
+    font-size: 11px;
+    padding: 0;
+    text-align: center;
+    vertical-align: middle; /* to avoid chinese chr change line height */
+    color: var(--controlPanel-txcolor);
+    border: none;
+    outline: none; /* to hide the border when selected */
+    background: transparent;
+    border-bottom: 1px solid rgba(114, 114, 114);
+}
+div.sampleTableRow input.depth {width: 33px; }
+div.sampleTableRow input.soilType {width: 56px; }
+/* a span showing lengend  */
+
+div.sampleTableRow span.soilLegend{
+    display: inline-block;
+    vertical-align: middle;
+    height: 14px;
+    width: 14px;
+    border-bottom: 1px solid rgba(114, 114, 114);
+}
+div.sampleTableRow input:focus{
+    margin-bottom: -1px;
+    /* box-shadow: 0 0 5px var(--navBar-bgcolor); */
+    /* background-color: var(--page-bgcolor); */
+    border-bottom: 2px solid var(--statusBar-bgcolor-highlight);
+}
+div.sampleTableRow textarea{
+    height: 14px;
+    width: calc(100% - 35px);
+    font-size: 11px;
+    padding: 0;
+    vertical-align: middle; /* to avoid chinese chr change line height */
+    color: var(--controlPanel-txcolor);
+    border: none;
+    outline: none; /* to hide the border when selected */
+    background: transparent;
+    border-bottom: 1px solid rgba(114, 114, 114);
+    resize:none;
+}
+
+div.sampleTableRow span.deleteThisLine,
+div.sampleTableRow span.editThisLine{
+    box-sizing: border-box;
+    vertical-align: middle;
+    color: var(--controlPanel-txcolor);
+    height: 14px;
+    line-height: 10px;
+    width: 14px;
+    vertical-align: middle;
+    display: inline-block;
+    padding: 2px;
+    border-radius: 4px;
+}
+
+div.sampleTableRow svg {
+    width:10px; 
+    height:10px;
+    fill: none; 
+    stroke:currentColor;
+}
+div.sampleTableRow svg path{
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1px
+}
+
+div.sampleTableRow span.deleteThisLine:hover{
+    color: red;
+    background-color:  rgba(114, 114, 114, 0.1);
+    cursor: pointer;
+}
+div.sampleTableRow span.editThisLine:hover{
+    color: var(--statusBar-bgcolor-highlight);
+    background-color:  rgba(114, 114, 114, 0.1);
+    cursor: pointer;
+}
+
+/* /////////////////////////////////// */
