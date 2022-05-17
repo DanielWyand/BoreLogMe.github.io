@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width" />
     <title>BoringTool</title>
     <link href="style.css" rel="stylesheet" type="text/css" />
 </head>
@@ -33,27 +33,31 @@
             </a></li>
         </ul>
         <ul class="navLinks" id='navLinks'>
-            <li selected="true" >
+            <li selected="true"  class="filePanle">
                 <a href="#" id="editButton" title="Edit Borelogs">
                 <svg><path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
                 </a>
             </li>
-            <li >
+            <li class="editPanle" >
                 <a href="#" id="tableViewButton" title="Edit by Data Table">
                 <svg><path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                 </a>
             </li>
-            <li >
+            <li class="codePanle" >
                 <a href="#" id="codeViewButton" title="Ediet by Jason File">
                 <svg><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                 </a>
             </li>
-            <li >
+            <li class="visualPanle" >
                 <a href="#" id="visualButton" title="visualization">
                     <svg><path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
                 </a>
             </li>
-            <div id="navBarMove"></div>
+            <div id="navBarMove">
+                <style>
+               
+                </style>
+            </div>
         </ul>
         
         <ul class="settings">
@@ -79,54 +83,125 @@
         <div id="controlPanel">
             <div id="filePanle">
                 <div class="titleBar">
-                    <h>BORELOG EDITOR</h>
+                    <h>LOG OF BOREHOLE: </h>
+
+                    <div id="currentLogClickCapture">
+                        <input type="text" id="currentLog" value="NULL" disabled>
+                    </div>
+
+                    <div id="logList" hidden="true" tabindex="-1">
+                        <!-- <div>
+                            <span class="logID">MW-1</span>
+                            <button>Insert Before</button>
+                            <button>Delete</button>                                         
+                        </div> -->
+                    </div>
+                    
+                    <a href="#" id="showLogListButton" title="Select Log">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+                        </svg>
+                    </a>
                     <a href="#" id="addLogButton" title="Add new log">
                         <svg viewBox="0 0 24 24">
                             <path d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
                     </a>
-                    <a href="#" id="searchButton" title="Search in Log">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M10 21h7a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v11m0 5l4.879-4.879m0 0a3 3 0 104.243-4.242 3 3 0 00-4.243 4.242z"></path>
-                        </svg>
-                    </a>
                 </div>
                 <div class="inputArea">
-                    <details >
-                        <summary>PROJECT DETIALS</summary>
+                    <!-- <details open id="pageSetup">
+                        <summary>PAGE SETUP</summary>
+                                <div class="fillingField">                           
+                                <input type="text" class="paperSize" list="paperSizeList" placeholder=" ">
+                                <label>Paper Size:</label>
+                                <datalist id="paperSizeList">
+                                    <option >A4</option>
+                                    <option >Letter</option>
+                                    <option >Custom</option>
+                                </datalist>
+                            </div>
+                          
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
+                                <input type="text" class="paperWidth" autocomplete="off" placeholder=" ">
+                                <label>Paper Width:</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="paperHeight" autocomplete="off" placeholder=" ">
+                                <label>Paper Height:</label>
+                            </div><br>
+                            <div class="fillingField">
+                                <input type="text" class="paperMarginTop" autocomplete="off" placeholder=" ">
+                                <label>Paper Margin Top:</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="paperMarginBottom" autocomplete="off" placeholder=" ">
+                                <label>Paper Margin Bottom:</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="paperMarginRight" autocomplete="off" placeholder=" ">
+                                <label>Paper Margin Right:</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="paperMarginLeft" autocomplete="off" placeholder=" ">
+                                <label>Paper Margin Left:</label><br>
+                    </details> -->
+                    <details open id="projectDetials">
+                        <summary>REPORT TITLE</summary>
+                            <div class="fillingField">
+                                <input type="text" class="projectNo"  autocomplete="off" placeholder=" ">
                                 <label>Project No:</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
+                                <input type="text" class="projectTitle"  autocomplete="off" placeholder=" ">
                                 <label>Project Title:</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
+                                <input type="text" class="client" autocomplete="off" placeholder=" ">
                                 <label>Client:</label>
                             </div>
+
+                            <div class="fillingField">
+                                <input type="text" class="loggedBy" autocomplete="off" placeholder=" ">
+                                <label>Logged By:</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="reviewedBy" autocomplete="off" placeholder=" ">
+                                <label>Reviewed By:</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="approvedBy" autocomplete="off" placeholder=" ">
+                                <label>Approved By:</label>
+                            </div>
                     </details>
-                    <details >
-                        <summary>BOREHOLE DETAILS</summary>
+                    <details open id="boreholeDetails">
+                        <summary>BOREHOLE SPECIFICATION</summary>
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
-                                <label>Longitude:</label>
+                                <input type="text" list="coordsysList" class="coordSys" autocomplete="off" placeholder=" ">
+                                <datalist id="coordsysList">
+                                    <option >WGS 84</option>
+                                    <option >UTM</option>
+                                    <option >CGCS2000</option>
+                                </datalist>
+                                <label>Coordinate System:</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
-                                <label>Latitude:</label>
+                                <input type="text" class="xCoord" autocomplete="off" placeholder=" ">
+                                <label>X:</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
-                                <label>Borehole Diameter (mm)</label>
+                                <input type="text" class="yCoord" autocomplete="off" placeholder=" ">
+                                <label>Y:</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" name="" required="" placeholder=" ">
-                                <label>Initial Water Level (m bgs)</label>
+                                <input type="date" class="drillDateFrom">
+                                <label>Drilling Start Date</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" list="drillerList" placeholder=" ">
+                                <input type="date" class="drillDateTo">
+                                <label>Drilling Complete Date (if applicable)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" list="drillerList" class="drilledBy" autocomplete="off" placeholder=" ">
                                 <datalist id="drillerList">
                                     <option >Senping</option>
                                     <option >Tengjing</option>
@@ -135,9 +210,8 @@
                                 <label>Driller Name</label>
                             </div>
                             <div class="fillingField">
-                                <input type="text" list="drillMethodList" placeholder=" ">
+                                <input type="text" list="drillMethodList" class="drillMethod" autocomplete="off" placeholder=" ">
                                 <datalist id="drillMethodList">
-                                    <option ></option>
                                     <option >HA</option>
                                     <option >DP</option>
                                     <option >Cable</option>
@@ -145,67 +219,55 @@
                                 <label>Drilling Method</label>
                             </div>
                             <div class="fillingField">
-                                <input type="date">
-                                <label>Drilling Date on (or from)</label>
+                                <input type="text" class="holeSize" autocomplete="off" placeholder=" ">
+                                <label>Borehole Diameter (mm)</label>
                             </div>
                             <div class="fillingField">
-                                <input type="date">
-                                <label>Drilling Date to (if applicable)</label>
+                                <input type="text" class="initialWaterLevel" autocomplete="off" placeholder=" ">
+                                <label>Initial Water Level (m bgs)</label>
                             </div>
-
-                    </details>
-                    <details >
-                        <summary>WELL COMPLETION DETAILS</summary>
+                            <div class="fillingField">
+                                <input type="text" list="wellHeadList" class="wellHead" placeholder=" ">
+                                <datalist id="wellHeadList">
+                                    <option ></option>
+                                    <option >Flush Mounted Manhole</option>
+                                    <option >Steel Standpipe</option>
+                                    <option >None (Temp Well)</option>
+                                </datalist>
+                                <label>Well Head Type</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="casingSize" autocomplete="off" placeholder=" ">
+                                <label>Casing Diameter (mm)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="totalWellDepth" autocomplete="off" placeholder=" ">
+                                <label>Total Well Depth (m bgs)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="bentoniteSealingDepth" autocomplete="off" placeholder=" ">
+                                <label>Bentonite Sealing Depth (m bgs)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="screenIntervalFrom" autocomplete="off" placeholder=" ">
+                                <label>Top of screen section (m bgs)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="screenIntervalTo" autocomplete="off" placeholder=" ">
+                                <label>Bottom of screen section (m bgs)</label>
+                            </div>
                         <div class="fillingField">
-                            <input type="text" list="wellHead" placeholder=" ">
-                            <datalist id="wellHead">
-                                <option ></option>
-                                <option >Flush Mounted Manhole</option>
-                                <option >Steel Standpipe</option>
-                                <option >None (Temp Well)</option>
-                            </datalist>
-                            <label>Well Head Type</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Casing Diameter (mm)</label>
-                        </div>
-                         <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Total Well Depth (m bgs)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Bentonite Sealing Depth (m bgs)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Top of screen section (m bgs)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Bottom of screen section (m bgs)</label>
-                        </div>
-                       <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" "> 
-                            <label>Top of Casing Elevation (m RL)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Ground Elevation (m RL)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Static Water Level (m BTOC)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Static Water Level (m bgs)</label>
-                        </div>
-                        <div class="fillingField">
-                            <input type="text" name="" required="" placeholder=" ">
-                            <label>Static Water Level (m RL)</label>
-                        </div>
+                                <input type="text" class="topOfCasingElevation" autocomplete="off" placeholder=" "> 
+                                <label>Top of Casing Elevation (m RL)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="groundElevation" autocomplete="off" placeholder=" ">
+                                <label>Ground Elevation (m RL)</label>
+                            </div>
+                            <div class="fillingField">
+                                <input type="text" class="staticWaterLevel" autocomplete="off" placeholder=" ">
+                                <label>Static Water Level (m BTOC)</label>
+                            </div>
 
                     </details>
                     <details open>
@@ -303,357 +365,35 @@
                     </details>
                 </div>
             </div>
-            <div id="eidtPanle" hidden="true" >
-                <div class="titleBar">DATA TABLE</div>
+            <div id="editPanle" hidden="true" >
+                <div class="titleBar">
+                    <h>DATA TABLE</h>
+                </div>
                 <div class="inputArea">bbb</div>
             </div>
             <div id="codePanle" hidden="true" >
-                <div class="titleBar">JASON OBJECT</div>
+                <div class="titleBar"><h>JASON OBJECT</h></div>
                 <div class="inputArea">ccc</div>
             </div>
             <div id="visualPanle" hidden="true" >
-                <div class="titleBar">VISUALIZATION</div>
+                <div class="titleBar"><h>VISUALIZATION</h></div>
                 <div class="inputArea">ddd</div>
             </div>
         </div>
+        <!-- vertical div to to change wdith of controlpanel  -->
         <div id="resizeBar"></div>
+        <!-- area for report display -->
         <div id="previewPanel">
+            <span id="tempHolder">
+                kkkkkkkkkkkkkkkkkk
+            </span>
             <div id="pageSelecter">
-                <span id="currentPage">MW-1</span> 
-                <ul id="pageList" class="hidden">
-                    <li><a href="#page1">DEMO</a><span><span><span></span></span></span></li>
-                    <li><a href="#page2">MW-1</a><span><span><span></span></span></span></li>
-                    <li><a href="#page3">MW-2</a><span><span><span></span></span></span></li>
-                </ul>
+                <div id="viewLocation"></div>
+                <div id="pageLinks">
+                    <!-- <a href="#page1">DEMOh</a> -->
+                </div>
             </div>
             <div id="scaleHolder">
-                <page id = "page1" class ='pages' data-size="A4">
-                
-                </page>
-                <page id = "page2"  class ='pages' data-size="A4">
-                    <!-- page header -->
-                    <pageHeader>
-                        <table>
-                            <tr class="pageHeader">
-                                <td class="left"></td>
-                                <td class="mid">Annex B - Log of Borehloe</td>
-                                <td class="right"></td>
-                            </tr>
-                        </table>
-                    </pageHeader>
-                    <!-- log content -->
-                    <pageContent>
-                        <table style="text-align: center;">
-                            <colgroup>
-                                <col style="width: 9%"/>
-                                <col style="width: 9%"/>
-                                <col style="width:10%"/>
-                                <col style="width:22%"/>
-                                <col style="width: 6%"/>
-                                <col style="width:14%"/>
-                                <col style="width: 6%"/>
-                                <col style="width: 6%"/>
-                                <col style="width:18%"/>
-                            </colgroup>
-                            <tr class="titleRow" style="height: 10%">
-                                <td colspan="3">
-                                    <div class="ermlogo"></div>
-                                    <div class="ermtitle">
-                                        <!-- erm title -->
-                                        <span style="font-weight: bold; line-height: 200%;">
-                                            ERM Shanghai Ltd.<br>
-                                        </span>
-                                        <!-- erm address -->
-                                        <span style="font-size: smaller; line-height: 120%;"> 
-                                            Suite 2005, Litong Plaza<br>
-                                            North Sichuan Road<br>
-                                            Shanghai 200080 CHINA<br>
-                                            Tel: +8621 5385 3050<br>
-                                            Fax: +8621 6469 2185
-                                        </span>
-                                    </div>
-                                </td>
-                                <td colspan="6" style="padding: 1.5% 2%;">
-                                    <table style="text-align:left; " class="noborder"> 
-                                        <colgroup>
-                                            <col style="width: 13%"/>
-                                            <col style="width: 45%"/>
-                                            <col style="width:13%"/>
-                                            <col style="width:29%"/>
-                                        </colgroup>
-                                        <tr style="font-size: 160%; font-weight: bold; height: 40%;" >
-                                            <td colspan="4">LOG OF BOREHOLE: &nbsp &nbsp<span class="boreholeID" style="text-decoration-line: underline;">MW-1</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project No:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">0613276</span></td>
-                                            <td>GPS Coord:</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project Title:</td>
-                                            <td><span class="projectTitle" style="text-decoration-line: underline;">S&GW Investigation</span></td>
-                                            <td>Longitude:</td>
-                                            <td><span class="longitude" style="text-decoration-line: underline;">121°36'55.95''</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Client:</td>
-                                            <td><span class="client" style="text-decoration-line: underline;">L'Oreal R&D China</span></td>
-                                            <td>Latitude:</td>
-                                            <td><span class="latitude" style="text-decoration-line: underline;">31°15'03.90''</span></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr class="subtitle1" style="height: 2.5%">
-                                <td colspan="5">SUBSURFACE PROFILE</td>
-                                <td colspan="3">SAMPLE</td>
-                                <td rowspan="2">Well Completion<br>Details</td>
-                            </tr>
-                            <tr class="subtitle2" style="height: 9.5%">
-                                <td><span class="btlr">Depth (m)</span></td>
-                                <td><span class="btlr">Symbol</span></td>
-                                <td colspan="2"><span class="btlr">Description</span></td>
-                                <td><span class="btlr">Elev/Depth (m)</span></td>
-                                <td><span class="btlr">Sample ID</span></td>
-                                <td><span class="btlr">PID (ppm)</span></td>
-                                <td><span class="btlr">Lab Analysis</span></td>
-                            </tr>
-                            <tr class="drawing" style="height: 66%"> 
-                                <td></td>
-                                <td></td>
-                                <td colspan="2"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="legend" style="height: 12%">
-                                <td  colspan="9" style="padding: 1% 2%;">  
-                                    <table style="text-align:left;"  class="noborder">
-                                        <colgroup>
-                                            <col style="width:14%"/>
-                                            <col style="width:6%"/>
-                                            <col style="width:13%"/>
-                                            <col style="width:14%"/>
-                                            <col style="width:6%"/>
-                                            <col style="width:13%"/> 
-                                            <col style="width:14%"/>
-                                            <col style="width:20%"/>
-                                        </colgroup>
-                                        <tr>
-                                            <td>Hole Size:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">130</span></td>
-                                            <td>&nbsp mm</td>
-                                            <td>Screen Interval:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">0.5 - 6.4</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Drilled By:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">Senpin</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Casing Size:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">63</span></td>
-                                            <td>&nbsp mm</td>
-                                            <td>Initial Water Level:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">3.1</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Drill Date:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">16 Sep, 2021</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Well Depth:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">6.5</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Static Water Level:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">2.043</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Drill Method:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">HA</span></td>
-                                        </tr>
-                                        <tr style="height: 50%;">
-                                            <td colspan="8"><strong>Legend:</strong></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </pageContent>
-                    <!-- page footer -->
-                    <pageFooter>
-                        <table>
-                            <tr class="pageFooter">
-                                <td class="left">www.erm.com<br>verison .01</td>
-                                <td class="mid">Project No.: 0000000<br>Client: ABC</td>
-                                <td class="right">Page 1 of 1<br>2020/03/09</td>                   </td>
-                            </tr>
-                        </table>
-                    </pageFooter>
-                    <pageFooter></pageFooter>
-                </page>
-                <page id = "page3"  class ='pages' data-size="A4">
-                    <!-- page header -->
-                    <pageHeader>
-                        <table>
-                            <tr class="pageHeader">
-                                <td class="left"></td>
-                                <td class="mid">Annex B - Log of Borehloe</td>
-                                <td class="right"></td>
-                            </tr>
-                        </table>
-                    </pageHeader>
-                    <!-- log content -->
-                    <pageContent>
-                        <table style="text-align: center;">
-                            <colgroup>
-                                <col style="width: 9%"/>
-                                <col style="width: 9%"/>
-                                <col style="width:10%"/>
-                                <col style="width:22%"/>
-                                <col style="width: 6%"/>
-                                <col style="width:14%"/>
-                                <col style="width: 6%"/>
-                                <col style="width: 6%"/>
-                                <col style="width:18%"/>
-                            </colgroup>
-                            <tr class="titleRow" style="height: 10%">
-                                <td colspan="3">
-                                    <div class="ermlogo"></div>
-                                    <div class="ermtitle">
-                                        <!-- erm title -->
-                                        <span style="font-weight: bold; line-height: 200%;">
-                                            ERM Shanghai Ltd.<br>
-                                        </span>
-                                        <!-- erm address -->
-                                        <span style="font-size: smaller; line-height: 120%;"> 
-                                            Suite 2005, Litong Plaza<br>
-                                            North Sichuan Road<br>
-                                            Shanghai 200080 CHINA<br>
-                                            Tel: +8621 5385 3050<br>
-                                            Fax: +8621 6469 2185
-                                        </span>
-                                    </div>
-                                </td>
-                                <td colspan="6" style="padding: 1.5% 2%;">
-                                    <table style="text-align:left; " class="noborder"> 
-                                        <colgroup>
-                                            <col style="width: 13%"/>
-                                            <col style="width: 45%"/>
-                                            <col style="width:13%"/>
-                                            <col style="width:29%"/>
-                                        </colgroup>
-                                        <tr style="font-size: 160%; font-weight: bold; height: 40%;" >
-                                            <td colspan="4">LOG OF BOREHOLE: &nbsp &nbsp<span class="boreholeID" style="text-decoration-line: underline;">MW-2</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project No:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">0613276</span></td>
-                                            <td>GPS Coord:</td>
-                                            <td></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Project Title:</td>
-                                            <td><span class="projectTitle" style="text-decoration-line: underline;">S&GW Investigation</span></td>
-                                            <td>Longitude:</td>
-                                            <td><span class="longitude" style="text-decoration-line: underline;">121°36'55.95''</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Client:</td>
-                                            <td><span class="client" style="text-decoration-line: underline;">L'Oreal R&D China</span></td>
-                                            <td>Latitude:</td>
-                                            <td><span class="latitude" style="text-decoration-line: underline;">31°15'03.90''</span></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                            <tr class="subtitle1" style="height: 2.5%">
-                                <td colspan="5">SUBSURFACE PROFILE</td>
-                                <td colspan="3">SAMPLE</td>
-                                <td rowspan="2">Well Completion<br>Details</td>
-                            </tr>
-                            <tr class="subtitle2" style="height: 9.5%">
-                                <td><span class="btlr">Depth (m)</span></td>
-                                <td><span class="btlr">Symbol</span></td>
-                                <td colspan="2"><span class="btlr">Description</span></td>
-                                <td><span class="btlr">Elev/Depth (m)</span></td>
-                                <td><span class="btlr">Sample ID</span></td>
-                                <td><span class="btlr">PID (ppm)</span></td>
-                                <td><span class="btlr">Lab Analysis</span></td>
-                            </tr>
-                            <tr class="drawing" style="height: 66%"> 
-                                <td></td>
-                                <td></td>
-                                <td colspan="2"></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr class="legend" style="height: 12%">
-                                <td  colspan="9" style="padding: 1% 2%;">  
-                                    <table style="text-align:left;"  class="noborder">
-                                        <colgroup>
-                                            <col style="width:14%"/>
-                                            <col style="width:6%"/>
-                                            <col style="width:13%"/>
-                                            <col style="width:14%"/>
-                                            <col style="width:6%"/>
-                                            <col style="width:13%"/> 
-                                            <col style="width:14%"/>
-                                            <col style="width:20%"/>
-                                        </colgroup>
-                                        <tr>
-                                            <td>Hole Size:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">130</span></td>
-                                            <td>&nbsp mm</td>
-                                            <td>Screen Interval:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">0.5 - 6.4</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Drilled By:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">Senpin</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Casing Size:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">63</span></td>
-                                            <td>&nbsp mm</td>
-                                            <td>Initial Water Level:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">3.1</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Drill Date:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">16 Sep, 2021</span></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Total Well Depth:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">6.5</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Static Water Level:</td>
-                                            <td style="text-align: right;"><span class="projectNo" style="text-decoration-line: underline;">2.043</span></td>
-                                            <td>&nbsp m bgs</td>
-                                            <td>Drill Method:</td>
-                                            <td><span class="projectNo" style="text-decoration-line: underline;">HA</span></td>
-                                        </tr>
-                                        <tr style="height: 50%;">
-                                            <td colspan="8"><strong>Legend:</strong></td>
-                                        </tr>
-                                    </table>
-                                </td>
-                            </tr>
-                        </table>
-                    </pageContent>
-                    <!-- page footer -->
-                    <pageFooter>
-                        <table>
-                            <tr class="pageFooter">
-                                <td class="left">www.erm.com<br>verison .01</td>
-                                <td class="mid">Project No.: 0000000<br>Client: ABC</td>
-                                <td class="right">Page 1 of 1<br>2020/03/09</td>                   </td>
-                            </tr>
-                        </table>
-                    </pageFooter>
-                    <pageFooter></pageFooter>
-                </page>
             </div>
         </div>
     </div>
@@ -674,27 +414,24 @@
             </svg>
         </span>
         <span id="zoomFactorHolder" class="right">  
-            <output id="zoomFactor" for="zoomSlider" value="100%"></output>
+            <output id="zoomFactor" for="zoomSlider">100%</output>
         </span>
         <span id="zoomSliderHolder" class="right">
-            <svg id="zoomOutIcon" width="14px" height="14px" fill="none" stroke="currentColor" viewBox="-4 -4 32 32" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="square" stroke-width="2.5" d="M20 12H4"></path>
-            </svg>
-            <input id="zoomSlider" type="range" min="0.1" max="2" step="0.1" value="1" onchange="zoomFactor.value=this.value*100 + '%'"/>
-            <svg id="zoomInIcon" width="14px" height="14px" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="square" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-            </svg>
-            <!-- <output id="zoomFactor" for="zoomSlider" value="100%"></output> -->
+            <span id="zoomOutButtom">-</span>
+            <input id="zoomSlider" type="range" min="50" max="150" step="1" value="100"/>
+            <span id="zoomInButtom">+</span>
         </span>
-        <span class="right">
-            Paper Size: A4
+        <span class="right">Paper Size: 
+            <span id="paperSize">NULL</span>
         </span>
-        <span class="right">
-            Page 1 of 2
+        <span class="right">Page 
+            <span id="currentPageNo">NULL</span> of 
+            <span id="totalPageNo">NULL</span>
         </span>
     </div>
 
     <script type="text/javascript" src="main.js" defer="defer"></script>
     <script type="text/javascript" src="draw.js" defer="defer"></script>
+    <!-- <script type="text/javascript" src="update.js" defer="defer"></script> -->
 </body>
 </html>

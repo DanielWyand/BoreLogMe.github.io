@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>网页HTML存本地</title>
-<script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
-</head>
-<body>
-<a href="#">保存文件</a>
-<script>
 function fake_click(obj) {
     var ev = document.createEvent("MouseEvents");
     ev.initMouseEvent(
@@ -32,6 +22,3 @@ console.log(test);
 $('a').click(function() {
 export_raw('test.html', test);
 });
-</script>
-</body>
-</html>
