@@ -2,7 +2,7 @@
 var LogCollection = new Object
 
 //svg name space
-// var svgNS = 'http://www.w3.org/2000/svg'
+var svgNS = 'http://www.w3.org/2000/svg'
 //container for svg Logs
 var scaleHolder = document.querySelector('#scaleHolder')
 //logo
@@ -112,14 +112,15 @@ class Log {
         this.groundElevation = 10.201
         this.drilledBy = 'NULL'
         this.drillDateFrom = 'NULL'
-        this.drillDate = 'NULL'
+        this.drillDateTo = 'NULL'
+        this.drillMethod = 'NULL'
         this.subsurfaceProfile = [  [0,0.2,'Silty Clay','The SVG is displayed by inserting the XML into the HTML file, however, when loaded like this the SVG displayed differently compared with being displayed within an img tag. The SVG is displayed by inserting the XML into the HTML file, however, when loaded like this the SVG displayed differently compared with being displayed within an img tag.The SVG is displayed by inserting the XML into the HTML file, however, when loaded like this the SVG displayed differently compared with being displayed within an img tag.'],
                                     [0.2,3,'Clay','I am just trying to reduce the line height within the following SVG:'],
                                     [3,3.5,'Sand','The SVG is displayed by inserting the XML into the HTML file, however, when loaded like this the SVG displayed differently compared with being displayed within an img tag. The SVG is displayed by inserting the XML into the HTML file, however, when loaded like this the SVG displayed differently compared with being displayed within an img tag.']
                         ]
-        this.soilSample = [[0.2,0.5,'MW-1-0.2-0.5m',1.0,true],
-                           [0.9,1.0,'MW-1-0.9-1.0m',5.0,],
-                           [6,6,'MW-1-0.9-1.0m',2.0,true],
+        this.soilSample = [[0.2,0.5,'MW-1-0.2-0.5m','1.0',true],
+                           [0.9,1.0,'MW-1-0.9-1.0m','5.0',],
+                           [6,6,'MW-1-0.9-1.0m','2.0',true],
 
                         ], //..[from,to,sampleID,PID,Lab]..
         this.maxTrickDepth = 6,
@@ -1092,3 +1093,10 @@ function updateDrillingPeriod(logId){
     document.querySelector(`svg#${logId} .dataValue .drillDate`).innerHTML = date;
 }
 
+//func for common input Areas
+function updateCommonFiled(inputField){
+    let logId = document.querySelector("#currentLog").dataset.logId;
+    let inputName = inputField.className
+    document.querySelector(`svg#${logId} .dataValue .${inputName}`).innerHTML = inputField.value;
+    LogCollection[logId][inputName] = inputField.value;
+}
