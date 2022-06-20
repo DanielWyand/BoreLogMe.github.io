@@ -228,6 +228,52 @@ div#settingMeun li:hover {
     scroll-behavior: smooth;
 }
 
+#download{
+    position:fixed;
+    bottom :30px; right:8px;
+    width: 44px;height: 44px;border-radius: 50px;
+}
+#download::before{
+    content: ''; display: block;
+    position:fixed;
+    bottom:30px; right:8px;
+    width: 44px;height: 44px;border-radius: 50px;
+    box-shadow: 0px 0px 4px rgb(114, 114, 114);
+    backdrop-filter: blur(2px);
+    transition: all 0.2s ease-in-out;
+}
+
+#download > div.icon{
+    box-sizing: border-box;
+    position:fixed;
+    bottom :32px; right:10px;
+    width: 40px;height: 40px; border-radius: 50px;
+    display: flex; justify-content: center; align-items: center;
+    color: white;
+    background-color: var(--statusBar-bgcolor);
+}
+#download > div.txt,
+#download > div.html,
+#download > div.pdf{
+    color: var(--navBar-txcolor);
+    cursor: pointer;
+    box-sizing: border-box;
+    display: flex; justify-content: center; align-items: center;
+    position:fixed;
+    bottom :34px; right:12px;
+    width: 36px; height: 36px; border-radius: 50px;
+    
+}
+
+#download:hover,
+#download:hover::before{width: 160px;}
+#download:hover > div.html{right:52px;transition: all 0.2s ease-in-out 0.3s;}
+#download:hover > div.pdf {right:90px;transition: all 0.2s ease-in-out 0.2s;}
+#download:hover > div.txt {right:128px;transition: all 0.2s ease-in-out 0.1s;}
+#download:hover > div.html:hover{border: 1px solid #0D6EFD}
+#download:hover > div.pdf:hover {border: 1px solid #DC3545}
+#download:hover > div.txt:hover {border: 1px solid #198754}
+
 /* #pageSelecter  */
 #tempHolder{
     position: absolute;
@@ -586,56 +632,52 @@ div.inputControl div.autoAxis > input[type="checkbox"]:checked~label.toggle::aft
     box-shadow: 0 0 0 1px var(--statusBar-bgcolor);
     left: 22px
 }
-/* fillingField div format */
+
 div.fillingField {
     box-sizing: border-box;
     position: relative;
     display: inline-block;
     width: 156px;
-    height: 45px;
+    height: 50px;
 }
 
-/* format input elemt in fillfield div  */
 div.fillingField > input {
     width: 92%; height: 14px;
     padding: 15px 0 4px 0;
     font-size: 11px;
-    vertical-align: middle; /* to avoid chinese chr change line height */
+    vertical-align: middle; 
+    position: relative;
     color: var(--controlPanel-txcolor);
     margin: 0  0 18px 5px;
     border: none;
     border-bottom: 1px solid rgb(114, 114, 114);
-    outline: none; /* to hide the border when selected */
+    outline: none; 
     background: transparent;
-    text-indent: 3px;	
+    text-indent: 2px;
 }
 
-/* when hover, bottom border change color  */
+
 div.fillingField > input:hover{
     border-bottom: 1px solid var(--statusBar-bgcolor-highlight);
 }
 
-/* when selected, bottom border change color and thicker  */
 div.fillingField > input:focus{
     border-bottom: 2px solid var(--statusBar-bgcolor-highlight);
-    margin-bottom: 17px; /*  for boder is 1px thicker */
+    margin-bottom: 17px; 
 }
 
-/* a label indicating what you wanna input  */
+div.fillingField > input[validation="invalid"]{
+    border-bottom: 2px solid rgb(255, 120, 1);
+    margin-bottom: 17px;
+}
+
 div.fillingField > label {
     position: absolute;
-    top: 7px; left: 3px;
-    padding: 10px 0;
+    top: 17px; left: 7px;
+    padding:0;
     font-size: 9px; color: var(--controlPanel-txcolor);
     pointer-events: none;
     transition: .2s;
-    text-indent: 4px;	
-    /* opacity: 0.6;	 */
-}
-div.fillingField > input[validation="invalid"]{
-    border-color: rgb(220, 0, 0); color: rgb(220, 0, 0);}
-div.fillingField > input[validation="invalid"] ~ label {
-    color: rgb(220, 0, 0);
 }
 
 div.fillingField > span.emptyInput {
@@ -644,18 +686,21 @@ div.fillingField > span.emptyInput {
     opacity: 0;
     transition: all 0.2s ease-in-out;
 }
+
 div.fillingField > span.emptyInput > svg {
     fill: none; stroke:rgb(114, 114, 114);
     stroke-linecap: round; stroke-linejoin: round;
     stroke-width: 1.2;
 }
+
 div.fillingField > input:focus ~ span.emptyInput {
-    opacity: 0.8;  right: 13px;
+    opacity: 0.8;  right: 8px;
 }
+
 div.fillingField > div.dropDownList {
     width: 92%; 
     box-sizing: border-box;
-    position: absolute; top: 35px; left: 0px;
+    position: absolute; top: 35px; left: 5px;
     font-size: 9px;
     background-color: var(--controlPanel-bgcolor);
     border-radius: 2px;
@@ -686,7 +731,6 @@ div.fillingField > div.dropDownList >span:hover {
     background-color: var(--previewPanel-bgcolor);
 }
 
-/* datepicker  */
 div.fillingField > div.dropDownList >div.datePicker table{
     table-layout: fixed;
     border: none; border-spacing: 0px;
@@ -756,14 +800,11 @@ div.fillingField > div.dropDownList >div.datePicker > div.dateControler td.today
 }
 
 
-/* when input is selected*/
 div.fillingField > input:focus ~ label,
-/* or something is inputed (i.e. :placeholder is not shown) */
 div.fillingField > input:not(:placeholder-shown)  ~ label {
-    top: -8px; 
+    top: 2px; 
     font-size: 7px;    
 }
-
 
 div.titleBar>div.placeHolder{flex: 1;}
 div#codePanle>div.inputArea>textarea#jsonDisplay{
@@ -840,6 +881,12 @@ div.soilProfile input{
     border-bottom: 1px solid rgb(114, 114, 114,0.1);
     padding: 4px 0 3px 0 ;
 }
+
+div.soilProfile input[validation="invalid"]{
+    border-bottom: 1px solid rgb(255, 120, 1);
+    /* color: rgba(199, 0, 0, 0.8); */
+}
+s
 div.soilProfile input::placeholder,
 div.soilProfile > div.descriptionArea > textarea.description::placeholder{
     font-size: 9px; color: rgb(114, 114, 114,0.8);
@@ -1146,6 +1193,9 @@ div.soilSample > div.sampleContent  input.depthTo{
     font-size: smaller;
 }
 
+#statusBar > span#probleCheck{padding: 5px; width: 80px;}
+#statusBar > span#probleCheck>span{vertical-align: top;}
+
 #statusBar > span:hover {background-color: var(--statusBar-bgcolor-highlight)}
 
 #statusBar > span.right {float: right;}
@@ -1211,3 +1261,10 @@ svg.logs.active {
 .renderjson .keyword       { color: lightgoldenrodyellow; }
 .renderjson .object.syntax { color: lightseagreen; }
 .renderjson .array.syntax  { color: lightsalmon; }
+
+
+div.noprint {
+    display: none;
+}
+    /* svg.logs {display: block;} */
+
