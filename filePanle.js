@@ -454,8 +454,8 @@ const inputControler = {
     },
     updateAxis(){
         if(this.autoAxis.checked){
-            let max = Math.ceil(this.getMaxDepth()); console.log(max)
-            if(max <= this.maxTrickDepth.value) {console.log('我没更新啊'); return 0}
+            let max = Math.ceil(this.getMaxDepth()/2)*2;
+            if(max <= 6) { return 0}
             let major = (max / 6 < 1) ? 0.5 : Math.ceil(max / 6);
             this.maxTrickDepth.value = max;
             this.majorTrick.value = major;
@@ -477,7 +477,6 @@ const inputControler = {
             numbers.push(parseFloat(record[1]))
         })
         numbers = numbers.filter(x=>{return !isNaN(x)})
-        console.log(numbers)
         return Math.max(...numbers)
     }
 }
@@ -546,9 +545,57 @@ const infoManger = {
             inputField.onkeyup=(e)=>{if (e.keyCode == 13) {e.target.blur()}}
             inputField.onblur=(e)=>{
                 if (e.target.value !== ''){
-                    // console.log(e.target.className+' changed to:'+e.target.value)}
-                    report.logCollection[this.logId][e.target.className] = e.target.value;
-                }
+                    let receiver = report.logCollection[this.logId]
+                    let value = e.target.value
+                    receiver[e.target.className] = value;
+                    switch(e.target.className){  
+                        case 'drillDate': 
+                            if (/^2\d{3}\/\d{1,2}\/\d{1,2}$/.test(value) || 
+                                /^2\d{3}\/\d{1,2}\/\d{1,2}~2\d{3}\/\d{1,2}\/\d{1,2}$/.test(value)
+                                ){
+                                e.target.setAttribute('validation',"valid"); break;
+                            } else {
+                                e.target.setAttribute('validation',"invalid"); break;
+                            }
+                        case 'bentoniteSealingDepth':
+                            if (parseFloat(value) <= parseFloat(receiver.screenIntervalFrom) ||  receiver.screenIntervalFrom == 'NULL')
+                            { 
+                                e.target.removeAttribute('validation'); break;
+                            } else { 
+                                e.target.setAttribute('validation',"invalid"); break;
+                            }
+    
+                        case 'screenIntervalFrom':
+                            if (parseFloat(value) <= parseFloat(receiver.screenIntervalTo) && parseFloat(value) >= parseFloat(receiver.bentoniteSealingDepth) || 
+                                parseFloat(value) <= parseFloat(receiver.screenIntervalTo) && receiver.bentoniteSealingDepth == 'NULL' || 
+                                receiver.screenIntervalTo == 'NULL'                && value >= parseFloat(receiver.bentoniteSealingDepth) || 
+                                receiver.screenIntervalTo == 'NULL'                && receiver.bentoniteSealingDepth == 'NULL' 
+                                ){
+                                    e.target.removeAttribute('validation'); break;
+                            } else {
+                                    e.target.setAttribute('validation',"invalid"); break;
+                            }
+    
+                        case 'screenIntervalTo':
+                            if (value <= parseFloat(receiver.totalWellDepth) && value >= parseFloat(receiver.screenIntervalFrom) || 
+                                value <= parseFloat(receiver.totalWellDepth) && receiver.screenIntervalFrom == 'NULL' || 
+                                receiver.totalWellDepth == 'NULL'                && value >= parseFloat(receiver.screenIntervalFrom) || 
+                                receiver.totalWellDepth == 'NULL'                && receiver.screenIntervalFrom == 'NULL' 
+                                ){
+                                    e.target.removeAttribute('validation'); break;
+                            } else {
+                                    e.target.setAttribute('validation',"invalid"); break;
+                            }
+    
+                        case 'totalWellDepth':
+                            if (value >= parseFloat(receiver.screenIntervalTo) || 
+                                receiver.screenIntervalTo == 'NULL'){
+                                    e.target.removeAttribute('validation'); break;
+                            } else {
+                                e.target.setAttribute('validation',"invalid"); break;
+                            }
+                    }
+            }
         }
     }
 
@@ -606,19 +653,19 @@ const soilDescriber = {
     init(){
         this.addLineButton.onclick = ()=>{this.addLine(null,null,null)}
         this.addLineButton.click()
-        new MutationObserver(()=>{this.export()}).observe(this.container, {childList: true});
+        new MutationObserver(()=>{this.validator(); this.export()}).observe(this.container, {childList: true});
     },
     load(){
         if (this.logId){ 
             let subsurfaceProfile = report.logCollection[this.logId].subsurfaceProfile;
             this.container.innerHTML = '';
-            if(subsurfaceProfile.length==0){
-                this.addLine(null,null,['0','0','',''])
-            } else {
+            // if(subsurfaceProfile.length==0){
+            //     this.addLine(null,null,['0','0','',''])
+            // } else {
                 subsurfaceProfile.forEach((record)=>{
                 this.addLine(null, null, record);
                 })
-            }
+            // }
         }else{
             console.log('logId undefined')
         }
@@ -658,19 +705,46 @@ const soilDescriber = {
             this.fill(newSoilProfileDiv, record)
         }else{
             let previousDepthTo = newSoilProfileDiv.previousElementSibling&&newSoilProfileDiv.previousElementSibling.querySelector('input.depthTo').value;
-            console.log(previousDepthTo)
             if (previousDepthTo){
                 newSoilProfileDiv.querySelector('input.depthFrom').value=parseFloat(previousDepthTo).toFixed(2)
                 newSoilProfileDiv.querySelector('input.depthTo').value=parseFloat(previousDepthTo).toFixed(2)
             } else{
-                newSoilProfileDiv.querySelector('input.depthFrom').value=0
-                newSoilProfileDiv.querySelector('input.depthTo').value=0
+                newSoilProfileDiv.querySelector('input.depthFrom').value=''
+                newSoilProfileDiv.querySelector('input.depthTo').value=''
             }
             
-        }
-       
-        
+        }       
         this.listenEvents(newSoilProfileDiv)
+    },
+
+    validator(){
+        this.container.querySelectorAll('.soilProfile').forEach((soilprofileDiv, index)=>{
+            let depthFrom = soilprofileDiv.querySelector('input.depthFrom');
+            depthFrom.removeAttribute('validation')
+            let depthTo = soilprofileDiv.querySelector('input.depthTo');
+            depthTo.removeAttribute('validation')
+
+            if (index == 0 && parseFloat(depthFrom.value) != 0){
+                console.log('1')
+                depthFrom.setAttribute('validation',"invalid")
+            }
+            if (parseFloat(depthFrom.value) >= parseFloat(depthTo.value)){
+                console.log('type2')
+                depthFrom.setAttribute('validation',"invalid")
+                depthTo.setAttribute('validation',"invalid")
+            }
+            if (soilprofileDiv.previousElementSibling && 
+                depthFrom.value != soilprofileDiv.previousElementSibling.querySelector('input.depthTo').value){   
+                    console.log('3')
+                    depthFrom.setAttribute('validation',"invalid")
+            }
+
+            if (soilprofileDiv.nextElementSibling &&
+                depthTo.value != soilprofileDiv.nextElementSibling.querySelector('input.depthFrom').value){          
+                    console.log('4')
+                    depthTo.setAttribute('validation',"invalid")
+            }
+        })
     },
     fill(soilprofileDiv, record){
         soilprofileDiv.querySelector('input.depthFrom').value=parseFloat(record[0]).toFixed(2)
@@ -687,9 +761,24 @@ const soilDescriber = {
         }
         let inputField = soilprofileDiv.querySelectorAll('input');
             inputField.forEach((input)=>{
-                input.onchange = ()=>{this.export()}
+                input.onchange = (e)=>{
+                    if (input.classList.contains('depthFrom')){
+                        e.target.value = parseFloat(e.target.value).toFixed(2)
+                        if (e.target.parentElement.parentElement.parentElement.previousElementSibling){
+                            e.target.parentElement.parentElement.parentElement.previousElementSibling.querySelector('input.depthTo').value = e.target.value;
+                        }
+                        this.validator()
+                    } 
+                    if (input.classList.contains('depthTo')){
+                        e.target.value = parseFloat(e.target.value).toFixed(2);
+                        if (e.target.parentElement.parentElement.parentElement.nextElementSibling){
+                            e.target.parentElement.parentElement.parentElement.nextElementSibling.querySelector('input.depthFrom').value = e.target.value;
+                        }
+                        this.validator()
+                    }                    
+                    this.export()}
             })
-       
+                
         let textArea = soilprofileDiv.querySelector('textarea')
             textArea.oninput=(e)=>{
                 let adjustHeight = e.target.scrollHeight + 1

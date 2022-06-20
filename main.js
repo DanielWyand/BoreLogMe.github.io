@@ -246,5 +246,34 @@ document.querySelector('div#resizeBar').onmousedown = (e) => {
 /********************************************************************/
 
 
+function printLog(data){
 
+var urlObject = window.URL || window.webkitURL || window;
+
+var export_blob = new Blob([data]);
+
+var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+save_link.href = urlObject.createObjectURL(export_blob);
+save_link.download = 'test.html';
+
+
+}
+
+
+function exportHTML() {
+  let filename=prompt("File Name","Borehole Log");
+  if (filename=='') {filename = `Borehole Log`}
+  var urlObject = window.URL || window.webkitURL || window;
+  let elementA = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
+  let data = document.querySelector('div#scaleHolder').innerHTML
+  let head = `<!DOCTYPE html><html><head><title>${filename}</title><style>body{padding: 0; margin: 0; font-size:0}</style></head><body>`
+  let foot = '</body>'
+
+  elementA.href = urlObject.createObjectURL(new Blob([head+data+foot]));
+  elementA.download = filename +'.html';
+  elementA.style.display = 'none';
+  document.body.appendChild(elementA);
+  elementA.click();
+  document.body.removeChild(elementA);
+}
 
