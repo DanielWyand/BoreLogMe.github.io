@@ -284,6 +284,57 @@ const reorder =  {
 }
 /********************************************************************/
 
+const patternSelector = {
+    container : document.querySelector('div#patternSelector'),
+    patternName: document.querySelector('div#patternSelector input.patternName'),
+    patternColor: document.querySelector('div#patternSelector input.patternColor'),
+    target:null,
+    
+    init(){
+        let patternPreview = this.container.querySelector('div.patternPreview')
+        Object.keys(pattern).forEach(patternName => {
+            if (patternName=='get'){return 0}
+            patternPreview.innerHTML +=
+            `
+            <div class="pattern ${patternName}" >
+                <svg height="100%" width="100%">
+                    <defs>${pattern[patternName]}</defs>
+                    <rect x="0" y="0" height="100%" width="100%" fill="url(#${patternName})"></rect>
+                </svg>
+                <span>${patternName}</span>
+            </div>
+            `
+        })
+        this.listenEvents()
+    },
+    hide(){
+        this.container.style.display = 'none';
+        this.target = null;
+    },
+    show(top){
+        this.container.style.display = 'block';
+        this.container.style.top = top + 'px'
+        this.patternName.value = this.target.record[2].replace(' ','').toLowerCase()
+        this.container.focus()
+    },
+    listenEvents(){
+        this.container.onmousedown = (e)=>{
+            e.preventDefault()
+        }
+        this.container.onclick = (e)=>{
+            if (e.target.classList.contains('pattern')){
+                this.patternName.value = e.target.classList[1]
+            }
+        }
+        this.container.onblur = ()=>{
+            if (!this.patternName.value) {this.hide(); return 0;}
+            soilDescriber.previewPattern(this.target.patternDiv,this.patternName.value,this.patternColor.value)
+            // this.target.record[4] = [this.patternName.value,this.patternColor.value]
+            this.hide()
+            soilDescriber.export()
+        }
+    }
+}
 
 /*************************Log List*********************************/
 const logSelector = {
@@ -614,12 +665,6 @@ const soilDescriber = {
             <div class="materialType">
                 <input type="text" class="materialType" placeholder="Material Type">                    
                 <div class="pattern">
-                    <svg viewbox="0 0 25 25">
-                        <defs>
-                           
-                        </defs>
-                        <path fill='url(#pattern-screen)' d="M0,0 L50,0 L50,50 L0,50Z"></path>
-                    </svg>
                 </div>
                 <div class="viewMaterialTypeList">
                     <svg height='14px' viewBox="0 0 24 24"><use xlink:href="#icon-viewList"></use></svg>
@@ -659,13 +704,9 @@ const soilDescriber = {
         if (this.logId){ 
             let subsurfaceProfile = report.logCollection[this.logId].subsurfaceProfile;
             this.container.innerHTML = '';
-            // if(subsurfaceProfile.length==0){
-            //     this.addLine(null,null,['0','0','',''])
-            // } else {
                 subsurfaceProfile.forEach((record)=>{
                 this.addLine(null, null, record);
                 })
-            // }
         }else{
             console.log('logId undefined')
         }
@@ -680,6 +721,7 @@ const soilDescriber = {
                 record.push(div.querySelector('input.depthTo').value);
                 record.push(div.querySelector('input.materialType').value);
                 record.push(div.querySelector('textarea.description').value);
+                record.push([div.querySelector('div.pattern').dataset.patternName,div.querySelector('div.pattern').dataset.patternColor])
                 subsurfaceProfile.push(record)
             })
             report.logCollection[this.logId].subsurfaceProfile = subsurfaceProfile
@@ -751,7 +793,27 @@ const soilDescriber = {
         soilprofileDiv.querySelector('input.depthTo').value=parseFloat(record[1]).toFixed(2)
         soilprofileDiv.querySelector('input.materialType').value=record[2]
         soilprofileDiv.querySelector('textarea.description').value=record[3]
+        if (record[4]){
+            this.previewPattern(soilprofileDiv.querySelector('div.pattern'),record[4][0],record[4][1])
+        } else {
+            this.previewPattern(soilprofileDiv.querySelector('div.pattern'),record[2].replace(' ','').toLowerCase())
+        }
     },
+
+    previewPattern(patternDiv,patternName,patternColor){
+        let res = pattern.get(patternName,patternColor);          
+        let patternCode=res.id
+        let patternDOM =res.pattern
+        patternDiv.innerHTML=`
+            <svg height="100%" width="100%">
+                <defs>${patternDOM.outerHTML}</defs>
+                <rect x="0" y="0" height="100%" width="100%" fill="url(#${patternCode})"></rect>
+            </svg>
+        `
+        patternDiv.dataset.patternName = patternName
+        patternDiv.dataset.patternColor = patternColor
+    },
+
     listenEvents(soilprofileDiv) {
         soilprofileDiv.oncontextmenu = (event)=>{
             event.preventDefault()
@@ -759,6 +821,19 @@ const soilDescriber = {
             event.target.closest('div.soilProfile').classList.toggle('active')
             event.target.closest('div.soilProfile').querySelector('div.more').focus()
         }
+
+        soilprofileDiv.querySelector('div.pattern').onclick = (e) =>{
+            if (!this.logId) {return 0}
+            let y = e.target.getClientRects()[0].y - document.querySelector('details#subsurfaceProfile').getClientRects()[0].y + 30
+            
+            let index = [].indexOf.call(this.container.querySelectorAll('div.soilProfile'), e.target.closest('div.soilProfile'));
+            patternSelector.target = {
+                record: report.logCollection[this.logId].subsurfaceProfile[index],
+                patternDiv: e.target
+            }
+            patternSelector.show(y)
+        }
+
         let inputField = soilprofileDiv.querySelectorAll('input');
             inputField.forEach((input)=>{
                 input.onchange = (e)=>{
@@ -918,6 +993,24 @@ const soilSampler =  {
         soilSampleDiv.querySelector('input.PID').value=parseFloat(record[3]).toFixed(1)
         soilSampleDiv.querySelector('input.lab').checked=record[4]
     },
+
+    generateSampleId(soilSampleDiv){
+        let depthFrom = parseFloat(soilSampleDiv.querySelector('input.depthFrom').value)
+        let depthTo = parseFloat(soilSampleDiv.querySelector('input.depthTo').value)
+        let locationId = report.logCollection[this.logId].locationId
+        let sampleId
+        if (isNaN(depthFrom) && !isNaN(depthTo)){
+            sampleId = `${locationId}-${depthTo.toFixed(1)}m`
+        } else if (!isNaN(depthFrom) && isNaN(depthTo)){
+            sampleId = `${locationId}-${depthFrom.toFixed(1)}m`
+        } else if (!isNaN(depthFrom) && !isNaN(depthTo)){
+            sampleId = `${locationId}-${depthFrom.toFixed(1)}-${depthTo.toFixed(1)}m`
+        } else{
+            sampleId = `${locationId}`
+        }
+        soilSampleDiv.querySelector('input.sampleId').value=sampleId
+    },
+
     listenEvents(soilSampleDiv) {
         // addLineButton.onclick = ()=>{this.addLine(null,null,null)}
         soilSampleDiv.oncontextmenu = (event)=>{
@@ -929,7 +1022,10 @@ const soilSampler =  {
         // listen to input change
         let inputField = soilSampleDiv.querySelectorAll('input');
             inputField.forEach((input)=>{
-                input.onchange = ()=>{this.export()}
+                input.onchange = (e)=>{
+                    this.generateSampleId(e.target.closest('div.soilSample'))
+                    this.export()
+                }
             })
         
         //more action button

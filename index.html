@@ -58,9 +58,6 @@
         <symbol id="icon-chevronUp">
             <path d="M5 15l7-7 7 7"></path>
         </symbol> 
-        <!-- <symbol id="icon-dots-vertical" viewBox="0 0 24 24">
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"></path>       
-        </symbol>  -->
         <symbol id="icon-dots-vertical" viewBox="0 0 24 24">
             <rect x="9" y="5" height="2" width="2" fill="currentColor"/>
             <rect x="9" y="12" height="2" width="2" fill="currentColor"/>
@@ -158,6 +155,7 @@
         </ul>
 
     </div>
+
     <div id="mainContent">
         <div id="controlPanel">
             <div id="filePanle" class="active">
@@ -450,6 +448,22 @@
                         <div class="addNewLine" title="Add a new line">
                             ADD NEW
                         </div>
+                        <div class="patternSelect" id="patternSelector" tabindex="-1" style="display: none;">
+                            <div class="patternInputs">
+                                <input class='patternName' type="text" disabled>
+                                <input class='patternColor' type="color">
+                            </div>
+                            <div class="patternPreview">
+                                <!-- <div class="pattern">
+                                    <svg height="100%" width="100%">
+                                        <rect x="0" y="0" height="100%" width="100%"></rect>
+                                        <text x="0" y="100%"></text>
+                                    </svg>
+                                    <span>fill</span>
+                                </div>
+                                <div class="pattern"></div> -->
+                            </div>
+                        </div>
                                             
                     </details>
                     <details open id="soilSample">
@@ -494,26 +508,25 @@
                 <div class="inputArea">ddd</div>
             </div>
         </div>
-        <!-- vertical div to to change wdith of controlpanel  -->
-        <div id="resizeBar"></div>
-        <!-- area for report display -->
-        <div id="previewPanel">
 
+        <div id="resizeBar"></div>
+
+        <div id="previewPanel">
             <span id="tempHolder" ></span>
             <div id="pageSelecter">
                 <div id="viewLocation"></div>
-                <div id="pageLinks"><!-- <a href="#page1">DEMOh</a> --></div>
+                <div id="pageLinks"></div>
             </div>
             <div id="scaleHolder">
             </div>            
             <div id="download">
-                <div class="pdf" title="save as pdf">
+                <div class="pdf" title="save as pdf" onclick="alert('在做了在做了...')">
                     <svg viewBox="0 0 16 16" height="20"><use xlink:href="#icon-PDF"></use></svg>
                 </div>
                 <div class="html" title="save as html" onclick="exportHTML()">
                     <svg viewBox="0 0 16 16" height="20"><use xlink:href="#icon-HTML"></use></svg>
                 </div>    
-                <div class="txt" title="save as txt">
+                <div class="txt" title="save as txt" onclick="alert('在做了在做了...')">
                     <svg viewBox="0 0 16 16"  height="20"><use xlink:href="#icon-TXT"></use></svg>
                 </div>              
                 <div class="icon">

@@ -277,3 +277,6 @@ function exportHTML() {
   document.body.removeChild(elementA);
 }
 
+window.onload = function (){
+  patternSelector.init()
+}

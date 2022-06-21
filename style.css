@@ -627,8 +627,8 @@ div.inputControl div.autoAxis > input[type="checkbox"]:checked~label.toggle::bef
 
 div.inputControl div.wellInstalled > input[type="checkbox"]:checked~label.toggle::after,
 div.inputControl div.autoAxis > input[type="checkbox"]:checked~label.toggle::after{
-    background-color: var(--statusBar-bgcolor-highlight50);
-    border: 0.5px solid var(--statusBar-bgcolor-highlight50);
+    background-color: var(--statusBar-bgcolor-highlight);
+    border: 0.5px solid var(--statusBar-bgcolor-highlight);
     box-shadow: 0 0 0 1px var(--statusBar-bgcolor);
     left: 22px
 }
@@ -945,6 +945,68 @@ div.soilProfile > div.descriptionArea > textarea.description::-webkit-scrollbar-
     background-color:rgb(114, 114, 114,0.3);
 }
 
+details#subsurfaceProfile>div.patternSelect{
+    width: 265px; height: 150px;
+    z-index: 99; padding: 5px;
+    position: absolute; top:85px; left: 0px;
+    background-color: var(--controlPanel-bgcolor);
+    border-radius: 5px;
+    border: 1px solid rgb(114, 114, 114),0.5;
+    box-shadow: 1px 1px 6px rgb(114, 114, 114,0.5);
+    animation: moveup 0.2s ease-in-out;
+    outline: none;
+}
+
+details#subsurfaceProfile>div.patternSelect>div.patternInputs{
+    box-sizing: border-box; display: flex;
+    justify-content:space-between; align-items: center;
+    width: 100%;
+    height: 25px;
+}
+details#subsurfaceProfile>div.patternSelect>div.patternInputs>input[type="text"]{
+    box-sizing: border-box; flex:1;
+    font-size: 11px;
+    margin: 2px 2px; line-height: 20px;
+    vertical-align: top;
+    background-color: var(--controlPanel-bgcolor);
+    border: none; outline: none;
+    border-bottom: 1px solid rgb(114, 114, 114);
+}
+details#subsurfaceProfile>div.patternSelect>div.patternInputs>input[type="color"]{
+    height: 22px;
+    width: 22px; 
+    padding:0px 2px;
+    border-radius: 20px;
+    border: none;
+    background-image: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+}
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 20px; border: none;
+    box-shadow: 0 0 0 2px var(--controlPanel-bgcolor);
+}
+details#subsurfaceProfile>div.patternSelect>div.patternPreview{
+    margin-top: 5px; 
+    overflow: scroll; width: 267px; height: 123px;
+    padding: 0px; box-sizing: border-box;
+}
+details#subsurfaceProfile>div.patternSelect div.pattern{
+    position: relative;
+    box-sizing: border-box;
+    vertical-align: top;
+    display: inline-block;
+    margin: 0 1px 2px 1px;
+    width:63.5px; height: 40px;
+    border: 1px solid rgb(114, 114, 114);
+}
+:root[darkTheme='true'] details#subsurfaceProfile>div.patternSelect div.pattern>svg{
+    filter: invert(1) grayscale(1);
+}
+details#subsurfaceProfile>div.patternSelect div.pattern>span{
+    font-size: 10px;
+    position: absolute; right: 0; bottom: 0;
+    background-color: var(--controlPanel-bgcolor);
+}
+
 div.soilProfile div.moreActions{
     position: absolute;   left: calc(100% + 5px); top: -2px;
     box-sizing: border-box; width: 116px; height: 77px;
@@ -993,23 +1055,7 @@ div.addNewLine{
     cursor: pointer;
     border: 1px dashed rgb(114, 114, 114,0.2);
 }
-/* div.addNewLine > span.addNewLineButton{
-    height: 20px; width: 20px; border-radius: 100%;
-    background-color:var(--statusBar-bgcolor);
-    position: relative;
-}
-div.addNewLine > span.addNewLineButton::after{
-    content: '';
-    position: absolute; top:16.5px; left: 7px;
-    width: 21px; height: 2px; border-radius: 2px;
-    background-color: #fff;
-}
-div.addNewLine > span.addNewLineButton::before{
-    content: '';
-    position: absolute; top:7px; left: 16.5px;
-    width: 2px; height: 21px; border-radius: 2px;
-    background-color: #fff;
-} */
+
 div.addNewLine:hover{
     color: var(--statusBar-bgcolor);
     border-color: var(--statusBar-bgcolor);

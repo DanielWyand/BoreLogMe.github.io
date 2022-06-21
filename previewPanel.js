@@ -101,19 +101,12 @@ const report = {
                         return true;
 
                     case 'drillDate': 
-                        // if (/^2\d{3}\/\d{1,2}\/\d{1,2}$/.test(value) || 
-                        //     /^2\d{3}\/\d{1,2}\/\d{1,2}~2\d{3}\/\d{1,2}\/\d{1,2}$/.test(value)
-                        //     ){
                             receiver[property] = value;
                             console.log(value)
                             document.querySelector(`svg#${receiver.logId} .dataValue .${property}`).innerHTML = value;
                             document.querySelector(`div.fillingField input.${property}`).setAttribute('validation',"valid")
                             console.log('drillDate Changed');
                             return true;
-                        // } else {
-                        //     document.querySelector(`div.fillingField input.${property}`).setAttribute('validation',"invalid")
-                        //     return false;
-                        // }
 
                     case 'initialWaterLevel':
                         receiver[property] = value;
@@ -130,25 +123,14 @@ const report = {
                         return true;
 
                     case 'bentoniteSealingDepth':
-                        // if (value <= parseFloat(receiver.screenIntervalFrom) || 
-                        //     receiver.screenIntervalFrom == ''){
                             receiver[property] = value;
                             inputControler.updateAxis()
                             document.querySelector(`div.fillingField input.${property}`).removeAttribute('validation')
                             receiver.updateWellDetail(); receiver.updateWaterLevel();
                             console.log('bentoniteSealingDepth Changed');
                             return true;
-                        // } else {
-                        //     document.querySelector(`div.fillingField input.${property}`).setAttribute('validation',"invalid")
-                        //     return false;
-                        // }
 
                     case 'screenIntervalFrom':
-                        // if (value <= parseFloat(receiver.screenIntervalTo) && value >= parseFloat(receiver.bentoniteSealingDepth) || 
-                        //     value <= parseFloat(receiver.screenIntervalTo) && receiver.bentoniteSealingDepth == '' || 
-                        //     receiver.screenIntervalTo == ''                && value >= parseFloat(receiver.bentoniteSealingDepth) || 
-                        //     receiver.screenIntervalTo == ''                && receiver.bentoniteSealingDepth == '' 
-                        //     ){
                             receiver[property] = value;
                             inputControler.updateAxis()
                             document.querySelector(`svg#${receiver.logId} .dataValue .${property}`).innerHTML = parseFloat(value).toFixed(1);
@@ -156,17 +138,8 @@ const report = {
                             receiver.updateWellDetail(); receiver.updateWaterLevel();
                             console.log('totalWellDepth Changed');
                             return true;
-                        // } else {
-                        //     document.querySelector(`div.fillingField input.${property}`).setAttribute('validation',"invalid")
-                        //     return false;
-                        // }
 
                     case 'screenIntervalTo':
-                        // if (value <= parseFloat(receiver.totalWellDepth) && value >= parseFloat(receiver.screenIntervalFrom) || 
-                        //     value <= parseFloat(receiver.totalWellDepth) && receiver.screenIntervalFrom == '' || 
-                        //     receiver.totalWellDepth == ''                && value >= parseFloat(receiver.screenIntervalFrom) || 
-                        //     receiver.totalWellDepth == ''                && receiver.screenIntervalFrom == '' 
-                        //     ){
                             receiver[property] = value;
                             inputControler.updateAxis()
                             document.querySelector(`svg#${receiver.logId} .dataValue .${property}`).innerHTML = parseFloat(value).toFixed(1);
@@ -174,14 +147,8 @@ const report = {
                             receiver.updateWellDetail(); receiver.updateWaterLevel();
                             console.log('totalWellDepth Changed');
                             return true;
-                        // } else {
-                        //     document.querySelector(`div.fillingField input.${property}`).setAttribute('validation',"invalid")
-                        //     return false;
-                        // }
 
                     case 'totalWellDepth':
-                        // if (value >= parseFloat(receiver.screenIntervalTo) || 
-                        //     receiver.screenIntervalTo == ''){
                             receiver[property] = value;
                             inputControler.updateAxis()
                             document.querySelector(`svg#${receiver.logId} .dataValue .${property}`).innerHTML = value;
@@ -189,11 +156,6 @@ const report = {
                             receiver.updateWellDetail(); receiver.updateWaterLevel();
                             console.log('totalWellDepth Changed');
                             return true;
-                        // } else {
-                        //     document.querySelector(`div.fillingField input.${property}`).setAttribute('validation',"invalid")
-                        //     console.log('budui')
-                        //     return false;
-                        // }
 
                     case 'staticWaterLevel': 
                         receiver[property] = value;
@@ -872,7 +834,7 @@ class Log {
             g_subsurfaceProfile.innerHTML =``;
 
         let patternDefs = document.createElementNS(svgNS,'defs');
-        svg_log.appendChild(patternDefs);
+        g_subsurfaceProfile.appendChild(patternDefs);
 
         let minDepth_y = GL.y3 + (GL.y4-GL.y3)*PS.headSpace;//7.5% height of description col will be blank 
         let usedSpace_y = -8;
@@ -883,6 +845,7 @@ class Log {
             let depthTo = parseFloat(record[1]);
             let materialType = record[2];
             let description = record[3];
+
             if(isNaN(depthFrom)||isNaN(depthTo)||depthFrom<0||depthTo<0){
                 return;
             }
@@ -894,17 +857,28 @@ class Log {
             let record_y = (GL.y4-GL.y3)*0.85 / this.maxTrickDepth * depthFrom;
             let record_y2 = (GL.y4-GL.y3)*0.85 / this.maxTrickDepth * depthTo;
             let adjusted_y = Math.max(record_y, usedSpace_y + PS.descriptionLineHeight/2);
-
-
-            let patternCode = record[2].replace(' ','').toLowerCase();
-            patternDefs.appendChild(pattern.get(patternCode));
+            
+            let patternId
+            if (record[4]){
+                let patternName = record[2].replace(' ','').toLowerCase();
+                if (record[4][0]) {patternName = record[4][0]}
+                let res = pattern.get(patternName,record[4][1]);
+                patternId = res.id;
+                patternDefs.appendChild(res.pattern);
+            }else {
+                let patternName = record[2].replace(' ','').toLowerCase();
+                let res = pattern.get(patternName);
+                patternId = res.id;
+                patternDefs.appendChild(res.pattern);
+            }    
+                
             let path_symbol = document.createElementNS(svgNS, 'path');
             g_record.appendChild(path_symbol);
             path_symbol.setAttribute('stroke', 'none');
-            path_symbol.setAttribute('fill', `url(#${patternCode})`);
+            path_symbol.setAttribute('fill', `url(#${patternId})`);
             path_symbol.setAttribute('opacity', '0.99');
             path_symbol.setAttribute('d', `M ${GL.x1+1} ${minDepth_y+record_y+1} L ${GL.x2-1} ${minDepth_y+record_y+1} L ${GL.x2-1} ${minDepth_y+record_y2-1} L ${GL.x1+1} ${minDepth_y+record_y2-1}`);
-
+            
             let path_leadingLine = document.createElementNS(svgNS, 'path');
             g_record.appendChild(path_leadingLine);
             path_leadingLine.setAttribute('class', 'descroptionLeadingLine');
@@ -1015,7 +989,11 @@ class Log {
             let pid = parseFloat(record[3]);
             let lab = record[4]?'√':'';
             
-            let record_y = config.convertMbgsToPxy (this.maxTrickDepth, (depthTo+depthFrom) * 0.5)
+            let depth = (depthTo+depthFrom) * 0.5
+            if (isNaN(depthFrom)){depth = depthTo}
+            if (isNaN(depthTo)){depth = depthFrom}
+
+            let record_y = config.convertMbgsToPxy (this.maxTrickDepth, depth)
             let sampleID_x = (GL.x5+GL.x4)*0.5;
             let pid_x = (GL.x6+GL.x5)*0.5;
             let lab_x = (GL.x7+GL.x6)*0.5;
@@ -1703,13 +1681,16 @@ const pattern = {
 
     get(name, color){
         let svgDef = document.createElementNS(svgNS,'def');
-        let patternStr
-        if (color){
-            patternStr = this[name].replace(`stroke="#000"`,`stroke="${color}"`);
-        } else {
-            patternStr = this[name]
+        let UUID = Math.random().toString(36).substring(2,6)
+        if (this[name]){
+            let patternStr = this[name]
+            patternStr = patternStr.replace(`id="${name}"`,`id="${name + UUID}"`)
+            if (color && color != 'undefined'){ patternStr = patternStr.replace(`stroke="#000"`,`stroke="${color}"`);}
+            svgDef.innerHTML = patternStr;
+            return {id: name + UUID, pattern: svgDef.children[0]}
+        }else{
+            svgDef.innerHTML = '<pattern></pattern>'
+            return {id: undefined, pattern: svgDef.children[0]}
         }
-        svgDef.innerHTML = patternStr;
-        return svgDef.children[0]
     }
 }
