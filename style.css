@@ -1,164 +1,433 @@
-:root[darkTheme='true']{
+:root[darkTheme="true"] {
     --body-bgc: rgb(0, 0, 0);
-    --navBar-bgcolor:rgb(37,37,37);
-    --navBar-txcolor:rgb(153, 153, 153);
-    --navBar-txcolor-highlight:rgb(255, 255, 255);
-    --controlPanel-bgcolor: rgb(51,51,51);
-    --controlPanel-txcolor:rgb(200, 200, 200);
+    --navBar-bgcolor: rgb(37, 37, 37);
+    --navBar-txcolor: rgba(255, 255, 255, 0.5);
+    --navBar-txcolor-highlight: rgb(255, 255, 255);
+    --controlPanel-bgcolor: rgb(51, 51, 51);
+    --controlPanel-txcolor: rgb(200, 200, 200);
     --searchPanel-bgcolor: rgba(66, 66, 66, 0.3);
     --searchBox--bgcolor: rgb(100, 100, 100);
-    --searchPanel--txcolor:rgb(210, 210, 210);
-    --previewPanel-bgcolor:rgb(30, 30, 30);
-    --statusBar-bgcolor:rgb(0, 108, 180);
+    --searchPanel--txcolor: rgb(210, 210, 210);
+    --previewPanel-bgcolor: rgb(30, 30, 30);
+    --statusBar-bgcolor: rgb(0, 108, 180);
     --statusBar-bgcolor-highlight: rgb(31, 138, 210);
-    --statusBar-bgcolor-highlight50: rgb(31, 138, 210,0.5);
-    --logo-color1:rgb(210, 210, 210);
-    --logo-color2:rgb(210, 210, 210);
-    --page-bgcolor:  rgb(37, 37, 37);
-    --page-txcolor:rgb(126, 126, 126);
+    --statusBar-bgcolor-highlight50: rgb(31, 138, 210, 0.5);
+    --logo-color1: rgb(210, 210, 210);
+    --logo-color2: rgb(210, 210, 210);
+    --page-bgcolor: rgb(37, 37, 37);
+    --page-txcolor: rgb(126, 126, 126);
     --page-shadow: rgba(44, 44, 44, 0);
 }
-:root{
-    --body-bgc: rgb(255,255,255);
-    --navBar-bgcolor:rgb(225, 225, 225);
-    --navBar-txcolor:rgb(70, 70, 70);
-    --navBar-txcolor-highlight:rgb(26, 26, 26);
+:root {
+    --body-bgc: rgb(255, 255, 255);
+    --navBar-bgcolor: rgb(225, 225, 225);
+    --navBar-txcolor: rgba(26, 26, 26, 0.5);
+    --navBar-txcolor-highlight: rgb(26, 26, 26);
     --controlPanel-bgcolor: rgb(248, 248, 248);
-    --controlPanel-txcolor:rgb(26, 26, 26);
-    --searchPanel-bgcolor: rgb(235, 235, 235,0.3);
+    --controlPanel-txcolor: rgb(26, 26, 26);
+    --searchPanel-bgcolor: rgb(235, 235, 235, 0.3);
     --searchBox--bgcolor: rgb(255, 255, 255);
-    --searchPanel--txcolor:rgb(19, 19, 19);
-    --previewPanel-bgcolor:rgb(240, 240, 240);
-    --statusBar-bgcolor:hsl(159, 50%, 40%);
-    --statusBar-bgcolor-highlight:hsl(160, 40%, 50%);
+    --searchPanel--txcolor: rgb(19, 19, 19);
+    --previewPanel-bgcolor: rgb(240, 240, 240);
+    --statusBar-bgcolor: hsl(159, 50%, 40%);
+    --statusBar-bgcolor-highlight: hsl(160, 40%, 50%);
     --statusBar-bgcolor-highlight50: hsla(160, 40%, 50%, 0.5);
-    --logo-color1:#636466;
-    --logo-color2:#008061;
-    --page-bgcolor:  rgb(255, 255, 255);
-    --page-txcolor:rgb(0, 0, 0);
-    --page-shadow: rgb(100,100,100);
+    --logo-color1: #636466;
+    --logo-color2: #008061;
+    --page-bgcolor: rgb(255, 255, 255);
+    --page-txcolor: rgb(0, 0, 0);
+    --page-shadow: rgb(100, 100, 100);
 }
 ::-webkit-slider-thumb {
     -webkit-appearance: none;
     cursor: pointer;
     box-sizing: border-box;
     transform: translateY(-5px);
-    height:11px; 
+    height: 11px;
     width: 4px;
     background: white;
     border: 1px solid var(--controlPanel-bgcolor);
 }
 ::-webkit-slider-runnable-track {
-    height:1px; 
+    height: 1px;
     background: white;
 }
-*[hidden=true]{display: none;}
+*[hidden="true"] {
+    display: none;
+}
 
-.hidden { display: none} 
+.hidden {
+    display: none;
+}
 #navBar svg,
 #statusBar svg,
-#controlPanel svg {pointer-events: none;}
-svg {pointer-events: none;}
+#controlPanel svg {
+    pointer-events: none;
+}
+svg {
+    pointer-events: none;
+}
 
 body {
     box-sizing: border-box;
-    margin: 0; padding: 0;
+    margin: 0;
+    padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 12px; 
+    font-size: 12px;
     background-color: var(--body-bgc);
-    user-select: none; 
+    user-select: none;
 }
 
-svg.icons {display: none;}
+svg.icons {
+    display: none;
+}
 /* navBar */
 #navBar {
     box-sizing: border-box;
-    position: fixed; left: 0px; top: 0px;
-    display: flex; flex-direction: column;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    display: flex;
+    flex-direction: column;
     padding: 2px;
-    height: calc( 100% - 22px);
+    height: calc(100% - 22px);
     background: var(--navBar-bgcolor);
-    color: var(--navBar-txcolor)
+    color: var(--navBar-txcolor);
 }
-#navBar ul{
-    list-style-type: none; padding: 0; margin: 0;
+#navBar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
-ul.ERM, ul.settings {flex:0;}
-ul.navLinks { flex:1; overflow: auto; }
+ul.ERM,
+ul.settings {
+    flex: 0;
+}
+ul.navLinks {
+    flex: 1;
+    overflow: auto;
+}
 #navBar li {
-    display: flex; 
-    justify-content: center; 
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
-ul.ERM li {height: 35px;width: 44px; }
-ul.navLinks li, ul.settings li{
-    height: 44px; width: 44px;
+ul.ERM li {
+    height: 35px;
+    width: 44px;
+}
+ul.navLinks li,
+ul.settings li {
+    height: 44px;
+    width: 44px;
     box-sizing: border-box;
     border: 3px solid rgba(255, 255, 255, 0);
     border-radius: 8px;
 }
 /* indicator when a button is hoverd or active  */
-ul.navLinks li.active {color: var(--navBar-txcolor-highlight);}
-#navBarMove{
-    height: 30px; width: 2px; 
-    border-radius: 1px; background: var(--navBar-txcolor);
-    position: absolute;
-    left:2px; top: 44px;
+ul.navLinks li.active {
+    color: var(--navBar-txcolor-highlight);
 }
-ul.navLinks li:hover, ul.settings li:hover {
+#navBarMove {
+    height: 30px;
+    width: 2px;
+    border-radius: 1px;
+    background: var(--navBar-txcolor);
+    position: absolute;
+    left: 2px;
+    top: 44px;
+}
+ul.navLinks li:hover,
+ul.settings li:hover {
     color: var(--navBar-txcolor-highlight);
     box-shadow: 0px 0px 15px var(--controlPanel-bgcolor) inset;
 }
 
 /* svg icon style of nav bar  */
-ul.navLinks svg, ul.settings svg {
-width:24px; height:24px;
-fill: none; stroke:currentColor;
-stroke-linecap: round; stroke-linejoin: round;
-stroke-width: 1.2;
+ul.navLinks svg,
+ul.settings svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.2;
 }
-/* ERM logo svg  */
-.st0{fill:none;stroke:var(--logo-color1);stroke-width:0.75;stroke-miterlimit:1;}
-.st1{fill:var(--logo-color1);}
-.st2{fill:var(--logo-color2);}
 
+div#dataTableContainer {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 999;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+div#dataTableView {
+    max-width: 1080px;
+    max-height: 680px;
+    min-width: 600px;
+    min-height: 500px;
+    width: 80%;
+    height: 80%;
+    color: var(--controlPanel-txcolor);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: var(--previewPanel-bgcolor);
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    padding: 20px;
+}
 
-div#settingMeun{
+div#dataTableView .dataTableControler {
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+div#dataTableView .dataTableControler.top {
+    padding: 0 0 10px 10px;
+}
+div#dataTableView .dataTableControler.bottom {
+    padding: 20px 0 0 0;
+}
+
+div#dataTableView .dataTableControler div.searchBox {
+    display: flex;
+    align-items: center;
+    background-color: var(--navBar-bgcolor);
+    padding: 2px;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid rgb(114, 114, 114, 0.5);
+}
+div#dataTableView .dataTableControler div.searchBox input {
+    height: 20px;
+    width: 200px;
+    margin: 2px 0;
+    padding: 0 5px;
+    font-size: 11px;
+    border: none;
+    color: inherit;
+    outline: none;
+    background: none;
+    border-right: 1px solid rgb(114, 114, 114, 0.1);
+}
+
+div#dataTableView .dataTableControler div.placeHolder {
+    flex: 1;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+div#dataTableView .dataTableControler span.bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: inherit;
+    width: 24px;
+    height: 24px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+div#dataTableView .dataTableControler > a:hover {
+    background-color: var(--navBar-bgcolor);
+}
+
+div#dataTableView .dataTableControler > span.filterGroup {
+    font-weight: bold;
+    font-size: 12px;
+    padding-top: 5px;
+    padding: 15px 15px 10px 15px;
+    position: relative;
+    cursor: pointer;
+    color: var(--navBar-txcolor);
+}
+div#dataTableView .dataTableControler > span.filterGroup:after {
+    content: "";
     display: block;
-    box-sizing: border-box; 
+    width: 0%;
+    border-radius: 12px;
+    height: 6px;
+    background-color: var(--statusBar-bgcolor);
+    margin-left: calc(-15px + 20%);
+    position: absolute;
+    bottom: -3px;
+    transition: width 0.2s ease-in-out;
+}
+div#dataTableView .dataTableControler > span.filterGroup.selected {
+    color: var(--navBar-txcolor-highlight);
+}
+div#dataTableView .dataTableControler > span.filterGroup.selected:after {
+    width: 60%;
+}
+div#dataTableView .dataTableControler > div.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    border-radius: 4px;
+    height: 30px;
+    width: 100px;
+    border: 1px solid rgb(114, 114, 114);
+    cursor: pointer;
+    font-weight: bold;
+    /* box-shadow: 2px 2px 6px 0 rgb(114, 114, 114); */
+}
+div#dataTableView .dataTableControler > div.save {
+    width: 150px;
+    /* border: 1px solid rgb(114, 114, 114);
+    background-color: rgb(114, 114, 114);
+    color: white; */
+}
+
+div#dataTableView .tableDisplay {
+    flex: 1;
+    width: 100%;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    position: relative;
+    border: 1px solid rgb(114, 114, 114, 0.2);
+    border-radius: 5px;
+}
+
+div#dataTableView .tableDisplay::-webkit-scrollbar,
+div#dataTableView .tableDisplay::-webkit-scrollbar-corner {
+    width: 4px;
+    height: 4px;
+    background-color: transparent;
+}
+div#dataTableView .tableDisplay::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    border: 1px solid rgb(114, 114, 114);
+    background-color: var(--controlPanel-bgcolor);
+}
+
+table#logSummary {
+    font-size: 10px;
+    text-align: center;
+    border-spacing: 0;
+}
+
+table#logSummary thead {
+    position: sticky;
+    top: 0;
+    white-space: nowrap;
+    padding: 0px 10px;
+    z-index: 3;
+}
+table#logSummary th {
+    text-transform: uppercase;
+    height: 10px;
+    vertical-align: top;
+    padding: 6px;
+    border-color: var(--previewPanel-bgcolor);
+    border-bottom: 1px dashed var(--navBar-bgcolor);
+    border-left: 1px solid var(--controlPanel-bgcolor);
+    border-right: 1px solid var(--controlPanel-bgcolor);
+    background-color: var(--previewPanel-bgcolor);
+}
+table#logSummary th unit {
+    font-size: smaller;
+    font-weight: lighter;
+    text-transform: none;
+}
+
+table#logSummary td {
+    white-space: nowrap;
+    min-width: 90px;
+    font-size: 11px;
+    height: 30px;
+    padding: 0 10px;
+    vertical-align: center;
+    position: relative;
+    background-color: var(--controlPanel-bgcolor);
+    border: 1px solid var(--previewPanel-bgcolor);
+}
+table#logSummary td > input {
+    border: none;
+    font-size: 11px;
+    background: none;
+    outline: none;
+    text-align: center;
+    position: absolute;
+    left: 0px;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background-color: #008061;
+}
+
+table#logSummary td:first-child,
+table#logSummary th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    border-right: 1px dashed var(--navBar-bgcolor);
+}
+
+table#logSummary th:first-child {
+    z-index: 1;
+    background-color: var(--previewPanel-bgcolor);
+}
+
+table#logSummary td:hover {
+    border: 1px solid var(--statusBar-bgcolor);
+}
+
+div#settingMeun {
+    display: block;
+    box-sizing: border-box;
     width: 150px;
     outline: none;
     position: fixed;
-    bottom: 24px; left: 50px;
+    bottom: 24px;
+    left: 50px;
     background-color: var(--previewPanel-bgcolor);
     border: 1px solid var(--searchPanel-bgcolor);
 }
-div#settingMeun[hidden]{display: none}
-div#settingMeun::after  {
+div#settingMeun[hidden] {
+    display: none;
+}
+div#settingMeun::after {
     content: "";
-    height: 8px; width: 8px;
-    position: fixed; bottom: 41px; left:46px;
-    transform:rotate(45deg);
+    height: 8px;
+    width: 8px;
+    position: fixed;
+    bottom: 41px;
+    left: 46px;
+    transform: rotate(45deg);
     border-left: 1px solid var(--searchPanel-bgcolor);
     border-bottom: 1px solid var(--searchPanel-bgcolor);
     background-color: var(--previewPanel-bgcolor);
     z-index: -19;
 }
 
-/* span.point {position:absolute; right:10px;} */
-div#settingMeun li{
+div#settingMeun li {
     margin: 4px 0px;
-    padding:4px 0px;
+    padding: 4px 0px;
     width: 100%;
-    border: none;    
+    border: none;
     color: var(--controlPanel-txcolor);
-    height:auto;
+    height: auto;
     justify-content: start;
     text-indent: 10px;
 }
 div#settingMeun li:hover {
-    border-radius: 0px; box-shadow: none; 
-    color: white; background-color: var(--statusBar-bgcolor);
+    border-radius: 0px;
+    box-shadow: none;
+    color: white;
+    background-color: var(--statusBar-bgcolor);
     z-index: 100;
 }
 
@@ -166,11 +435,11 @@ div#settingMeun li:hover {
 #mainContent {
     box-sizing: border-box;
     display: flex;
-    position: fixed; 
+    position: fixed;
     left: 48px;
     top: 0px;
-    height: calc( 100% - 22px);
-    width: calc( 100% - 48px);
+    height: calc(100% - 22px);
+    width: calc(100% - 48px);
     z-index: -1;
     vertical-align: top;
     font-size: 0;
@@ -185,25 +454,36 @@ div#settingMeun li:hover {
     height: 100%;
     width: 490px;
     min-width: 490px;
+    max-width: 1050px;
+    width: 490px;
     /* overflow-x: hidden; */
     font-size: 12px;
     flex-shrink: 0;
     overflow: hidden;
 }
 
-#controlPanel>div{display: none;}
-#controlPanel>div.active{
+#controlPanel > div {
+    display: none;
+}
+#controlPanel > div.active {
     display: block;
     animation: moveup 0.2s ease-in-out;
 }
 @keyframes moveup {
-    from{transform: translateY(5px); opacity: 0;}
-    to{transform: translateY(0px);opacity: 1;}
+    from {
+        transform: translateY(5px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
 }
 
 #resizeBar {
     vertical-align: top;
-    height: 100%; width: 5px;
+    height: 100%;
+    width: 5px;
     box-sizing: border-box;
     display: inline-block;
     cursor: w-resize;
@@ -215,7 +495,7 @@ div#settingMeun li:hover {
     background-color: var(--statusBar-bgcolor-highlight);
     opacity: 0.8;
 }
-#previewPanel {  
+#previewPanel {
     vertical-align: top;
     position: relative;
     min-width: 600px;
@@ -228,62 +508,99 @@ div#settingMeun li:hover {
     scroll-behavior: smooth;
 }
 
-#download{
-    position:fixed;
-    bottom :30px; right:8px;
-    width: 44px;height: 44px;border-radius: 50px;
+#download {
+    position: fixed;
+    bottom: 30px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
 }
-#download::before{
-    content: ''; display: block;
-    position:fixed;
-    bottom:30px; right:8px;
-    width: 44px;height: 44px;border-radius: 50px;
+#download::before {
+    content: "";
+    display: block;
+    position: fixed;
+    bottom: 30px;
+    right: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50px;
     box-shadow: 0px 0px 4px rgb(114, 114, 114);
     backdrop-filter: blur(2px);
     transition: all 0.2s ease-in-out;
 }
 
-#download > div.icon{
+#download > div.icon {
     box-sizing: border-box;
-    position:fixed;
-    bottom :32px; right:10px;
-    width: 40px;height: 40px; border-radius: 50px;
-    display: flex; justify-content: center; align-items: center;
+    position: fixed;
+    bottom: 32px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
     background-color: var(--statusBar-bgcolor);
 }
 #download > div.txt,
 #download > div.html,
-#download > div.pdf{
+#download > div.pdf {
     color: var(--navBar-txcolor);
     cursor: pointer;
     box-sizing: border-box;
-    display: flex; justify-content: center; align-items: center;
-    position:fixed;
-    bottom :34px; right:12px;
-    width: 36px; height: 36px; border-radius: 50px;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 34px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50px;
 }
 
 #download:hover,
-#download:hover::before{width: 160px;}
-#download:hover > div.html{right:52px;transition: all 0.2s ease-in-out 0.3s;}
-#download:hover > div.pdf {right:90px;transition: all 0.2s ease-in-out 0.2s;}
-#download:hover > div.txt {right:128px;transition: all 0.2s ease-in-out 0.1s;}
-#download:hover > div.html:hover{border: 1px solid #0D6EFD}
-#download:hover > div.pdf:hover {border: 1px solid #DC3545}
-#download:hover > div.txt:hover {border: 1px solid #198754}
+#download:hover::before {
+    width: 160px;
+}
+#download:hover > div.html {
+    right: 52px;
+    transition: all 0.2s ease-in-out 0.3s;
+}
+#download:hover > div.pdf {
+    right: 90px;
+    transition: all 0.2s ease-in-out 0.2s;
+}
+#download:hover > div.txt {
+    right: 128px;
+    transition: all 0.2s ease-in-out 0.1s;
+}
+#download:hover > div.html:hover {
+    border: 1px solid #0d6efd;
+}
+#download:hover > div.pdf:hover {
+    border: 1px solid #dc3545;
+}
+#download:hover > div.txt:hover {
+    border: 1px solid #198754;
+}
 
 /* #pageSelecter  */
-#tempHolder{
+#tempHolder {
     position: absolute;
-    word-wrap:break-word;
-    top:0; left:0;
+    word-wrap: break-word;
+    top: 0;
+    left: 0;
     width: 200mm;
 }
-#pageSelecter{
-    position:fixed; top: 5px; right: 5px;
-    font-size: 10px; color: var(--controlPanel-txcolor);
+#pageSelecter {
+    position: fixed;
+    top: 5px;
+    right: 5px;
+    font-size: 10px;
+    color: var(--controlPanel-txcolor);
     z-index: 999;
     box-sizing: border-box;
     border-left: 2px solid rgb(114, 114, 114);
@@ -291,22 +608,25 @@ div#settingMeun li:hover {
     text-overflow: ellipsis;
     width: 80px;
 }
-#pageSelecter:hover{opacity: 1;}
+#pageSelecter:hover {
+    opacity: 1;
+}
 #viewLocation {
     position: absolute;
     box-sizing: border-box;
     z-index: -1;
-    top:0;
+    top: 0;
     left: -2px;
     height: 0;
     width: 100%;
-    background-color: rgb(144,144,144,0.2);
+    background-color: rgb(144, 144, 144, 0.2);
     border-left: 3px solid var(--statusBar-bgcolor-highlight);
     transition: height 0.2s ease-in-out;
 }
 /* a tag for page links */
-#pageSelecter a{
-    display: block; height: 20px;
+#pageSelecter a {
+    display: block;
+    height: 20px;
     line-height: 20px;
     text-indent: 5px;
     text-decoration: none;
@@ -314,27 +634,31 @@ div#settingMeun li:hover {
 }
 
 #scaleHolder {
-    width: 100%; 
+    width: 100%;
     height: 100%;
     /* transform: scale(1); */
     transform-origin: top;
     transition: 0.5s;
     user-select: text;
 }
-::-webkit-scrollbar, ::-webkit-scrollbar-corner{
-    width:5px;
-    height:5px;
+::-webkit-scrollbar,
+::-webkit-scrollbar-corner {
+    width: 5px;
+    height: 5px;
 }
 ::-webkit-scrollbar-thumb {
-    border-radius:5px;
+    border-radius: 5px;
     border: 1.5px solid var(--previewPanel-bgcolor);
-    background-color:var(--navBar-txcolor);
+    background-color: var(--navBar-txcolor);
 }
 
-#filePanle,
-#eidtPanle,
+#filePanel,
+#pageSettingPanel,
 #codePanle,
-#visualPanle{height: 100%;}
+#visualPanle {
+    height: 100%;
+    display: flex;
+}
 
 #controlPanel div.titleBar {
     box-sizing: border-box;
@@ -356,15 +680,17 @@ div#settingMeun li:hover {
     vertical-align: top;
     margin-right: 10px;
 }
-#controlPanel div.titleBar  div#logList {
+#controlPanel div.titleBar div#logList {
     position: absolute;
     box-sizing: border-box;
-    top: 32px; left: 134px; right: 35px;
+    top: 32px;
+    left: 134px;
+    right: 35px;
     background-color: var(--controlPanel-bgcolor);
     border: 1px solid var(--previewPanel-bgcolor);
     box-shadow: 0 0 10px var(--navBar-bgcolor);
     z-index: 999;
-    padding: 5px 0 5px 5px ;
+    padding: 5px 0 5px 5px;
     outline: none;
     border-radius: 5px;
     max-height: 300px;
@@ -372,50 +698,68 @@ div#settingMeun li:hover {
     animation: dropDown 0.1s ease-in-out;
 }
 
-#controlPanel div.titleBar div#logList > div{
+#controlPanel div.titleBar div#logList > div {
     display: flex;
     box-sizing: border-box;
     padding: 5px;
     width: 100%;
     height: 30px;
     /* margin: 0 5; */
-    font: inherit;    color: inherit;
+    font: inherit;
+    color: inherit;
     line-height: 30px;
     text-indent: 2px;
     border-radius: 5px;
     cursor: pointer;
 }
-#controlPanel div.titleBar  div#logList > div > span.locationId {
-    flex: 1; 
+#controlPanel div.titleBar div#logList > div > span.locationId {
+    flex: 1;
     line-height: 20px;
 }
-#controlPanel div.titleBar  div#logList > div > span.delete {
-    height: 18px; width: 24px;
+#controlPanel div.titleBar div#logList > div > span.delete {
+    height: 18px;
+    width: 24px;
     margin: 1px 0;
     color: inherit;
     /* vertical-align: middle; */
     display: none;
 }
-#controlPanel div.titleBar div#logList > div:hover{background-color: var(--previewPanel-bgcolor);}
-#controlPanel div.titleBar div#logList > div:hover > span.delete{display: inline-block;}
-#controlPanel div.titleBar div#logList > div:hover > span.delete:hover{color: rgb(180, 0, 0);}
-#controlPanel div.titleBar div#logList > div:hover > span.delete:hover > svg{fill: rgba(255, 0, 0, 0.2);}
+#controlPanel div.titleBar div#logList > div:hover {
+    background-color: var(--previewPanel-bgcolor);
+}
+#controlPanel div.titleBar div#logList > div:hover > span.delete {
+    display: inline-block;
+}
+#controlPanel div.titleBar div#logList > div:hover > span.delete:hover {
+    color: rgb(180, 0, 0);
+}
+#controlPanel div.titleBar div#logList > div:hover > span.delete:hover > svg {
+    fill: rgba(255, 0, 0, 0.2);
+}
 
-#controlPanel div.titleBar > div#currentLogClickCapture {flex: 1;}
-#controlPanel div.titleBar input {    
-    display: inline-block; box-sizing: border-box;
-    width: 100%; height: 20px;
+#controlPanel div.titleBar > div#currentLogClickCapture {
+    flex: 1;
+}
+#controlPanel div.titleBar input {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 20px;
     margin: 3.5px 0;
-    font: inherit; color: inherit;
-    line-height: 20px; text-indent: 2px;
-    vertical-align: middle;/* to avoid chinese chr change line height */
+    font: inherit;
+    color: inherit;
+    line-height: 20px;
+    text-indent: 2px;
+    vertical-align: middle; /* to avoid chinese chr change line height */
     background: var(--previewPanel-bgcolor);
-    border: none; outline: none;/* to hide the border when selected */
+    border: none;
+    outline: none; /* to hide the border when selected */
     border-bottom: 1px solid rgb(114, 114, 114);
 }
 #controlPanel div.titleBar input[type="text"]:disabled {
     color: var(--controlPanel-txcolor);
-    border: none; background: transparent;
+    border: none;
+    background: transparent;
     border-bottom: 1px solid rgb(114, 114, 114, 0);
 }
 
@@ -429,177 +773,238 @@ div#settingMeun li:hover {
     border-radius: 5px;
     padding: 4.5px;
 }
-#controlPanel div.titleBar > a:hover{
+#controlPanel div.titleBar > a:hover {
     box-shadow: 0 0 10px var(--navBar-bgcolor);
 }
 
 #controlPanel div.titleBar svg {
-    width:18px; 
-    height:18px;
-    fill: none; 
-    stroke:currentColor;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
 }
-#controlPanel div.titleBar path{
+#controlPanel div.titleBar path {
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: 1.5
+    stroke-width: 1.5;
 }
 
-
-#controlPanel div.inputArea {
+/* #pageSettingPanel div.inputArea,
+#controlPanel  */
+div.inputArea {
     width: 100%;
-    height: calc( 100% - 37px);
+    height: calc(100% - 37px);
     padding: 10px 5px 5px 10px;
     overflow-y: scroll;
     overflow-x: hidden;
+
+    /* flex:1; */
+    /* height: 0; */
     color: var(--controlPanel-txcolor);
     box-sizing: border-box;
 }
+/* #filePanel div.inputArea {
+    height: calc( 100% - 37px);
+}
+#pageSettingPanel div.inputArea {
+    height: calc( 100% - 437px);
+}
+#controlPanel div.previewArea {
+   /* background-color: #000; */
+/* height: 400px;
+   display: flex;
+   justify-items: center;
+   align-items: center;
+   bottom: 0;
+}
+#controlPanel div.previewArea svg{
+    flex: 1;
+}  */
+
 /* div.inputArea span {display: inline-block; width:50%; height: 30px; line-height: 30px;} */
-div.inputArea input{
+div.inputArea input {
     display: inline-block;
-    width:45%;
+    width: 45%;
     align-self: right;
-} 
+}
 
 /* details elemnt that can be folded  */
-div.inputArea details { 
+div.inputArea details {
     padding: 0 0 0 0px;
     margin-bottom: 5px;
     font-size: 0;
     position: relative;
 }
 details::before {
-    content: '';
+    content: "";
     position: absolute;
     display: inline-block;
     vertical-align: top;
-    top:16px; right:12px;
+    top: 16px;
+    right: 12px;
     transform: rotate(45deg);
-    width: 6px; height: 6px;
+    width: 6px;
+    height: 6px;
     border-right: 1px solid var(--controlPanel-txcolor);
     border-top: 1px solid var(--controlPanel-txcolor);
-    transition: transform .2s, top .2s;
+    transition: transform 0.2s, top 0.2s;
 }
 /*  → became ↓ when summary expanded */
 details[open]::before {
-    top:15px;
+    top: 15px;
     transform: rotate(135deg);
 }
-
 
 /* summary pointer ↓ → */
 div.inputArea summary {
     box-sizing: border-box;
-    font-size: 11px; position: relative;
+    font-size: 11px;
+    position: relative;
     font-weight: bold;
     margin-bottom: 5px;
-    height: 40px; line-height: 26px;
+    height: 40px;
+    line-height: 26px;
     border: 1px solid rgb(114, 114, 114, 0.2);
     padding: 6px;
     border-radius: 4px;
     list-style: none;
     display: flex;
     outline: none;
+    align-items: center;
+}
+div.inputArea summary > svg {
+    display: inline-block;
+    margin-right: 10px;
+}
+div.inputArea summary > span {
+    display: inline-block;
+    margin-right: 20px;
 }
 
 details[open] summary {
     border: 1px solid rgb(114, 114, 114, 0);
 }
 /* delete default style of summary, to replace a dinamic →  */
-div.inputArea summary::-webkit-details-marker { display: none }
+div.inputArea summary::-webkit-details-marker {
+    display: none;
+}
 
 div.inputArea summary > div {
     display: inline-block;
-    flex: 1; display: flex;
-    justify-content: end; align-items: center;
-    font-size: smaller; font-weight: lighter;
+    flex: 1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    font-size: smaller;
+    font-weight: lighter;
 }
 
 div.inputControl {
     box-sizing: border-box;
-    border: 1px solid rgb(114, 114, 114,0.2);    border-radius: 4px;
-    width: 100%; height: 40px;
+    border: 1px solid rgb(114, 114, 114, 0.2);
+    border-radius: 4px;
+    width: 100%;
+    height: 40px;
     margin: 0 0 10px 0;
     padding: 5px;
-    display: flex; 
+    display: flex;
     flex-direction: row;
 }
 
-div.inputControl > div.infoTemp{
-    height: 100%; 
+div.inputControl > div.infoTemp {
+    height: 100%;
     flex: 1;
     margin-right: 10px;
 }
 
-div.inputControl > div.infoTemp>span{
+div.inputControl > div.infoTemp > span {
     display: inline-block;
     box-sizing: border-box;
     /* border: 1px dashed rgb(114, 114, 114, 0.2); */
     border-radius: 4px;
     font-size: 8px;
-    padding: 4px; margin-right: 4px;
-    height: 100%; line-height: 10px;
-    vertical-align: middle; 
+    padding: 4px;
+    margin-right: 4px;
+    height: 100%;
+    line-height: 10px;
+    vertical-align: middle;
     cursor: pointer;
 }
 
-div.inputControl > div.infoTemp>span:hover{
+div.inputControl > div.infoTemp > span:hover {
     color: var(--statusBar-bgcolor-highlight);
     box-shadow: 0 0 8px var(--navBar-bgcolor);
 }
 
-div.inputControl > div.spliter{
-    height: 100%; width: 1px;
-    background-color: rgb(114, 114, 114,0.2);
-    margin:0 15px 0 5px;
+div.inputControl > div.spliter {
+    height: 100%;
+    width: 1px;
+    background-color: rgb(114, 114, 114, 0.2);
+    margin: 0 15px 0 5px;
 }
 
 div.inputControl > div.wellInstalled,
 div.inputControl > div.autoAxis,
 div.inputControl > div.maxTrickDepth,
-div.inputControl > div.majorTrick{
+div.inputControl > div.majorTrick {
     box-sizing: border-box;
     display: inline-block;
     position: relative;
     padding: 0 5px 0 0;
-    height: 100%; width: 50px;
+    height: 100%;
+    width: 50px;
 }
-div.inputControl input{
+div.inputControl input {
     box-sizing: border-box;
-    font-size: 11px; color: inherit;
-    border:none; outline: none; background: none;
-    vertical-align:middle;
-    border-bottom: 1px solid rgb(114, 114, 114,0.6);
-    padding: 12px 2px 2px 2px ;
-    width: 100%; height: 100%;
+    font-size: 11px;
+    color: inherit;
+    border: none;
+    outline: none;
+    background: none;
+    vertical-align: middle;
+    border-bottom: 1px solid rgb(114, 114, 114, 0.6);
+    padding: 12px 2px 2px 2px;
+    width: 100%;
+    height: 100%;
     text-align: center;
     /* margin-bottom:2px; */
 }
 
-div.inputControl label{
-    position: absolute; top: 1px; left: 2px;
+div.inputControl label {
+    position: absolute;
+    top: 1px;
+    left: 2px;
     font-size: 7px;
-    color: var(--controlPanel-txcolor)
+    color: var(--controlPanel-txcolor);
 }
 
 div.inputControl div.wellInstalled > input[type="checkbox"],
-div.inputControl div.autoAxis > input[type="checkbox"]{
-    position: absolute; top: -50px; left: 0px;
+div.inputControl div.autoAxis > input[type="checkbox"] {
+    position: absolute;
+    top: -50px;
+    left: 0px;
 }
 
 div.inputControl div.wellInstalled > label.toggle,
-div.inputControl div.autoAxis > label.toggle{
-    display: block; height: 100%; width: 50px;
+div.inputControl div.autoAxis > label.toggle {
+    display: block;
+    height: 100%;
+    width: 50px;
 }
 
 div.inputControl div.wellInstalled > label.toggle::before,
 div.inputControl div.autoAxis > label.toggle::before {
     color: var(--navBar-txcolor);
-    content: 'NO'; 
-    display: block; font-size: 7px;
-    position: absolute; left: 0px; bottom: 2px;
-    height: 12px; width: 34px; line-height: 12px; text-indent:18px;
+    content: "NO";
+    display: block;
+    font-size: 7px;
+    position: absolute;
+    left: 0px;
+    bottom: 2px;
+    height: 12px;
+    width: 34px;
+    line-height: 12px;
+    text-indent: 18px;
     border: 0.5px solid rgb(114, 114, 114, 0.8);
     background-color: rgb(114, 114, 114, 0.2);
     border-radius: 60px;
@@ -608,29 +1013,46 @@ div.inputControl div.autoAxis > label.toggle::before {
 
 div.inputControl div.wellInstalled > label.toggle::after,
 div.inputControl div.autoAxis > label.toggle::after {
-    content: '';
+    content: "";
     display: block;
-    position: absolute; left: 0px; bottom: 2px;
-    height: 12px; width: 12px;border-radius: 60px;
+    position: absolute;
+    left: 0px;
+    bottom: 2px;
+    height: 12px;
+    width: 12px;
+    border-radius: 60px;
     background-color: var(--navBar-bgcolor);
     border: 0.5px solid var(--controlPanel-txcolor);
     box-shadow: 0 0 0 1px rgb(114, 114, 114, 0.7);
     transition: background-color 0.2s, left 0.2s;
 }
 
-div.inputControl div.wellInstalled > input[type="checkbox"]:checked~label.toggle::before,
-div.inputControl div.autoAxis > input[type="checkbox"]:checked~label.toggle::before{
+div.inputControl
+    div.wellInstalled
+    > input[type="checkbox"]:checked
+    ~ label.toggle::before,
+div.inputControl
+    div.autoAxis
+    > input[type="checkbox"]:checked
+    ~ label.toggle::before {
     background-color: var(--controlPanel-bgcolor);
-    content: 'YES'; color: var(--navBar-txcolor-highlight);
-    text-indent:4px;
+    content: "YES";
+    color: var(--navBar-txcolor-highlight);
+    text-indent: 4px;
 }
 
-div.inputControl div.wellInstalled > input[type="checkbox"]:checked~label.toggle::after,
-div.inputControl div.autoAxis > input[type="checkbox"]:checked~label.toggle::after{
+div.inputControl
+    div.wellInstalled
+    > input[type="checkbox"]:checked
+    ~ label.toggle::after,
+div.inputControl
+    div.autoAxis
+    > input[type="checkbox"]:checked
+    ~ label.toggle::after {
     background-color: var(--statusBar-bgcolor-highlight);
     border: 0.5px solid var(--statusBar-bgcolor-highlight);
     box-shadow: 0 0 0 1px var(--statusBar-bgcolor);
-    left: 22px
+    left: 22px;
 }
 
 div.fillingField {
@@ -642,65 +1064,75 @@ div.fillingField {
 }
 
 div.fillingField > input {
-    width: 92%; height: 14px;
+    width: 92%;
+    height: 14px;
     padding: 15px 0 4px 0;
     font-size: 11px;
-    vertical-align: middle; 
+    vertical-align: middle;
     position: relative;
     color: var(--controlPanel-txcolor);
-    margin: 0  0 18px 5px;
+    margin: 0 0 18px 5px;
     border: none;
     border-bottom: 1px solid rgb(114, 114, 114);
-    outline: none; 
+    outline: none;
     background: transparent;
     text-indent: 2px;
 }
 
-
-div.fillingField > input:hover{
+div.fillingField > input:hover {
     border-bottom: 1px solid var(--statusBar-bgcolor-highlight);
 }
 
-div.fillingField > input:focus{
+div.fillingField > input:focus {
     border-bottom: 2px solid var(--statusBar-bgcolor-highlight);
-    margin-bottom: 17px; 
+    margin-bottom: 17px;
 }
 
-div.fillingField > input[validation="invalid"]{
+div.fillingField > input[validation="invalid"] {
     border-bottom: 2px solid rgb(255, 120, 1);
     margin-bottom: 17px;
 }
 
 div.fillingField > label {
     position: absolute;
-    top: 17px; left: 7px;
-    padding:0;
-    font-size: 9px; color: var(--controlPanel-txcolor);
+    top: 17px;
+    left: 7px;
+    padding: 0;
+    font-size: 9px;
+    color: var(--controlPanel-txcolor);
     pointer-events: none;
-    transition: .2s;
+    transition: 0.2s;
 }
 
 div.fillingField > span.emptyInput {
-    position: absolute; top: 16px; right: 5px;
-    height: 13px; width: 13px;
+    position: absolute;
+    top: 16px;
+    right: 5px;
+    height: 13px;
+    width: 13px;
     opacity: 0;
     transition: all 0.2s ease-in-out;
 }
 
 div.fillingField > span.emptyInput > svg {
-    fill: none; stroke:rgb(114, 114, 114);
-    stroke-linecap: round; stroke-linejoin: round;
+    fill: none;
+    stroke: rgb(114, 114, 114);
+    stroke-linecap: round;
+    stroke-linejoin: round;
     stroke-width: 1.2;
 }
 
 div.fillingField > input:focus ~ span.emptyInput {
-    opacity: 0.8;  right: 8px;
+    opacity: 0.8;
+    right: 8px;
 }
 
 div.fillingField > div.dropDownList {
-    width: 92%; 
+    width: 92%;
     box-sizing: border-box;
-    position: absolute; top: 35px; left: 5px;
+    position: absolute;
+    top: 35px;
+    left: 5px;
     font-size: 9px;
     background-color: var(--controlPanel-bgcolor);
     border-radius: 2px;
@@ -711,12 +1143,20 @@ div.fillingField > div.dropDownList {
     display: none;
     animation: dropDown 0.2s ease-in-out;
 }
-div.fillingField > input:focus ~ div.dropDownList { display: block;}
-@keyframes dropDown {
-    from{transform: translateY(-5px); opacity: 0;}
-    to{transform: translateY(0px);opacity: 1;}
+div.fillingField > input:focus ~ div.dropDownList {
+    display: block;
 }
-div.fillingField > div.dropDownList >span {
+@keyframes dropDown {
+    from {
+        transform: translateY(-5px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0px);
+        opacity: 1;
+    }
+}
+div.fillingField > div.dropDownList > span {
     display: block;
     box-sizing: border-box;
     margin: 1px 0;
@@ -727,543 +1167,932 @@ div.fillingField > div.dropDownList >span {
     border-radius: 2px;
     cursor: pointer;
 }
-div.fillingField > div.dropDownList >span:hover {
+div.fillingField > div.dropDownList > span:hover {
     background-color: var(--previewPanel-bgcolor);
 }
 
-div.fillingField > div.dropDownList >div.datePicker table{
+div.fillingField > div.dropDownList > div.datePicker table {
     table-layout: fixed;
-    border: none; border-spacing: 0px;
-    margin: 0 auto; padding: 0;
+    border: none;
+    border-spacing: 0px;
+    margin: 0 auto;
+    padding: 0;
 }
-div.fillingField > div.dropDownList >div.datePicker svg{
-    width: 60%; height: 60%;
-    fill: none; stroke-width: 2; stroke:currentColor;
-    stroke-linecap: round;stroke-linejoin: round; 
-} 
-div.fillingField > div.dropDownList >div.datePicker td.yearMonth{
-    text-align: left; height: 20px;
+div.fillingField > div.dropDownList > div.datePicker svg {
+    width: 60%;
+    height: 60%;
+    fill: none;
+    stroke-width: 2;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
-div.fillingField > div.dropDownList >div.datePicker td.yearMonth > input{
-    font-size: 10px; color: inherit;
-    padding: 0; margin: 0; outline: none;
-    border:none; border-bottom: 1px solid rgb(114, 114, 114, 0.2);
-    text-align: center; font-weight: bold;
-    background-color: rgb(0, 0, 0,0);
+div.fillingField > div.dropDownList > div.datePicker td.yearMonth {
+    text-align: left;
+    height: 20px;
 }
-div.fillingField > div.dropDownList >div.datePicker td.yearMonth > input.selectedYear{width: 30px;}
-div.fillingField > div.dropDownList >div.datePicker td.yearMonth > input.selectedMonth{width: 20px;}
+div.fillingField > div.dropDownList > div.datePicker td.yearMonth > input {
+    font-size: 10px;
+    color: inherit;
+    padding: 0;
+    margin: 0;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgb(114, 114, 114, 0.2);
+    text-align: center;
+    font-weight: bold;
+    background-color: rgb(0, 0, 0, 0);
+}
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    td.yearMonth
+    > input.selectedYear {
+    width: 30px;
+}
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    td.yearMonth
+    > input.selectedMonth {
+    width: 20px;
+}
 
 input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button { 
-    -webkit-appearance: none; 
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
 }
-div.fillingField > div.dropDownList >div.datePicker tr.weekNo{
+div.fillingField > div.dropDownList > div.datePicker tr.weekNo {
     color: rgb(144, 144, 144);
-    font-size: smaller; height: 10px;
+    font-size: smaller;
+    height: 10px;
 }
-div.fillingField > div.dropDownList >div.datePicker td{
-    border:1px solid rgba(0, 0, 0, 0); border-radius: 0px;
-    width: 17px; height: 17px;
-    text-align: center; padding: 0;
+div.fillingField > div.dropDownList > div.datePicker td {
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 0px;
+    width: 17px;
+    height: 17px;
+    text-align: center;
+    padding: 0;
 }
-div.fillingField > div.dropDownList >div.datePicker > div.dateScroller td.otherMonth{
-    color: rgb(114, 114, 114,0.8);
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    > div.dateScroller
+    td.otherMonth {
+    color: rgb(114, 114, 114, 0.8);
 }
-div.fillingField > div.dropDownList >div.datePicker > div.dateScroller td:hover{
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    > div.dateScroller
+    td:hover {
     background-color: rgb(114, 114, 114, 0.2);
 }
-div.fillingField > div.dropDownList >div.datePicker > div.dateScroller td.start{
-    border:1px solid var(--statusBar-bgcolor);
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    > div.dateScroller
+    td.start {
+    border: 1px solid var(--statusBar-bgcolor);
     color: inherit;
     font-weight: bold;
     background-color: rgb(114, 114, 114, 0.2);
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
 }
-div.fillingField > div.dropDownList >div.datePicker > div.dateScroller td.duration{
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    > div.dateScroller
+    td.duration {
     background-color: rgb(114, 114, 114, 0.1);
     font-weight: bold;
 }
-div.fillingField > div.dropDownList >div.datePicker > div.dateScroller td.end{
+div.fillingField > div.dropDownList > div.datePicker > div.dateScroller td.end {
     background-color: var(--statusBar-bgcolor);
-    border:1px solid var(--statusBar-bgcolor);
+    border: 1px solid var(--statusBar-bgcolor);
     color: var(--page-bgcolor);
     font-weight: bold;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
 }
-div.fillingField > div.dropDownList >div.datePicker > div.dateControler td.clear,
-div.fillingField > div.dropDownList >div.datePicker > div.dateControler td.today{
-    height: 20px;cursor: pointer;
-    border:none; color: var(--statusBar-bgcolor);
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    > div.dateControler
+    td.clear,
+div.fillingField
+    > div.dropDownList
+    > div.datePicker
+    > div.dateControler
+    td.today {
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    color: var(--statusBar-bgcolor);
 }
-
 
 div.fillingField > input:focus ~ label,
-div.fillingField > input:not(:placeholder-shown)  ~ label {
-    top: 2px; 
-    font-size: 7px;    
+div.fillingField > input:not(:placeholder-shown) ~ label {
+    top: 2px;
+    font-size: 7px;
 }
 
-div.titleBar>div.placeHolder{flex: 1;}
-div#codePanle>div.inputArea>textarea#jsonDisplay{
+div.titleBar > div.placeHolder {
+    flex: 1;
+}
+div#codePanle > div.inputArea > textarea#jsonDisplay {
     box-sizing: border-box;
-    width: 100%; 
+    width: 100%;
     font-size: 10px;
     color: inherit;
     /* font-family: 'Consolas'; */
     height: calc(100% - 5px);
     overflow: auto;
-    background-color: rgb(255, 255, 255, 0); 
+    background-color: rgb(255, 255, 255, 0);
     outline: none;
     /* var(--previewPanel-bgcolor); */
     border-radius: 2px;
-    border: 0.5px solid rgb(114, 114, 114,0.5);
+    border: 0.5px solid rgb(114, 114, 114, 0.5);
     resize: none;
 }
 
+div.inputArea div.selectionCard {
+    box-sizing: border-box;
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 150px;
+    height: 45px;
+    margin: 0 3px 10px 3px;
+    padding: 5px 0 5px 5px;
+    border: 1px solid rgb(114, 114, 114, 0.2);
+    border-radius: 5px;
+    vertical-align: top;
+    cursor: pointer;
+    font-size: 0;
+}
+div.inputArea div.selectionCard.noborder {
+    border: 1px solid rgb(114, 114, 114, 0);
+    padding: 10px;
+}
 
+div.inputArea div.selectionCard:not(.noborder):hover {
+    border-color: var(--statusBar-bgcolor-highlight);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+div.inputArea div.selectionCard.selected {
+    border-color: var(--statusBar-bgcolor);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+div.inputArea div.selectionCard > span.thumbnail {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 40px;
+    padding: 0px 6px 1px 1px;
+}
+
+div.inputArea div.selectionCard > span.text {
+    display: inline-block;
+    position: relative;
+    width: 98px;
+    height: 100%;
+    vertical-align: top;
+}
+
+div.inputArea div.selectionCard > span.text > span {
+    font-size: 11px;
+    height: 16px;
+    font-weight: bold;
+    display: block;
+}
+
+div.inputArea div.selectionCard > span.text > label {
+    font-size: 7.5px;
+    display: block;
+    line-height: 8.5px;
+}
+div.inputArea div.selectionCard.small {
+    width: 46px;
+}
+div.inputArea div.selectionCard.medium {
+    width: 98px;
+}
+div.inputArea div.selectionCard.medium > label,
+div.inputArea div.selectionCard.small > label {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    font-size: 8px;
+    line-height: 9px;
+    width: 40px;
+}
+div.inputArea div.selectionCard.medium > input,
+div.inputArea div.selectionCard.small > input {
+    font-weight: bold;
+    padding: 0;
+    color: inherit;
+    background: none;
+    border: none;
+    outline: none;
+    position: absolute;
+    bottom: 10px;
+    right: 5px;
+    font-size: 12px;
+    width: 35px;
+    height: 16px;
+    text-align: right;
+}
+div.inputArea div.selectionCard.medium > unit,
+div.inputArea div.selectionCard.small > unit {
+    position: absolute;
+    bottom: 2px;
+    right: 5px;
+    font-size: 7px;
+    line-height: 9px;
+    opacity: 0.5;
+}
 
 /* ***********soil profile******************* */
 
-div.soilProfile{
-    box-sizing: border-box; 
-    width: 100%; font-size: 11px;
-    margin-bottom: 5px; 
-    border: 1px solid rgb(114, 114, 114,0.2);    border-radius: 4px;
+div.soilProfile {
+    box-sizing: border-box;
+    width: 100%;
+    font-size: 11px;
+    margin-bottom: 5px;
+    border: 1px solid rgb(114, 114, 114, 0.2);
+    border-radius: 4px;
     transition: transform 0.2s ease-in-out;
     z-index: 0;
 }
 
-div.soilProfile:hover{
+div.soilProfile:hover {
     border: 1px solid var(--statusBar-bgcolor-highlight);
     background-color: var(--searchPanel-bgcolor);
 }
 
-div.soilProfile > div.profileContent{
-    box-sizing: border-box; height: 35px; padding: 4px;
-    display: flex; justify-items: center; align-items: center;
+div.soilProfile > div.profileContent {
+    box-sizing: border-box;
+    height: 35px;
+    padding: 4px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
     background-color: var(--controlPanel-bgcolor);
     border-radius: 4px;
 }
-div.soilProfile > div.profileContent > div.materialType{flex: 1; position: relative;}
-div.soilProfile > div.profileContent > div.depth{width: 140px;}
-div.soilProfile > div.profileContent > div.more{
-    width: 25px; height: 25px; border-radius: 4px;
-    display: flex; align-items: center; justify-content:center; 
+div.soilProfile > div.profileContent > div.materialType {
+    flex: 1;
+    position: relative;
+}
+div.soilProfile > div.profileContent > div.depth {
+    width: 140px;
+}
+div.soilProfile > div.profileContent > div.more {
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     outline: none;
     cursor: row-resize;
 }
-div.soilProfile > div.profileContent > div.more:hover{color: var(--statusBar-bgcolor-highlight);}
+div.soilProfile > div.profileContent > div.more:hover {
+    color: var(--statusBar-bgcolor-highlight);
+}
 
-div.soilProfile div.pattern{
-    box-sizing: border-box; display: block; 
-    height: 24px; width: 24px; border-radius: 20px;
-    border: 1px solid rgb(114, 114, 114,0.8);
-    position:absolute; left: -7.5px; top:-1px;  
+div.soilProfile div.pattern {
+    box-sizing: border-box;
+    display: block;
+    height: 24px;
+    width: 24px;
+    border-radius: 20px;
+    border: 1px solid rgb(114, 114, 114, 0.8);
+    position: absolute;
+    left: -7.5px;
+    top: -1px;
     cursor: pointer;
     background-color: var(--controlPanel-bgcolor);
     overflow: hidden;
     color: inherit;
 }
-div.soilProfile div.viewMaterialTypeList{
-    box-sizing: border-box; display: block;
-    height: 14px; width: 14px; color: rgb(114, 114, 114,0.5);
-    position:absolute; left: 124px; top:4px;  
-    cursor: pointer; display: none;
+div.soilProfile div.viewMaterialTypeList {
+    box-sizing: border-box;
+    display: block;
+    height: 14px;
+    width: 14px;
+    color: rgb(114, 114, 114, 0.5);
+    position: absolute;
+    left: 124px;
+    top: 4px;
+    cursor: pointer;
+    display: none;
 }
 
-div.soilProfile input{
-    font-size: 11px; color: inherit;
-    border:none; outline: none; background: none;
-    vertical-align:middle;
-    border-bottom: 1px solid rgb(114, 114, 114,0.1);
-    padding: 4px 0 3px 0 ;
+div.soilProfile input {
+    font-size: 11px;
+    color: inherit;
+    border: none;
+    outline: none;
+    background: none;
+    vertical-align: middle;
+    border-bottom: 1px solid rgb(114, 114, 114, 0.1);
+    padding: 4px 0 3px 0;
 }
 
-div.soilProfile input[validation="invalid"]{
+div.soilProfile input[validation="invalid"] {
     border-bottom: 1px solid rgb(255, 120, 1);
     /* color: rgba(199, 0, 0, 0.8); */
 }
-s
-div.soilProfile input::placeholder,
-div.soilProfile > div.descriptionArea > textarea.description::placeholder{
-    font-size: 9px; color: rgb(114, 114, 114,0.8);
+s div.soilProfile input::placeholder,
+div.soilProfile > div.descriptionArea > textarea.description::placeholder {
+    font-size: 9px;
+    color: rgb(114, 114, 114, 0.8);
 }
 div.soilProfile input:hover,
-div.soilProfile input:focus{
-    border-bottom: 1px solid rgb(114, 114, 114,0.5);
+div.soilProfile input:focus {
+    border-bottom: 1px solid rgb(114, 114, 114, 0.5);
     padding-bottom: 3px;
 }
-div.soilProfile input:hover ~div.viewMaterialTypeList,
-div.soilProfile input:focus ~div.viewMaterialTypeList{
+div.soilProfile input:hover ~ div.viewMaterialTypeList,
+div.soilProfile input:focus ~ div.viewMaterialTypeList {
     display: block;
 }
 
-div.soilProfile > div.profileContent input.materialType{
-    margin-left: 18px; width: 120px; height: 14px; text-indent: 5px;
+div.soilProfile > div.profileContent input.materialType {
+    margin-left: 18px;
+    width: 120px;
+    height: 14px;
+    text-indent: 5px;
 }
 
 div.soilProfile > div.profileContent input.depthFrom,
-div.soilProfile > div.profileContent input.depthTo{
-    width: 45px; height: 14px;  text-align: center;
+div.soilProfile > div.profileContent input.depthTo {
+    width: 45px;
+    height: 14px;
+    text-align: center;
 }
 
-div.soilProfile > div.descriptionArea{
+div.soilProfile > div.descriptionArea {
     box-sizing: border-box;
-    width: 100%; 
+    width: 100%;
     border-radius: 4px;
     padding: 0 5px 3px 5px;
     background-color: var(--controlPanel-bgcolor);
 }
 
-div.soilProfile > div.descriptionArea > textarea.description{
-    box-sizing: border-box; width: 100%; height: 48px;
-    border-bottom-left-radius: 4px; border-bottom-right-radius: 4px;
+div.soilProfile > div.descriptionArea > textarea.description {
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
     padding: 4px;
     font-family: inherit;
-    font-size: 10px; color: rgb(114, 114, 114,0.5);
+    font-size: 10px;
+    color: rgb(114, 114, 114, 0.5);
     line-height: 15px;
-    outline: none; background: none;
-    resize: none;border:none;
-    /* border: 0.5px solid rgb(114, 114, 114,0.5); */
-    border-top: 0.5px solid rgb(114, 114, 114,0.8);
-    background-color: rgb(114, 114, 114,0.05); 
+    outline: none;
+    background: none;
+    resize: none;
+    border: none;
+    border-top: 0.5px solid rgb(114, 114, 114, 0.8);
+    background-color: rgb(114, 114, 114, 0.05);
     transition: height 0.2s ease-in-out;
 }
-div.soilProfile > div.descriptionArea > textarea.description:focus{
-    background-color: rgb(114, 114, 114,0.1); color: inherit;
+div.soilProfile > div.descriptionArea > textarea.description:focus {
+    background-color: rgb(114, 114, 114, 0.1);
+    color: inherit;
 }
 
-div.soilProfile > div.descriptionArea > textarea.description::-webkit-scrollbar, ::-webkit-scrollbar-corner{
-    width:2px;
+div.soilProfile > div.descriptionArea > textarea.description::-webkit-scrollbar,
+::-webkit-scrollbar-corner {
+    width: 2px;
 }
-div.soilProfile > div.descriptionArea > textarea.description::-webkit-scrollbar-thumb {
-    border-radius:5px;
-    border: 1.5px solid rgb(114, 114, 114,0.3);
-    background-color:rgb(114, 114, 114,0.3);
+div.soilProfile
+    > div.descriptionArea
+    > textarea.description::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    border: 1.5px solid rgb(114, 114, 114, 0.3);
+    background-color: rgb(114, 114, 114, 0.3);
 }
 
-details#subsurfaceProfile>div.patternSelect{
-    width: 265px; height: 150px;
-    z-index: 99; padding: 5px;
-    position: absolute; top:85px; left: 0px;
+details#subsurfaceProfile > div.patternSelect {
+    width: 265px;
+    z-index: 99;
+    padding: 3px 5px 5px 5px;
+    position: absolute;
+    top: 50px;
+    left: 25px;
     background-color: var(--controlPanel-bgcolor);
     border-radius: 5px;
-    border: 1px solid rgb(114, 114, 114),0.5;
-    box-shadow: 1px 1px 6px rgb(114, 114, 114,0.5);
+    border: 1px solid rgb(114, 114, 114), 0.5;
+    box-shadow: 1px 1px 6px rgb(114, 114, 114, 0.5);
     animation: moveup 0.2s ease-in-out;
     outline: none;
 }
 
-details#subsurfaceProfile>div.patternSelect>div.patternInputs{
-    box-sizing: border-box; display: flex;
-    justify-content:space-between; align-items: center;
-    width: 100%;
-    height: 25px;
-}
-details#subsurfaceProfile>div.patternSelect>div.patternInputs>input[type="text"]{
-    box-sizing: border-box; flex:1;
-    font-size: 11px;
-    margin: 2px 2px; line-height: 20px;
-    vertical-align: top;
-    background-color: var(--controlPanel-bgcolor);
-    border: none; outline: none;
+details#subsurfaceProfile > div.patternSelect > div.patternPreview {
+    margin-top: 5px;
+    margin-bottom: 2px;
+    overflow: scroll;
+    width: 267px;
+    height: 123px;
+    padding: 0px;
+    box-sizing: border-box;
     border-bottom: 1px solid rgb(114, 114, 114);
 }
-details#subsurfaceProfile>div.patternSelect>div.patternInputs>input[type="color"]{
-    height: 22px;
-    width: 22px; 
-    padding:0px 2px;
-    border-radius: 20px;
-    border: none;
-    background-image: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
-}
-input[type="color"]::-webkit-color-swatch {
-    border-radius: 20px; border: none;
-    box-shadow: 0 0 0 2px var(--controlPanel-bgcolor);
-}
-details#subsurfaceProfile>div.patternSelect>div.patternPreview{
-    margin-top: 5px; 
-    overflow: scroll; width: 267px; height: 123px;
-    padding: 0px; box-sizing: border-box;
-}
-details#subsurfaceProfile>div.patternSelect div.pattern{
+details#subsurfaceProfile > div.patternSelect div.pattern {
     position: relative;
     box-sizing: border-box;
     vertical-align: top;
     display: inline-block;
-    margin: 0 1px 2px 1px;
-    width:63.5px; height: 40px;
+    margin: 1px;
+    width: 63.5px;
+    height: 40px;
     border: 1px solid rgb(114, 114, 114);
 }
-:root[darkTheme='true'] details#subsurfaceProfile>div.patternSelect div.pattern>svg{
+details#subsurfaceProfile > div.patternSelect div.pattern:hover,
+details#subsurfaceProfile > div.patternSelect div.active {
+    border: 1px solid var(--statusBar-bgcolor-highlight);
+    box-shadow: 0 0 0 1px var(--statusBar-bgcolor-highlight);
+}
+:root[darkTheme="true"]
+    details#subsurfaceProfile
+    > div.patternSelect
+    div.pattern
+    > svg {
     filter: invert(1) grayscale(1);
 }
-details#subsurfaceProfile>div.patternSelect div.pattern>span{
+details#subsurfaceProfile > div.patternSelect div.pattern > span {
     font-size: 10px;
-    position: absolute; right: 0; bottom: 0;
+    position: absolute;
+    right: 0;
+    bottom: 0;
     background-color: var(--controlPanel-bgcolor);
 }
+details#subsurfaceProfile > div.patternSelect > div.colorselect {
+    height: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+details#subsurfaceProfile > div.patternSelect > div.colorselect > span {
+    box-sizing: border-box;
+    height: 20px;
+    width: 20px;
+    border-radius: 20px;
+    border: 1px solid rgb(114, 114, 114);
+}
 
-div.soilProfile div.moreActions{
-    position: absolute;   left: calc(100% + 5px); top: -2px;
-    box-sizing: border-box; width: 116px; height: 77px;
+details#subsurfaceProfile
+    > div.patternSelect
+    > div.colorselect
+    > input[type="color"] {
+    height: 22px;
+    flex-shrink: 0;
+    width: 22px;
+    padding: 1px 3px;
+    border-radius: 20px;
+    border: none;
+    background-image: conic-gradient(
+        #ff0000,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #ff00ff,
+        #ff0000
+    );
+}
+
+input[type="color"]::-webkit-color-swatch {
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 0 0 2px var(--controlPanel-bgcolor);
+}
+
+details#subsurfaceProfile > div.patternSelect > div.controls {
+    height: 35px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+details#subsurfaceProfile > div.patternSelect > div.controls > div {
+    position: relative;
+    flex: 1;
+    height: 25px;
+}
+details#subsurfaceProfile > div.patternSelect > div.controls > div > label {
+    position: absolute;
+    top: 1px;
+    left: 2px;
+    font-size: 7px;
+}
+details#subsurfaceProfile
+    > div.patternSelect
+    > div.controls
+    > div
+    > input[type="text"] {
+    position: absolute;
+    bottom: 0;
+    left: 1px;
+    box-sizing: border-box;
+    width: 60px;
+    height: 15px;
+    font-size: 11px;
+    color: inherit;
+    line-height: 15px;
+    vertical-align: top;
+    background-color: var(--controlPanel-bgcolor);
+    border: none;
+    outline: none;
+    border-bottom: 1px solid rgb(114, 114, 114);
+}
+
+details#subsurfaceProfile > div.patternSelect > div.controls > span {
+    height: 22px;
+    box-sizing: border-box;
+    width: 50px;
+    margin-right: 4px;
+    padding: 0px 2px;
+    font-size: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgb(114, 114, 114);
     border-radius: 4px;
-    display: flex; align-items: center; justify-content:space-between; 
-    opacity: 0; visibility: hidden;
+    cursor: pointer;
+}
+details#subsurfaceProfile > div.patternSelect > div.controls > span.confirm {
+    color: white;
+    background-color: var(--statusBar-bgcolor);
+}
+
+div.soilProfile div.moreActions {
+    position: absolute;
+    left: calc(100% + 5px);
+    top: -2px;
+    box-sizing: border-box;
+    width: 116px;
+    height: 77px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.2s ease-in-out 0.1s;
-} 
-div.soilProfile div.moreActions > span{
-    width: 35px; height: 35px;
-    display: flex; text-align: center; align-items: center; justify-content: center;
+}
+div.soilProfile div.moreActions > span {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     font-size: 8px;
     border-radius: 4px;
-    border: 1px solid rgb(114, 114, 114,0.2);
+    border: 1px solid rgb(114, 114, 114, 0.2);
     cursor: pointer;
 }
 div.soilProfile div.moreActions > span.insertBefore:hover,
-div.soilProfile div.moreActions > span.insertAfter:hover{
+div.soilProfile div.moreActions > span.insertAfter:hover {
     color: var(--statusBar-bgcolor-highlight);
     border: 1px solid var(--statusBar-bgcolor-highlight);
     /* background-color: var(--statusBar-bgcolor-highlight50); */
 }
-div.soilProfile div.moreActions > span.deleteRow:hover{
+div.soilProfile div.moreActions > span.deleteRow:hover {
     color: rgb(175, 38, 38);
     border: 1px solid rgb(175, 38, 38);
     /* background-color: rgb(255, 93, 93,0.5); */
 }
-div.soilProfile.active{
+div.soilProfile.active {
     transform: translateX(-120px);
     border: 1px solid var(--statusBar-bgcolor-highlight);
     background-color: var(--searchPanel-bgcolor);
 }
-div.soilProfile.active div.moreActions{
-    visibility: visible; opacity: 1; 
+div.soilProfile.active div.moreActions {
+    visibility: visible;
+    opacity: 1;
 }
 
-div.addNewLine{
-    box-sizing: border-box; 
-    width: 100%; height: 35px;
-    font-size: 11px; color: inherit;
+div.addNewLine {
+    box-sizing: border-box;
+    width: 100%;
+    height: 35px;
+    font-size: 11px;
+    color: inherit;
     border-radius: 4px;
-    margin-bottom: 10px; 
+    background-color: rgb(114, 114, 114, 0.05);
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    border: 1px dashed rgb(114, 114, 114,0.2);
+    border: 1px dashed rgb(114, 114, 114, 0.2);
 }
 
-div.addNewLine:hover{
+#subsurfaceProfile div.addNewLine {
+    height: 90px;
+}
+
+div.addNewLine:hover {
     color: var(--statusBar-bgcolor);
     border-color: var(--statusBar-bgcolor);
 }
 /* *******************************sample ID ********************** */
 
-div.soilSample{
-    box-sizing: border-box; position: relative;
-    width: 100%; font-size: 11px;
-    margin-bottom: 5px; 
-    border: 1px solid rgb(114, 114, 114,0.2);    border-radius: 4px;
+div.soilSample {
+    box-sizing: border-box;
+    position: relative;
+    width: 100%;
+    font-size: 11px;
+    margin-bottom: 5px;
+    border: 1px solid rgb(114, 114, 114, 0.2);
+    border-radius: 4px;
     transition: transform 0.2s ease-in-out;
     background-color: var(--controlPanel-bgcolor);
 }
-/* div.soilSample::after{
-    content: "";
-    position: absolute; left: 5px;
-    height: 0; width: calc(100% - 10px);
-    border-bottom: 1px solid rgb(114, 114, 114,0.5);
-} */
-div.soilSample:hover{
+
+div.soilSample:hover {
     border: 1px solid var(--statusBar-bgcolor-highlight);
     background-color: var(--searchPanel-bgcolor);
 }
-div.soilSample:hover::after{
+div.soilSample:hover::after {
     display: none;
 }
-div.soilSample > div.sampleContent{
-    box-sizing: border-box; height: 35px; padding: 4px; border-radius: 4px;
-    display: flex; justify-items: center; align-items: center;
+div.soilSample > div.sampleContent {
+    box-sizing: border-box;
+    height: 35px;
+    padding: 4px;
+    border-radius: 4px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
     background-color: var(--controlPanel-bgcolor);
 }
-div.soilSample > div.sampleContent > div.sampleId{flex: 1; position: relative;}
-div.soilSample > div.sampleContent > div.pid{
-    flex: 1; display: flex; justify-content: center; align-items: center;
+div.soilSample > div.sampleContent > div.sampleId {
+    flex: 1;
+    position: relative;
+}
+div.soilSample > div.sampleContent > div.pid {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-left: 1px solid rgb(114, 114, 114, 0.2);
     border-right: 1px solid rgb(114, 114, 114, 0.2);
     margin: 0 10px;
 }
-div.soilSample > div.sampleContent > div.depth{width: 140px;}
-div.soilSample > div.sampleContent > div.more{
-    width: 25px; height: 25px; border-radius: 4px;
-    display: flex; align-items: center; justify-content:center; 
+div.soilSample > div.sampleContent > div.depth {
+    width: 140px;
+}
+div.soilSample > div.sampleContent > div.more {
+    width: 25px;
+    height: 25px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     outline: none;
     cursor: row-resize;
 }
-div.soilSample > div.sampleContent > div.more:hover{
+div.soilSample > div.sampleContent > div.more:hover {
     color: var(--statusBar-bgcolor-highlight);
 }
 
-div.soilSample input[type="checkbox"]{
-    font-size: 11px; color: inherit; 
-    position: relative; overflow: hidden; margin: 1px;
-    height: 12px; width: 12px;
-    vertical-align:middle;
+div.soilSample input[type="checkbox"] {
+    font-size: 11px;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    margin: 1px;
+    height: 12px;
+    width: 12px;
+    vertical-align: middle;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
     border-radius: 2px;
-    border: 1px solid rgb(114, 114, 114,0.8);
+    border: 1px solid rgb(114, 114, 114, 0.8);
     animation: unchecked 0.5s ease-in-out;
 }
 div.soilSample input[type="checkbox"]:checked {
-    background-color: rgb(114, 114, 114,0.2);
-    border: 1px solid rgb(114, 114, 114,0.8); border-radius: 2px;
+    background-color: rgb(114, 114, 114, 0.2);
+    border: 1px solid rgb(114, 114, 114, 0.8);
+    border-radius: 2px;
     text-align: center;
     background-clip: padding-box;
     animation: checked 0.5s ease-in-out;
 }
 @keyframes checked {
-    0%{box-shadow: 0 0 0 0 rgb(114, 114, 114,0.2)}
-    20%{box-shadow: 0 0 0 4px rgb(114, 114, 114,0.2)}
-    100%{box-shadow: 0 0 0 2px rgb(114, 114, 114,0.0)}    
+    0% {
+        box-shadow: 0 0 0 0 rgb(114, 114, 114, 0.2);
+    }
+    20% {
+        box-shadow: 0 0 0 4px rgb(114, 114, 114, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 0 2px rgb(114, 114, 114, 0);
+    }
 }
 @keyframes unchecked {
-    0%{box-shadow: 0 0 0 0 rgb(114, 114, 114,0.0)}
-    20%{box-shadow: 0 0 0 4px rgb(114, 114, 114,0.2)}
-    100%{box-shadow: 0 0 0 2px rgb(114, 114, 114,0)}    
+    0% {
+        box-shadow: 0 0 0 0 rgb(114, 114, 114, 0);
+    }
+    20% {
+        box-shadow: 0 0 0 4px rgb(114, 114, 114, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 0 2px rgb(114, 114, 114, 0);
+    }
 }
 div.soilSample input[type="checkbox"]:checked::after {
-    content: ''; 
-    height: 7px; width: 2px; 
+    content: "";
+    height: 7px;
+    width: 2px;
     border-bottom: 1.5px solid var(--controlPanel-txcolor);
     border-right: 1.5px solid var(--controlPanel-txcolor);
-    position: absolute; left:3px; bottom: 2px;
-    transform:rotate(45deg)
+    position: absolute;
+    left: 3px;
+    bottom: 2px;
+    transform: rotate(45deg);
 }
 
-div.soilSample div.moreActions{
-    position: absolute;   left: calc(100% + 5px); top: -2px;
-    box-sizing: border-box; width: 116px; height: 38px;
+div.soilSample div.moreActions {
+    position: absolute;
+    left: calc(100% + 5px);
+    top: -2px;
+    box-sizing: border-box;
+    width: 116px;
+    height: 38px;
     border-radius: 4px;
-    display: flex; align-items: center; justify-content:space-between; 
-    opacity: 0; visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 0.2s ease-in-out 0.1s;
-} 
-div.soilSample div.moreActions > span{
-    width: 35px; height: 35px;
-    display: flex; text-align: center; align-items: center; justify-content: center;
+}
+div.soilSample div.moreActions > span {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     font-size: 8px;
     border-radius: 4px;
-    border: 1px solid rgb(114, 114, 114,0.2);
+    border: 1px solid rgb(114, 114, 114, 0.2);
     cursor: pointer;
 }
 div.soilSample div.moreActions > span.insertBefore:hover,
-div.soilSample div.moreActions > span.insertAfter:hover{
+div.soilSample div.moreActions > span.insertAfter:hover {
     border: 1px solid var(--statusBar-bgcolor-highlight);
     background-color: var(--statusBar-bgcolor-highlight50);
 }
-div.soilSample div.moreActions > span.deleteRow:hover{
+div.soilSample div.moreActions > span.deleteRow:hover {
     color: white;
     border: 1px solid rgb(255, 54, 54);
-    background-color: rgb(255, 93, 93,0.5);
+    background-color: rgb(255, 93, 93, 0.5);
 }
 
-div.soilSample.active{
+div.soilSample.active {
     transform: translateX(-120px);
     border: 1px solid var(--statusBar-bgcolor-highlight);
     background-color: var(--searchPanel-bgcolor);
 }
 
-div.soilSample.active div.moreActions{
-    visibility: visible; opacity: 1; 
+div.soilSample.active div.moreActions {
+    visibility: visible;
+    opacity: 1;
 }
 
-div.soilSample input{
-    font-size: 11px; color: inherit;
-    border:none; outline: none; background: none;
-    vertical-align:middle;
-    border-bottom: 1px solid rgb(114, 114, 114,0.1);
-    padding: 4px 0 3px 0 ;
+div.soilSample input {
+    font-size: 11px;
+    color: inherit;
+    border: none;
+    outline: none;
+    background: none;
+    vertical-align: middle;
+    border-bottom: 1px solid rgb(114, 114, 114, 0.1);
+    padding: 4px 0 3px 0;
 }
-div.soilSample input::placeholder{
-    font-size: 9px; color: rgb(114, 114, 114,0.8);
+div.soilSample input::placeholder {
+    font-size: 9px;
+    color: rgb(114, 114, 114, 0.8);
 }
 div.soilSample input:hover,
-div.soilSample input:focus{
-    border-bottom: 1px solid rgb(114, 114, 114,0.5);
+div.soilSample input:focus {
+    border-bottom: 1px solid rgb(114, 114, 114, 0.5);
     padding-bottom: 3px;
 }
 
-div.soilSample > div.sampleContent input.sampleId{
-    width: 110px; height: 14px; text-indent: 5px;
+div.soilSample > div.sampleContent input.sampleId {
+    width: 110px;
+    height: 14px;
+    text-indent: 5px;
 }
-div.soilSample > div.sampleContent  input.PID{
-    width: 60px; height: 14px;  text-align: center;
+div.soilSample > div.sampleContent input.PID {
+    width: 60px;
+    height: 14px;
+    text-align: center;
 }
-div.soilSample > div.sampleContent  input.depthFrom,
-div.soilSample > div.sampleContent  input.depthTo{
-    width: 45px; height: 14px;  text-align: center;
+div.soilSample > div.sampleContent input.depthFrom,
+div.soilSample > div.sampleContent input.depthTo {
+    width: 45px;
+    height: 14px;
+    text-align: center;
 }
 
 /* *************************************************************** */
 
+details#templateSetting div.language {
+    vertical-align: top;
+}
+details#templateSetting div.language > label {
+    font-size: 11px;
+    position: initial;
+    display: inline-block;
+    margin: 0;
+}
 
+details#templateSetting div.language > input[type="radio"] {
+    /* display: inline-block; */
+    margin: 0;
+    width: 14px;
+}
 
-
-
+/* *************************************************************** */
 
 #statusBar {
     box-sizing: border-box;
     vertical-align: bottom;
     font-size: 12px;
-    position: fixed; 
+    position: fixed;
     bottom: 0;
     left: 0;
     height: 22px;
     width: 100%;
     background: var(--statusBar-bgcolor);
     color: white;
-    z-index: 50;
+    /* z-index: 10; */
 }
 #statusBar > span {
     vertical-align: top;
     box-sizing: border-box;
-    display: inline-block; 
-    padding: 4px; 
+    display: inline-block;
+    padding: 4px;
     height: 100%;
     margin-left: 3px;
-    margin-right:3px;
+    margin-right: 3px;
     line-height: 14px;
     font-size: smaller;
 }
 
-#statusBar > span#probleCheck{padding: 5px; width: 80px;}
-#statusBar > span#probleCheck>span{vertical-align: top;}
+#statusBar > span#probleCheck {
+    padding: 5.5px 4px;
+}
+#statusBar > span#probleCheck > span {
+    vertical-align: top;
+    line-height: 12px;
+}
 
-#statusBar > span:hover {background-color: var(--statusBar-bgcolor-highlight)}
+#statusBar > span:hover {
+    background-color: var(--statusBar-bgcolor-highlight);
+}
 
-#statusBar > span.right {float: right;}
+#statusBar > span.right {
+    float: right;
+}
 
 #zoomOutButtom,
 #zoomInButtom,
 #paperSize,
 #currentPageNo,
-#totalPageNo{
+#totalPageNo {
     padding: 0 2px;
     vertical-align: top;
     line-height: 14px;
 }
 
 #zoomOutButtom,
-#zoomInButtom{cursor: pointer; font-size: large;}
+#zoomInButtom {
+    cursor: pointer;
+    font-size: large;
+}
 
-#zoomFactorHolder{
-    width: 35px; 
+#zoomFactorHolder {
+    width: 35px;
     text-align: center;
 }
-#zoomSliderHolder{
+#zoomSliderHolder {
     box-sizing: border-box;
     height: 100%;
     vertical-align: top;
@@ -1276,9 +2105,6 @@ div.soilSample > div.sampleContent  input.depthTo{
     margin: 0;
 }
 
-
-
-
 svg.logs {
     background: var(--page-bgcolor);
     display: block;
@@ -1287,30 +2113,47 @@ svg.logs {
 }
 
 svg.logs.active {
-    box-shadow: 
-    0 0 0 3px var(--previewPanel-bgcolor), 
-    0 0 0 5px rgb(114, 114, 114, 0.7);
+    box-shadow: 0 0 0 3px var(--previewPanel-bgcolor),
+        0 0 0 5px rgb(114, 114, 114, 0.7);
 }
 
-:root[darkTheme='true'] svg.logs > g{
+:root[darkTheme="true"] svg.logs > g {
     filter: invert(1) grayscale(1);
 }
 
-.renderjson a              { text-decoration: none; }
-.renderjson .disclosure    { color: crimson;
-                             font-size: 150%; }
-.renderjson .syntax        { color: grey; }
-.renderjson .string        { color: red; }
-.renderjson .number        { color: cyan; }
-.renderjson .boolean       { color: plum; }
-.renderjson .key           { color: lightblue; }
-.renderjson .keyword       { color: lightgoldenrodyellow; }
-.renderjson .object.syntax { color: lightseagreen; }
-.renderjson .array.syntax  { color: lightsalmon; }
-
+.renderjson a {
+    text-decoration: none;
+}
+.renderjson .disclosure {
+    color: crimson;
+    font-size: 150%;
+}
+.renderjson .syntax {
+    color: grey;
+}
+.renderjson .string {
+    color: red;
+}
+.renderjson .number {
+    color: cyan;
+}
+.renderjson .boolean {
+    color: plum;
+}
+.renderjson .key {
+    color: lightblue;
+}
+.renderjson .keyword {
+    color: lightgoldenrodyellow;
+}
+.renderjson .object.syntax {
+    color: lightseagreen;
+}
+.renderjson .array.syntax {
+    color: lightsalmon;
+}
 
 div.noprint {
     display: none;
 }
-    /* svg.logs {display: block;} */
-
+/* svg.logs {display: block;} */
