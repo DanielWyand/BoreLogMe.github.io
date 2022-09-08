@@ -175,6 +175,121 @@ const pageSetting = {
                     ];
                 });
             });
+
+        document
+            .querySelectorAll("div#pageSettingPanel input.colWidthPct")
+            .forEach((input) => {
+                input.addEventListener("change", (e) => {
+                    e.target.value = parseFloat(e.target.value).toFixed(1);
+
+                    document.querySelector(
+                        "div#pageSettingPanel input.x8"
+                    ).value = (
+                        100 -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x1"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x2"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x3"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x4"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x5"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x6"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.colWidthPct.x7"
+                            ).value
+                        )
+                    ).toFixed(1);
+
+                    report.pageSetting.colWidthPct = [
+                        document.querySelector("div#pageSettingPanel input.x1")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x2")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x3")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x4")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x5")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x6")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x7")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.x8")
+                            .value / 100,
+                    ];
+                });
+            });
+
+        document
+            .querySelectorAll("div#pageSettingPanel input.rowHeightPct")
+            .forEach((input) => {
+                input.addEventListener("change", (e) => {
+                    e.target.value = parseFloat(e.target.value).toFixed(1);
+
+                    document.querySelector(
+                        "div#pageSettingPanel input.y5"
+                    ).value = (
+                        100 -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.y1"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.y2"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.y3"
+                            ).value
+                        ) -
+                        parseFloat(
+                            document.querySelector(
+                                "div#pageSettingPanel input.y4"
+                            ).value
+                        )
+                    ).toFixed(1);
+
+                    report.pageSetting.rowHeightPct = [
+                        document.querySelector("div#pageSettingPanel input.y1")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.y2")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.y3")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.y4")
+                            .value / 100,
+                        document.querySelector("div#pageSettingPanel input.y5")
+                            .value / 100,
+                    ];
+                });
+            });
     },
 };
 pageSetting.init();
