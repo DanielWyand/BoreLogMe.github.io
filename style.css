@@ -168,8 +168,8 @@ div#dataTableContainer {
     background-color: rgba(0, 0, 0, 0.6);
 }
 div#dataTableView {
-    max-width: 1080px;
-    max-height: 680px;
+    max-width: 1250px;
+    max-height: 780px;
     min-width: 600px;
     min-height: 500px;
     width: 80%;

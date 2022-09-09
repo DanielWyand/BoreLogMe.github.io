@@ -42,6 +42,15 @@ const summaryTable = {
         });
     },
 
+    saveChange() {
+        let changedTds = this.tableBody.querySelectorAll("td.edited");
+
+        changedTds.forEach((td) => {
+            report.logCollection[td.dataset.logid][td.dataset.property] =
+                td.innerHTML;
+        });
+    },
+
     applyfilter(filterName) {
         const colgroups = this.container.querySelectorAll("col");
         colgroups.forEach((col) => {
@@ -92,9 +101,18 @@ const summaryTable = {
             }
         };
 
+        //discard bottom, do nothing just hide the table
         document
             .querySelector("div#dataTableContainer div.discard")
             .addEventListener("click", (e) => {
+                document.querySelector("div#dataTableContainer").style =
+                    "display: none;";
+            });
+
+        document
+            .querySelector("div#dataTableContainer div.save")
+            .addEventListener("click", (e) => {
+                this.saveChange();
                 document.querySelector("div#dataTableContainer").style =
                     "display: none;";
             });
