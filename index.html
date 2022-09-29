@@ -1,338 +1,518 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width" />
-    <title>BoringTool</title>
-    <link href="style.css" rel="stylesheet" type="text/css" />
-</head>
-<body>
-    <svg class="icons">
-        <symbol id="icon-editButton">
-            <path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path>
-        </symbol>
-        <symbol id="icon-tableViewButton">
-            <path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-        </symbol>
-        <symbol id="icon-codeViewButton">
-            <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-        </symbol>
-        <symbol id="icon-visualButton">
-            <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
-        </symbol>
-        <symbol id="icon-lightTheme">
-            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </symbol>
-        <symbol id="icon-darkTheme">
-            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-        </symbol>
-        <symbol id="icon-toolBox">
-            <path d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path>
-        </symbol>   
-        <symbol id="icon-settingButton">
-            <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-            <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-        </symbol>  
-        <symbol id="icon-addLogButton">
-            <path stroke-width='1.2' d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-        </symbol> 
-        <symbol id="icon-showLogListButton">
-            <path stroke-width='1.2' d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
-        </symbol> 
-        <symbol id="icon-editThisLine">
-            <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
-        </symbol> 
-        <symbol id="icon-deleteThisLine">
-            <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
-        </symbol> 
-        <symbol id="icon-deleteLog">
-            <path d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z"></path>
-        </symbol> 
-        <symbol id="icon-emptyInput">
-            <circle cx="12" cy="12" r="9"/><path d="M9,9l6,6 M9,15l6,-6"></path>       
-        </symbol> 
-        <symbol id="icon-chevronDown">
-            <path d="M19 9l-7 7-7-7"></path>
-        </symbol> 
-        <symbol id="icon-chevronUp">
-            <path d="M5 15l7-7 7 7"></path>
-        </symbol> 
-        <symbol id="icon-dots-vertical" viewBox="0 0 24 24">
-            <rect x="9" y="5" height="2" width="2" fill="currentColor"/>
-            <rect x="9" y="12" height="2" width="2" fill="currentColor"/>
-            <rect x="9" y="19" height="2" width="2" fill="currentColor"/>
-            <rect x="16" y="5" height="2" width="2" fill="currentColor"/>
-            <rect x="16" y="12" height="2" width="2" fill="currentColor"/>
-            <rect x="16" y="19" height="2" width="2" fill="currentColor"/>
-        </symbol> 
-        <symbol id="icon-viewList">
-            <path stroke-linecap="round"  fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.7" d="M4 6h16M4 12h16m-7 6h7"></path>
-        </symbol> 
-        <symbol id="legend-ben">
-            <path fill="url(#pattern-screen)" d="M0,0 L50,0 L50,50 L0,50Z"></path>
-        </symbol> 
-        <symbol id="icon-RowDelete" viewBox="0 0 24 24" >
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2" d="M15,4 L4,4 L3,5 L3,9 L4,10 L21,10 M18,3 L22,7 M22,3 L18,7 M4,15 L21,15 L22,16 L22,20 L21,21 L4,21 L3,20 L3,16Z" ></path>
-        </symbol> 
-        <symbol id="icon-RowInsert" viewBox="0 0 24 24" >
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"  d="M4,4 L21,4 L22,5 L22,9 L21,10 L4,10 L3,9 L3,5Z M3,15 L22,15 M12.5,15 L12.5,22 L9.5,19 M12.5,22 L15.5,19"></path>
-        </symbol> 
-        <symbol id="icon-plus-circle"  >
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-        </symbol> 
-        <symbol id="icon-refresh" viewBox="0 0 24 24"  >
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-        </symbol> 
-        <symbol id="icon-x-circle" viewBox="0 0 16 16" fill="currentColor" >
-            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
-            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-        </symbol> 
-        <symbol id="icon-exclamation-triangle" viewBox="0 0 16 16" fill="currentColor">
-            <path d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"/>
-            <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z"/>   
-        </symbol> 
-        <symbol id="icon-download" viewBox="0 0 24 24">
-                <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-        </symbol> 
-        <symbol id="icon-HTML" viewBox="0 0 16 16" fill="currentColor" >
-            <path fill-rule="evenodd" d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5Zm-9.736 7.35v3.999h-.791v-1.714H1.79v1.714H1V11.85h.791v1.626h1.682V11.85h.79Zm2.251.662v3.337h-.794v-3.337H4.588v-.662h3.064v.662H6.515Zm2.176 3.337v-2.66h.038l.952 2.159h.516l.946-2.16h.038v2.661h.715V11.85h-.8l-1.14 2.596H9.93L8.79 11.85h-.805v3.999h.706Zm4.71-.674h1.696v.674H12.61V11.85h.79v3.325Z"/>
-        </symbol> 
-        <symbol id="icon-TXT" viewBox="0 0 16 16" fill="currentColor" >
-            <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-2v-1h2a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.928 15.849v-3.337h1.136v-.662H0v.662h1.134v3.337h.794Zm4.689-3.999h-.894L4.9 13.289h-.035l-.832-1.439h-.932l1.228 1.983-1.24 2.016h.862l.853-1.415h.035l.85 1.415h.907l-1.253-1.992 1.274-2.007Zm1.93.662v3.337h-.794v-3.337H6.619v-.662h3.064v.662H8.546Z"/>
-        </symbol> 
-        <symbol id="icon-PDF" viewBox="0 0 16 16" fill="currentColor" >
-            <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
-        </symbol> 
-        <symbol id="icon-status" viewBox="0 0 24 24">
-            <path troke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
-        </symbol> 
-        <symbol id="icon-filter" viewBox="0 0 24 24">
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
-        </symbol> 
-        <symbol id="icon-refresh" viewBox="0 0 24 24">
-            <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-        </symbol> 
-        <symbol id="icon-pageSetting" viewBox="0 0 24 24">
-            <path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
-        </symbol> 
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width" />
+        <title>BoringTool</title>
+        <link href="style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <svg class="icons">
+            <symbol id="icon-editButton">
+                <path
+                    d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"
+                ></path>
+            </symbol>
+            <symbol id="icon-tableViewButton">
+                <path d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </symbol>
+            <symbol id="icon-codeViewButton">
+                <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+            </symbol>
+            <symbol id="icon-visualButton">
+                <path d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                <path d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+            </symbol>
+            <symbol id="icon-lightTheme">
+                <path
+                    d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                ></path>
+            </symbol>
+            <symbol id="icon-darkTheme">
+                <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </symbol>
+            <symbol id="icon-toolBox">
+                <path
+                    d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"
+                ></path>
+            </symbol>
+            <symbol id="icon-settingButton">
+                <path
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                ></path>
+                <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </symbol>
+            <symbol id="icon-addLogButton">
+                <path
+                    stroke-width="1.2"
+                    d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                ></path>
+            </symbol>
+            <symbol id="icon-showLogListButton">
+                <path stroke-width="1.2" d="M8 9l4-4 4 4m0 6l-4 4-4-4"></path>
+            </symbol>
+            <symbol id="icon-editThisLine">
+                <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </symbol>
+            <symbol id="icon-deleteThisLine">
+                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+            </symbol>
+            <symbol id="icon-deleteLog">
+                <path
+                    d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414 6.414a2 2 0 001.414.586H19a2 2 0 002-2V7a2 2 0 00-2-2h-8.172a2 2 0 00-1.414.586L3 12z"
+                ></path>
+            </symbol>
+            <symbol id="icon-emptyInput">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M9,9l6,6 M9,15l6,-6"></path>
+            </symbol>
+            <symbol id="icon-chevronDown">
+                <path d="M19 9l-7 7-7-7"></path>
+            </symbol>
+            <symbol id="icon-chevronUp">
+                <path d="M5 15l7-7 7 7"></path>
+            </symbol>
+            <symbol id="icon-dots-vertical" viewBox="0 0 24 24">
+                <rect x="9" y="5" height="2" width="2" fill="currentColor" />
+                <rect x="9" y="12" height="2" width="2" fill="currentColor" />
+                <rect x="9" y="19" height="2" width="2" fill="currentColor" />
+                <rect x="16" y="5" height="2" width="2" fill="currentColor" />
+                <rect x="16" y="12" height="2" width="2" fill="currentColor" />
+                <rect x="16" y="19" height="2" width="2" fill="currentColor" />
+            </symbol>
+            <symbol id="icon-viewList">
+                <path stroke-linecap="round" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.7" d="M4 6h16M4 12h16m-7 6h7"></path>
+            </symbol>
+            <symbol id="legend-ben">
+                <path fill="url(#pattern-screen)" d="M0,0 L50,0 L50,50 L0,50Z"></path>
+            </symbol>
+            <symbol id="icon-RowDelete" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.2"
+                    d="M15,4 L4,4 L3,5 L3,9 L4,10 L21,10 M18,3 L22,7 M22,3 L18,7 M4,15 L21,15 L22,16 L22,20 L21,21 L4,21 L3,20 L3,16Z"
+                ></path>
+            </symbol>
+            <symbol id="icon-RowInsert" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.2"
+                    d="M4,4 L21,4 L22,5 L22,9 L21,10 L4,10 L3,9 L3,5Z M3,15 L22,15 M12.5,15 L12.5,22 L9.5,19 M12.5,22 L15.5,19"
+                ></path>
+            </symbol>
+            <symbol id="icon-plus-circle">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                ></path>
+            </symbol>
+            <symbol id="icon-refresh" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                ></path>
+            </symbol>
+            <symbol id="icon-x-circle" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"
+                />
+            </symbol>
+            <symbol id="icon-exclamation-triangle" viewBox="0 0 16 16" fill="currentColor">
+                <path
+                    d="M7.938 2.016A.13.13 0 0 1 8.002 2a.13.13 0 0 1 .063.016.146.146 0 0 1 .054.057l6.857 11.667c.036.06.035.124.002.183a.163.163 0 0 1-.054.06.116.116 0 0 1-.066.017H1.146a.115.115 0 0 1-.066-.017.163.163 0 0 1-.054-.06.176.176 0 0 1 .002-.183L7.884 2.073a.147.147 0 0 1 .054-.057zm1.044-.45a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566z"
+                />
+                <path d="M7.002 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 5.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995z" />
+            </symbol>
+            <symbol id="icon-download" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                ></path>
+            </symbol>
+            <symbol id="icon-HTML" viewBox="0 0 16 16" fill="currentColor">
+                <path
+                    fill-rule="evenodd"
+                    d="M14 4.5V11h-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5Zm-9.736 7.35v3.999h-.791v-1.714H1.79v1.714H1V11.85h.791v1.626h1.682V11.85h.79Zm2.251.662v3.337h-.794v-3.337H4.588v-.662h3.064v.662H6.515Zm2.176 3.337v-2.66h.038l.952 2.159h.516l.946-2.16h.038v2.661h.715V11.85h-.8l-1.14 2.596H9.93L8.79 11.85h-.805v3.999h.706Zm4.71-.674h1.696v.674H12.61V11.85h.79v3.325Z"
+                />
+            </symbol>
+            <symbol id="icon-TXT" viewBox="0 0 16 16" fill="currentColor">
+                <path
+                    fill-rule="evenodd"
+                    d="M14 4.5V14a2 2 0 0 1-2 2h-2v-1h2a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.928 15.849v-3.337h1.136v-.662H0v.662h1.134v3.337h.794Zm4.689-3.999h-.894L4.9 13.289h-.035l-.832-1.439h-.932l1.228 1.983-1.24 2.016h.862l.853-1.415h.035l.85 1.415h.907l-1.253-1.992 1.274-2.007Zm1.93.662v3.337h-.794v-3.337H6.619v-.662h3.064v.662H8.546Z"
+                />
+            </symbol>
+            <symbol id="icon-PDF" viewBox="0 0 16 16" fill="currentColor">
+                <path
+                    fill-rule="evenodd"
+                    d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"
+                />
+            </symbol>
+            <symbol id="icon-link" viewBox="0 0 24 24">
+                <path
+                    troke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                ></path>
+            </symbol>
+            <symbol id="icon-filter" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
+                ></path>
+            </symbol>
+            <symbol id="icon-refresh" viewBox="0 0 24 24">
+                <path
+                    stroke-linecap="round"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                ></path>
+            </symbol>
+            <symbol id="icon-pageSetting" viewBox="0 0 24 24">
+                <path
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                ></path>
+            </symbol>
 
-        <symbol id="flag-icons-us" viewBox="0 0 640 480">
-            <g fill-rule="evenodd">
-                <g stroke-width="1pt">
-                    <path fill="#bd3d44" d="M0 0h912v37H0zm0 73.9h912v37H0zm0 73.8h912v37H0zm0 73.8h912v37H0zm0 74h912v36.8H0zm0 73.7h912v37H0zM0 443h912V480H0z"/>
-                    <path fill="#fff" d="M0 37h912v36.9H0zm0 73.8h912v36.9H0zm0 73.8h912v37H0zm0 73.9h912v37H0zm0 73.8h912v37H0zm0 73.8h912v37H0z"/>
+            <symbol id="flag-icons-us" viewBox="0 0 640 480">
+                <g fill-rule="evenodd">
+                    <g stroke-width="1pt">
+                        <path
+                            fill="#bd3d44"
+                            d="M0 0h912v37H0zm0 73.9h912v37H0zm0 73.8h912v37H0zm0 73.8h912v37H0zm0 74h912v36.8H0zm0 73.7h912v37H0zM0 443h912V480H0z"
+                        />
+                        <path fill="#fff" d="M0 37h912v36.9H0zm0 73.8h912v36.9H0zm0 73.8h912v37H0zm0 73.9h912v37H0zm0 73.8h912v37H0zm0 73.8h912v37H0z" />
+                    </g>
+                    <path fill="#192f5d" d="M0 0h364.8v258.5H0z" />
+                    <path
+                        fill="#fff"
+                        d="m30.4 11 3.4 10.3h10.6l-8.6 6.3 3.3 10.3-8.7-6.4-8.6 6.3L25 27.6l-8.7-6.3h10.9zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.2 10.3-8.6-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.8zM60.8 37l3.3 10.2H75l-8.7 6.2 3.2 10.3-8.5-6.3-8.7 6.3 3.1-10.3-8.4-6.2h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.2h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2H179zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.6 6.3 3.2-10.3-8.7-6.2H240zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2h10.7zM30.4 62.6l3.4 10.4h10.6l-8.6 6.3 3.3 10.2-8.7-6.3-8.6 6.3L25 79.3 16.3 73h10.9zm60.8 0L94.5 73h10.8l-8.7 6.3 3.2 10.2-8.6-6.3-8.7 6.3 3.3-10.3-8.6-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.8zM60.8 88.6l3.3 10.2H75l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3H179zm60.8 0 3.4 10.2h10.7l-8.7 6.3 3.3 10.3-8.7-6.4-8.6 6.3 3.2-10.2-8.7-6.3H240zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zM30.4 114.5l3.4 10.2h10.6l-8.6 6.3 3.3 10.3-8.7-6.4-8.6 6.3L25 131l-8.7-6.3h10.9zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.2 10.2-8.6-6.3-8.7 6.3 3.3-10.2-8.6-6.3h10.6zm60.8 0 3.3 10.2H166l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.2h10.7L279 131l3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.2h10.8l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3L329 131l-8.8-6.3h10.8zM60.8 140.3l3.3 10.3H75l-8.7 6.2 3.3 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.6-6.3h10.7zm60.8 0 3.4 10.3h10.7l-8.8 6.2 3.4 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.2 3.3 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.6-6.3H179zm60.8 0 3.4 10.3h10.7l-8.7 6.2 3.3 10.3-8.7-6.4-8.6 6.4 3.2-10.3-8.7-6.3H240zm60.8 0 3.3 10.3h10.8l-8.7 6.2 3.3 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.6-6.3h10.7zM30.4 166.1l3.4 10.3h10.6l-8.6 6.3 3.3 10.1-8.7-6.2-8.6 6.2 3.2-10.2-8.7-6.3h10.9zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.4-10.2-8.7-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.1-8.7-6.2-8.7 6.2 3.4-10.2-8.8-6.3h10.8zM60.8 192l3.3 10.2H75l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3H179zm60.8 0 3.4 10.2h10.7l-8.7 6.3 3.3 10.3-8.7-6.4-8.6 6.3 3.2-10.2-8.7-6.3H240zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zM30.4 217.9l3.4 10.2h10.6l-8.6 6.3 3.3 10.2-8.7-6.3-8.6 6.3 3.2-10.3-8.7-6.3h10.9zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.7-6.3h10.6zm60.8 0 3.3 10.2H166l-8.4 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.7zm60.8 0 3.3 10.2h10.7l-8.6 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.3h10.7zm60.8 0 3.3 10.2h10.8l-8.8 6.3 3.4 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.8z"
+                    />
                 </g>
-                <path fill="#192f5d" d="M0 0h364.8v258.5H0z"/>
-                <path fill="#fff" d="m30.4 11 3.4 10.3h10.6l-8.6 6.3 3.3 10.3-8.7-6.4-8.6 6.3L25 27.6l-8.7-6.3h10.9zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.2 10.3-8.6-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.8zM60.8 37l3.3 10.2H75l-8.7 6.2 3.2 10.3-8.5-6.3-8.7 6.3 3.1-10.3-8.4-6.2h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.2h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2H179zm60.8 0 3.4 10.2h10.7l-8.8 6.2 3.4 10.3-8.7-6.3-8.6 6.3 3.2-10.3-8.7-6.2H240zm60.8 0 3.3 10.2h10.8l-8.7 6.2 3.3 10.3-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.2h10.7zM30.4 62.6l3.4 10.4h10.6l-8.6 6.3 3.3 10.2-8.7-6.3-8.6 6.3L25 79.3 16.3 73h10.9zm60.8 0L94.5 73h10.8l-8.7 6.3 3.2 10.2-8.6-6.3-8.7 6.3 3.3-10.3-8.6-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.8zM60.8 88.6l3.3 10.2H75l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3H179zm60.8 0 3.4 10.2h10.7l-8.7 6.3 3.3 10.3-8.7-6.4-8.6 6.3 3.2-10.2-8.7-6.3H240zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zM30.4 114.5l3.4 10.2h10.6l-8.6 6.3 3.3 10.3-8.7-6.4-8.6 6.3L25 131l-8.7-6.3h10.9zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.2 10.2-8.6-6.3-8.7 6.3 3.3-10.2-8.6-6.3h10.6zm60.8 0 3.3 10.2H166l-8.6 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.2h10.7L279 131l3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.2h10.8l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3L329 131l-8.8-6.3h10.8zM60.8 140.3l3.3 10.3H75l-8.7 6.2 3.3 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.6-6.3h10.7zm60.8 0 3.4 10.3h10.7l-8.8 6.2 3.4 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.2 3.3 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.6-6.3H179zm60.8 0 3.4 10.3h10.7l-8.7 6.2 3.3 10.3-8.7-6.4-8.6 6.4 3.2-10.3-8.7-6.3H240zm60.8 0 3.3 10.3h10.8l-8.7 6.2 3.3 10.3-8.7-6.4-8.7 6.4 3.3-10.3-8.6-6.3h10.7zM30.4 166.1l3.4 10.3h10.6l-8.6 6.3 3.3 10.1-8.7-6.2-8.6 6.2 3.2-10.2-8.7-6.3h10.9zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.4-10.2-8.7-6.3h10.6zm60.8 0 3.3 10.3H166l-8.6 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.3h10.8l-8.7 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.4-10.2-8.8-6.3h10.7zm60.8 0 3.3 10.3h10.7l-8.6 6.3 3.3 10.1-8.7-6.2-8.7 6.2 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.3 10.3h10.8l-8.8 6.3 3.4 10.1-8.7-6.2-8.7 6.2 3.4-10.2-8.8-6.3h10.8zM60.8 192l3.3 10.2H75l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zm60.8 0 3.4 10.2h10.7l-8.8 6.3 3.4 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3H179zm60.8 0 3.4 10.2h10.7l-8.7 6.3 3.3 10.3-8.7-6.4-8.6 6.3 3.2-10.2-8.7-6.3H240zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.3-8.7-6.4-8.7 6.3 3.3-10.2-8.6-6.3h10.7zM30.4 217.9l3.4 10.2h10.6l-8.6 6.3 3.3 10.2-8.7-6.3-8.6 6.3 3.2-10.3-8.7-6.3h10.9zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.7-6.3h10.6zm60.8 0 3.3 10.2H166l-8.4 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.7-6.3h10.8zm60.8 0 3.3 10.2h10.8l-8.7 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.7zm60.8 0 3.3 10.2h10.7l-8.6 6.3 3.3 10.2-8.7-6.3-8.7 6.3 3.3-10.3-8.6-6.3h10.7zm60.8 0 3.3 10.2h10.8l-8.8 6.3 3.4 10.2-8.7-6.3-8.7 6.3 3.4-10.3-8.8-6.3h10.8z"/>
-            </g>        
-        </symbol> 
-        <symbol id="flag-icons-cn" viewBox="0 0 640 480">
-            <defs>
-                <path id="a" fill="#ff0" d="M-.6.8 0-1 .6.8-1-.3h2z"/>
-            </defs>
-            <path fill="#ee1c25" d="M0 0h640v480H0z"/>
-            <use xlink:href="#a" width="30" height="20" transform="matrix(71.9991 0 0 72 120 120)"/>
-            <use xlink:href="#a" width="30" height="20" transform="matrix(-12.33562 -20.5871 20.58684 -12.33577 240.3 48)"/>
-            <use xlink:href="#a" width="30" height="20" transform="matrix(-3.38573 -23.75998 23.75968 -3.38578 288 95.8)"/>
-            <use xlink:href="#a" width="30" height="20" transform="matrix(6.5991 -23.0749 23.0746 6.59919 288 168)"/>
-            <use xlink:href="#a" width="30" height="20" transform="matrix(14.9991 -18.73557 18.73533 14.99929 240 216)"/>     
-        </symbol> 
-    </svg>
-    
-    <div id="navBar">
-        <ul class="ERM">
-            <li><a href="https://www.erm.com/" title="www.erm.com" target="_blank">
-                <svg viewBox='0 1 14 14' width="28" fill='none' stroke='#000'>
-                    <defs>
-                        <linearGradient id="gradient">
-                            <stop offset="0%" style="stop-color: #05a"/>
-                            <stop offset="100%" style="stop-color: #0a5"/>
-                        </linearGradient>
-                    </defs>
-                    <path stroke='rgb(144,144,144)' stroke-width='0.1' 
-                        d='M1,4l0,9M2,4l0,9M3,4l0,9M4,4l0,9M5,4l0,9M6,4l0,9M7,4l0,9M8,4l0,9M9,4l0,9M10,4l0,9M11,4l0,9M12,4l0,9M13,4l0,9
-							M1,13l12,0M1,12l12,0M1,11l12,0M1,10l12,0M1,9l12,0M1,8l12,0M1,7l12,0M1,6l12,0M1,5l12,0M1,4l12,0'/>
-                    <path stroke='url(#gradient)' stroke-width='0.2' 
-                        d='M1,5l8,8l4,-4l-2,-2l-1,1'/>
-                    <path stroke='url(#gradient)' stroke-width='0.5' stroke-linecap="round"  
-                        d='M1,2 Q1,13 9,13 Q12.5,12.5 13,9 Q13,6.5 11,6.5 Q10.1,6.6 10,7.5 Q10,8.5	11,8.5'/>
+            </symbol>
+            <symbol id="flag-icons-cn" viewBox="0 0 640 480">
+                <defs>
+                    <path id="a" fill="#ff0" d="M-.6.8 0-1 .6.8-1-.3h2z" />
+                </defs>
+                <path fill="#ee1c25" d="M0 0h640v480H0z" />
+                <use xlink:href="#a" width="30" height="20" transform="matrix(71.9991 0 0 72 120 120)" />
+                <use xlink:href="#a" width="30" height="20" transform="matrix(-12.33562 -20.5871 20.58684 -12.33577 240.3 48)" />
+                <use xlink:href="#a" width="30" height="20" transform="matrix(-3.38573 -23.75998 23.75968 -3.38578 288 95.8)" />
+                <use xlink:href="#a" width="30" height="20" transform="matrix(6.5991 -23.0749 23.0746 6.59919 288 168)" />
+                <use xlink:href="#a" width="30" height="20" transform="matrix(14.9991 -18.73557 18.73533 14.99929 240 216)" />
+            </symbol>
+        </svg>
 
-                </svg>
-            </a></li>
-        </ul>
-        <ul class="navLinks" id='navLinks'>
-            <li id="editButton" class="filePanel active" title="Edit Borelogs">
-                <svg><use xlink:href="#icon-editButton"></svg>
-            </li>
-            <li id="tableViewButton" class="pageSettingPanel" title="Page Settings">
-                <svg><use xlink:href="#icon-pageSetting"></svg>
-            </li>
-            <li id="codeViewButton" class="codePanle" title="Ediet by Jason File">
-                <svg><use xlink:href="#icon-codeViewButton"></svg>
-            </li>
-            <li id="visualButton" class="visualPanle" title="visualization">
-                <svg><use xlink:href="#icon-visualButton"></svg>
-            </li>
-            <div id="navBarMove"><style></style></div>
-        </ul>
-        
-        <ul class="settings">
-            <li id="themeToggle" title="Change to Dark Theme">
-                <svg ><use xlink:href="#icon-lightTheme"></use></svg>
-            </li>
-            <li id="summaryButton" title="Open data summary table">
-                <svg><use xlink:href="#icon-toolBox"></use></svg>
-                
-            </li>
-            <li id="settingButton" title="Settings">
-                <svg><use xlink:href="#icon-settingButton"></use></svg>
-                <div id="settingMeun" hidden="true" tabindex="-1">
-                    <ul>
-                        <li><span class="caption">What's New</span></li>
-                        <li><span class="caption">Help</span></li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-        
-    </div>
+        <div id="navBar">
+            <ul class="ERM">
+                <li>
+                    <a href="https://www.erm.com/" title="www.erm.com" target="_blank">
+                        <svg viewBox="0 1 14 14" width="28" fill="none" stroke="#000">
+                            <defs>
+                                <linearGradient id="gradient">
+                                    <stop offset="0%" style="stop-color: #05a" />
+                                    <stop offset="100%" style="stop-color: #0a5" />
+                                </linearGradient>
+                            </defs>
+                            <path
+                                stroke="rgb(144,144,144)"
+                                stroke-width="0.1"
+                                d="M1,4l0,9M2,4l0,9M3,4l0,9M4,4l0,9M5,4l0,9M6,4l0,9M7,4l0,9M8,4l0,9M9,4l0,9M10,4l0,9M11,4l0,9M12,4l0,9M13,4l0,9
+							M1,13l12,0M1,12l12,0M1,11l12,0M1,10l12,0M1,9l12,0M1,8l12,0M1,7l12,0M1,6l12,0M1,5l12,0M1,4l12,0"
+                            />
+                            <path stroke="url(#gradient)" stroke-width="0.2" d="M1,5l8,8l4,-4l-2,-2l-1,1" />
+                            <path
+                                stroke="url(#gradient)"
+                                stroke-width="0.5"
+                                stroke-linecap="round"
+                                d="M1,2 Q1,13 9,13 Q12.5,12.5 13,9 Q13,6.5 11,6.5 Q10.1,6.6 10,7.5 Q10,8.5	11,8.5"
+                            />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+            <ul class="navLinks" id="navLinks">
+                <li id="editButton" class="filePanel active" title="Edit Borelogs">
+                    <svg><use xlink:href="#icon-editButton" /></svg>
+                </li>
+                <li id="tableViewButton" class="pageSettingPanel" title="Page Settings">
+                    <svg><use xlink:href="#icon-pageSetting" /></svg>
+                </li>
+                <li id="codeViewButton" class="codePanle" title="Ediet by Jason File">
+                    <svg><use xlink:href="#icon-codeViewButton" /></svg>
+                </li>
+                <li id="visualButton" class="visualPanle" title="visualization">
+                    <svg><use xlink:href="#icon-visualButton" /></svg>
+                </li>
+                <div id="navBarMove"><style></style></div>
+            </ul>
 
-    <div id="mainContent">
-        <div id="controlPanel">
-            <div id="filePanel" class="active">
-                <div class="titleBar">
-                    <h>LOG OF BOREHOLE: </h>
-                    <div id="currentLogClickCapture">
-                        <input type="text" id="currentLog" value="NULL" disabled autocomplete="off" >
+            <ul class="settings">
+                <li id="themeToggle" title="Change to Dark Theme">
+                    <svg><use xlink:href="#icon-lightTheme"></use></svg>
+                </li>
+                <li id="summaryButton" title="Open data summary table">
+                    <svg><use xlink:href="#icon-toolBox"></use></svg>
+                </li>
+                <li id="settingButton" title="Settings">
+                    <svg><use xlink:href="#icon-settingButton"></use></svg>
+                    <div id="settingMeun" hidden="true" tabindex="-1">
+                        <ul>
+                            <li><span class="caption">What's New</span></li>
+                            <li><span class="caption">Help</span></li>
+                        </ul>
                     </div>
-                    <a id="showLogListButton" title="Select" tabindex="-1">
-                    <svg viewBox="0 0 24 24"><use xlink:href="#icon-showLogListButton"></use></svg>
-                    
-                    </a>
-                    <div id="logList" hidden="true"></div>
-                    <a id="addLogButton" title="Add new log">
-                        <svg viewBox="0 0 24 24"><use xlink:href="#icon-addLogButton"></use></svg>
-                    </a>
-                </div>
-                <div class="inputArea">
-                    <div class="inputControl">
-                        <div class="infoTemp">
-                            <span class="manualRefresh"><svg viewbox="0 0 24 24" height="18"><use xlink:href="#icon-refresh"></svg></span>
-                            <span class="loadTemplate">LOAD <br> TEMPLATE</span>
-                            <span class="saveAsTemplate">SAVE AS <br> TEMPLATE</span>
+                </li>
+            </ul>
+        </div>
+
+        <div id="mainContent">
+            <div id="controlPanel">
+                <div id="filePanel" class="active">
+                    <div class="titleBar">
+                        <h>LOG OF BOREHOLE:</h>
+                        <div id="currentLogClickCapture">
+                            <input type="text" id="currentLog" value="NULL" disabled autocomplete="off" />
                         </div>
-                        <div class="spliter"></div>
-                        <div class="wellInstalled">
-                            <input type="checkbox" id="wellInstalled" name="wellInstalled" style="display: none;">
-                            <label class="toggle" for="wellInstalled">Well Installed</label>
-                        </div>
-                        <div class="spliter"></div>
-                        <div class="autoAxis">
-                            <input type="checkbox" id="autoAxis" name="autoAxis" style="display: none;">
-                            <label class="toggle" for="autoAxis">Auto Axis</label>
-                        </div>
-                        <div class="maxTrickDepth">
-                            <input type="number" class="maxTrickDepth" autocomplete="off">
-                            <label>Max. Bound</label>
-                        </div>
-                        <div class="majorTrick">
-                            <input type="number" class="majorTrick" autocomplete="off">
-                            <label>Major Unit</label>
-                        </div>
+                        <a id="showLogListButton" title="Select" tabindex="-1">
+                            <svg viewBox="0 0 24 24">
+                                <use xlink:href="#icon-showLogListButton"></use>
+                            </svg>
+                        </a>
+                        <div id="logList" hidden="true"></div>
+                        <a id="addLogButton" title="Add new log">
+                            <svg viewBox="0 0 24 24">
+                                <use xlink:href="#icon-addLogButton"></use>
+                            </svg>
+                        </a>
                     </div>
-                    
-                    <details open id="projectDetials">
-                        <summary>BOREHOLE/WELL SPECIFICATION</summary>
+                    <div class="inputArea">
+                        <div class="inputControl">
+                            <div class="infoTemp">
+                                <span class="manualRefresh">
+                                    <svg viewbox="0 0 24 24" height="18">
+                                        <use xlink:href="#icon-refresh" />
+                                    </svg>
+                                </span>
+                                <span class="loadTemplate">
+                                    LOAD
+                                    <br />
+                                    TEMPLATE
+                                </span>
+                                <span class="saveAsTemplate">
+                                    SAVE AS
+                                    <br />
+                                    TEMPLATE
+                                </span>
+                                <span class="duplicateCurrent">
+                                    DUPLICATE
+                                    <br />
+                                    CURRENT
+                                </span>
+                            </div>
+                            <div class="spliter"></div>
+                            <div class="wellInstalled">
+                                <input type="checkbox" id="wellInstalled" name="wellInstalled" style="display: none" />
+                                <label class="toggle" for="wellInstalled">Well Installed</label>
+                            </div>
+                            <div class="spliter"></div>
+                            <div class="autoAxis">
+                                <input type="checkbox" id="autoAxis" name="autoAxis" style="display: none" />
+                                <label class="toggle" for="autoAxis">Auto Axis</label>
+                            </div>
+                            <div class="maxTrickDepth">
+                                <input type="number" class="maxTrickDepth" autocomplete="off" />
+                                <label>Max. Bound</label>
+                            </div>
+                            <div class="majorTrick">
+                                <input type="number" class="majorTrick" autocomplete="off" />
+                                <label>Major Unit</label>
+                            </div>
+                        </div>
+
+                        <details open id="projectDetials">
+                            <summary>BOREHOLE/WELL SPECIFICATION</summary>
                             <div class="fillingField projectNo">
-                                <input type="text" class="projectNo" autocomplete="off" placeholder=" ">
+                                <input type="text" class="projectNo" autocomplete="off" placeholder=" " />
                                 <label>Project No:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField projectTitle">
-                                <input type="text" class="projectTitle"  autocomplete="off" placeholder=" ">
+                                <input type="text" class="projectTitle" autocomplete="off" placeholder=" " />
                                 <label>Project Title:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField client">
-                                <input type="text" class="client" autocomplete="off" placeholder=" ">
+                                <input type="text" class="client" autocomplete="off" placeholder=" " />
                                 <label>Client:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField loggedBy">
-                                <input type="text" class="loggedBy" autocomplete="off" placeholder=" ">
+                                <input type="text" class="loggedBy" autocomplete="off" placeholder=" " />
                                 <label>Logged By:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField reviewedBy">
-                                <input type="text" class="reviewedBy" autocomplete="off" placeholder=" ">
+                                <input type="text" class="reviewedBy" autocomplete="off" placeholder=" " />
                                 <label>Reviewed By:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField approvedBy">
-                                <input type="text" class="approvedBy" autocomplete="off" placeholder=" ">
+                                <input type="text" class="approvedBy" autocomplete="off" placeholder=" " />
                                 <label>Approved By:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField coordSys">
-                                <input type="text" class="coordSys" autocomplete="off" placeholder=" ">
+                                <input type="text" class="coordSys" autocomplete="off" placeholder=" " />
                                 <div class="dropDownList">
                                     <span>WGS 84</span>
                                     <span>UTM</span>
                                     <span>CGCS2000</span>
                                 </div>
                                 <label>Coordinate System:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField xCoord">
-                                <input type="text" class="xCoord" autocomplete="off" placeholder=" ">
+                                <input type="text" class="xCoord" autocomplete="off" placeholder=" " />
                                 <label>X Coordinate:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField yCoord">
-                                <input type="text" class="yCoord" autocomplete="off" placeholder=" ">
+                                <input type="text" class="yCoord" autocomplete="off" placeholder=" " />
                                 <label>Y Coordinate:</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField drillDate">
-                                <input type="text" class="drillDate" autocomplete="off" placeholder=" ">
+                                <input type="text" class="drillDate" autocomplete="off" placeholder=" " />
                                 <label>Drilling Date (YYYY/MM/DD)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
-                                <div class="dropDownList"> <!-- style="display: block;" -->
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
+                                <div class="dropDownList">
                                     <div class="datePicker">
-                                        <div class="dateHeader"><table> 
-                                            <tbody>
-                                                <tr class="yearMonth">
-                                                    <td class="yearMonth" colspan="5">                                                        
-                                                        <input class="selectedYear" type="number" placeholder="YYYY" step="1" min="1970" max="2030">
-                                                        -
-                                                        <input class="selectedMonth" type="number" placeholder="MM" step="1" min="1" max="12">
-                                                    </td>
-                                                    <td class="previousMonth"><svg viewBox="0 0 24 24"><use xlink:href="#icon-chevronUp"></svg></td>
-                                                    <td class="nextMonth"><svg viewBox="0 0 24 24"><use xlink:href="#icon-chevronDown"></svg></td>
-                                                </tr>
-                                                <tr class="weekNo">
-                                                    <td>Mo</td><td>Tu</td><td>We</td><td>Th</td><td>Fr</td><td>Sa</td><td>Su</td>
-                                                </tr>
-                                            </tbody>
-                                        </table></div>
-                                        <div class="dateScroller"><table> 
-                                            <tbody class="dateTbody"></tbody>
-                                        </table></div>
-                                        <div class="dateControler"><table> 
-                                            <tbody>
-                                                <tr class="dateControler">
-                                                    <td class="clear" colspan="2">Clear</td>
-                                                    <td></td><td></td><td></td><td></td>
-                                                    <td class="today" colspan="2">Today</td>
-                                                </tr>
-                                            </tbody>
-                                        </table></div>
+                                        <div class="dateHeader">
+                                            <table>
+                                                <tbody>
+                                                    <tr class="yearMonth">
+                                                        <td class="yearMonth" colspan="5">
+                                                            <input class="selectedYear" type="number" placeholder="YYYY" step="1" min="1970" max="2030" />
+                                                            -
+                                                            <input class="selectedMonth" type="number" placeholder="MM" step="1" min="1" max="12" />
+                                                        </td>
+                                                        <td class="previousMonth">
+                                                            <svg viewBox="0 0 24 24">
+                                                                <use xlink:href="#icon-chevronUp" />
+                                                            </svg>
+                                                        </td>
+                                                        <td class="nextMonth">
+                                                            <svg viewBox="0 0 24 24">
+                                                                <use xlink:href="#icon-chevronDown" />
+                                                            </svg>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="weekNo">
+                                                        <td>Mo</td>
+                                                        <td>Tu</td>
+                                                        <td>We</td>
+                                                        <td>Th</td>
+                                                        <td>Fr</td>
+                                                        <td>Sa</td>
+                                                        <td>Su</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="dateScroller">
+                                            <table>
+                                                <tbody class="dateTbody"></tbody>
+                                            </table>
+                                        </div>
+                                        <div class="dateControler">
+                                            <table>
+                                                <tbody>
+                                                    <tr class="dateControler">
+                                                        <td class="clear" colspan="2">Clear</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td class="today" colspan="2">Today</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="fillingField drilledBy">
-                                <input type="text" class="drilledBy" autocomplete="off" placeholder=" ">
+                                <input type="text" class="drilledBy" autocomplete="off" placeholder=" " />
                                 <div class="dropDownList">
                                     <span>Senping</span>
                                     <span>Tengjing</span>
@@ -340,698 +520,1020 @@
                                     <span>Jierang</span>
                                 </div>
                                 <label>Driller Name</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField drillMethod">
-                                <input type="text" class="drillMethod" autocomplete="off" placeholder=" ">
+                                <input type="text" class="drillMethod" autocomplete="off" placeholder=" " />
                                 <div class="dropDownList">
                                     <span>Hand Auger</span>
                                     <span>Direct Push</span>
                                     <span>Hollow Stem Auger</span>
-                                    <span>Cable Percussion </span>
+                                    <span>Cable Percussion</span>
                                 </div>
                                 <label>Drilling Method</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField holeSize">
-                                <input type="number" class="holeSize" autocomplete="off" placeholder=" ">
+                                <input type="number" class="holeSize" autocomplete="off" placeholder=" " />
                                 <label>Borehole Diameter (mm)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField initialWaterLevel">
-                                <input type="text" class="initialWaterLevel" autocomplete="off" placeholder=" ">
+                                <input type="text" class="initialWaterLevel" autocomplete="off" placeholder=" " />
                                 <label>Initial Water Level (m bgs)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
-                            <br>
+                            <br />
                             <div class="fillingField wellHead">
-                                <input type="text" class="wellHead" readonly="true" placeholder=" ">
+                                <input type="text" class="wellHead" readonly="true" placeholder=" " />
                                 <div class="dropDownList">
                                     <span>Protective Standpipe</span>
                                     <span>Flush-Mounted Manhole</span>
                                     <span>None</span>
                                 </div>
                                 <label>Well Head Type</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField casingSize">
-                                <input type="number" class="casingSize" autocomplete="off" placeholder=" ">
+                                <input type="number" class="casingSize" autocomplete="off" placeholder=" " />
                                 <label>Casing Diameter (mm)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField totalWellDepth">
-                                <input type="number" class="totalWellDepth" autocomplete="off" placeholder=" ">
+                                <input type="number" class="totalWellDepth" autocomplete="off" placeholder=" " />
                                 <label>Total Well Depth (m bgs)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField bentoniteSealingDepth">
-                                <input type="number" class="bentoniteSealingDepth" autocomplete="off" placeholder=" ">
+                                <input type="number" class="bentoniteSealingDepth" autocomplete="off" placeholder=" " />
                                 <label>Bentonite Sealing Depth (m bgs)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField screenIntervalFrom">
-                                <input type="number" class="screenIntervalFrom" autocomplete="off" placeholder=" ">
+                                <input type="number" class="screenIntervalFrom" autocomplete="off" placeholder=" " />
                                 <label>Top of screen section (m bgs)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField screenIntervalTo">
-                                <input type="number" class="screenIntervalTo" autocomplete="off" placeholder=" ">
+                                <input type="number" class="screenIntervalTo" autocomplete="off" placeholder=" " />
                                 <label>Bottom of screen section (m bgs)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField topOfCasingElevation">
-                                <input type="number" class="topOfCasingElevation" autocomplete="off" placeholder=" "> 
+                                <input type="number" class="topOfCasingElevation" autocomplete="off" placeholder=" " />
                                 <label>Top of Casing Elevation (m RL)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField groundElevation">
-                                <input type="number" class="groundElevation" autocomplete="off" placeholder=" ">
+                                <input type="number" class="groundElevation" autocomplete="off" placeholder=" " />
                                 <label>Ground Elevation (m RL)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
                             <div class="fillingField staticWaterLevel">
-                                <input type="number" class="staticWaterLevel" autocomplete="off" placeholder=" ">
+                                <input type="number" class="staticWaterLevel" autocomplete="off" placeholder=" " />
                                 <label>Static Water Level (m BTOC)</label>
-                                <span class='emptyInput'><svg viewbox="0 0 24 24"><use xlink:href="#icon-emptyInput"></svg></span>
+                                <span class="emptyInput">
+                                    <svg viewbox="0 0 24 24">
+                                        <use xlink:href="#icon-emptyInput" />
+                                    </svg>
+                                </span>
                             </div>
-                    </details>
-                    <details open id="subsurfaceProfile">
-                        <summary>SUBSURFACE PROFILE</summary>
-                        <div class="soilProfileContainer">
-                        </div>
-                        <div class="addNewLine" title="Add a new line">
-                            ADD NEW
-                        </div>
-                        <div class="patternSelect" id="patternSelector" tabindex="-1" style="display: none";>
-                            <!-- style="display: none;" -->
-                            
-                            <div class="patternPreview">
-                            </div>
-                            <div class="colorselect">
-                                <span class='color #988330' style="background-color: #988330"></span>
-                                <span class='color #8F713E' style="background-color: #8F713E"></span>
-                                <span class='color #6E6459' style="background-color: #6E6459"></span>
-                                <span class='color #8C533A' style="background-color: #8C533A"></span>
-                                <span class='color #D1732C' style="background-color: #D1732C"></span>
-                                <span class='color #676241' style="background-color: #676241"></span>
-                                <span class='color #8E8B68' style="background-color: #8E8B68"></span>
-                                <span class='color #000000' style="background-color: #000"></span>
-                                <input class='colorInput' type="color">
-                            </div>
-                            <div class="controls">
-                                <div>
-                                    <input class='patternName' type="text" disabled>
-                                    <label> PATTERN #:</label>
+                        </details>
+                        <details open id="subsurfaceProfile">
+                            <summary>SUBSURFACE PROFILE</summary>
+                            <div class="soilProfileContainer"></div>
+                            <div class="addNewLine" title="Add a new line">ADD NEW</div>
+                            <div class="patternSelect" id="patternSelector" tabindex="-1" style="display: none" ;>
+                                <div class="patternPreview"></div>
+                                <div class="colorselect">
+                                    <span class="color #988330" style="background-color: #988330"></span>
+                                    <span class="color #8F713E" style="background-color: #8f713e"></span>
+                                    <span class="color #6E6459" style="background-color: #6e6459"></span>
+                                    <span class="color #8C533A" style="background-color: #8c533a"></span>
+                                    <span class="color #D1732C" style="background-color: #d1732c"></span>
+                                    <span class="color #676241" style="background-color: #676241"></span>
+                                    <span class="color #8E8B68" style="background-color: #8e8b68"></span>
+                                    <span class="color #000000" style="background-color: #000"></span>
+                                    <input class="colorInput" type="color" />
                                 </div>
-                                <div>
-                                    <input class='patternColor' type="text">
-                                    <label> COLOR #:</label>
-                                </div>                             
-                                
-                                <span class="cancel">cancel</span>
-                                <span class="confirm">confirm</span>
+                                <div class="controls">
+                                    <div>
+                                        <input class="patternName" type="text" disabled />
+                                        <label>PATTERN #:</label>
+                                    </div>
+                                    <div>
+                                        <input class="patternColor" type="text" />
+                                        <label>COLOR #:</label>
+                                    </div>
+
+                                    <span class="cancel">cancel</span>
+                                    <span class="confirm">confirm</span>
+                                </div>
                             </div>
-                        </div>
-                                            
-                    </details>
-                    <details open id="soilSample">
-                        <summary>SAMPLE & ANALYSIS</summary> 
-                        <div class="soilSamplesContainer">
-                        </div>
-                        <div class="addNewLine" title="Add a new line">
-                            ADD NEW  
-                        </div>
-                    </details>
+                        </details>
+                        <details open id="soilSample">
+                            <summary>SAMPLE & ANALYSIS</summary>
+                            <div class="soilSamplesContainer"></div>
+                            <div class="addNewLine" title="Add a new line">ADD NEW</div>
+                        </details>
+                    </div>
+                </div>
+                <div id="pageSettingPanel">
+                    <div class="titleBar">
+                        <h>PAGE SETTINGS</h>
+                        <div class="placeHolder"></div>
+                    </div>
+                    <div class="inputArea">
+                        <details open id="languageGroup">
+                            <summary>
+                                <span>Report Language:</span>
+                            </summary>
+                            <div class="selectionCard language selected" data-propertyVal="EN">
+                                <span class="thumbnail">
+                                    <svg viewBox="0 0 640 480" width="90%">
+                                        <use xlink:href="#flag-icons-us" />
+                                    </svg>
+                                </span>
+                                <span class="text">
+                                    <span>English</span>
+                                    <label>LOG of BOREHOLE</label>
+                                </span>
+                            </div>
+                            <div class="selectionCard language" data-propertyVal="CN">
+                                <span class="thumbnail">
+                                    <svg viewBox="0 0 640 480" width="90%">
+                                        <use xlink:href="#flag-icons-cn" />
+                                    </svg>
+                                </span>
+                                <span class="text">
+                                    <span>简体中文</span>
+                                    <label>钻井记录</label>
+                                </span>
+                            </div>
+                        </details>
+                        <details open id="paperSizeGroup">
+                            <summary>
+                                <span>Paper Size:</span>
+                            </summary>
+                            <div class="selectionCard paperSize selected" data-pageHeight_mm="297" data-pageWidth_mm="210" data-propertyVal="A4">
+                                <span class="thumbnail">
+                                    <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
+                                        <path fill="none" stroke="currentColor" d="M3,1 L14,1 L14,4 L17,4 L17,19 L3,19Z M14,1 L17,4" />
+                                    </svg>
+                                </span>
+                                <span class="text">
+                                    <span class="language EN">A4</span>
+                                    <label>
+                                        Width: 210mm
+                                        <br />
+                                        Height: 297mm
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="selectionCard paperSize" data-pageHeight_mm="279.4" data-pageWidth_mm="215.9" data-propertyVal="Letter">
+                                <span class="thumbnail">
+                                    <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
+                                        <path fill="none" stroke="currentColor" d="M2,2 L14,2 L14,5 L17,5 L17,18 L2,18Z M14,2 L17,5" />
+                                    </svg>
+                                </span>
+                                <span class="text">
+                                    <span class="language EN">Letter</span>
+                                    <label>
+                                        Width: 215.9mm
+                                        <br />
+                                        Height: 279.4mm
+                                    </label>
+                                </span>
+                            </div>
+                        </details>
+                        <details open id="marginsGroup">
+                            <summary>
+                                <span>Margins:</span>
+                            </summary>
+                            <div class="selectionCard margins" data-propertyVal="10">
+                                <span class="thumbnail">
+                                    <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
+                                        <path fill="none" stroke="rgb(114,114,114)" d="M3,1 L17,1 L17,19 L3,19Z" />
+                                        <path fill="none" stroke="rgb(31, 138, 210)" d="M4,1 L4,19 M16,1 L16,19 M3,2 L17,2 M3,18 L17,18 " />
+                                    </svg>
+                                </span>
+                                <span class="text">
+                                    <span class="language EN">Narrow</span>
+                                    <label>
+                                        Top: 10mm Bottom: 10mm
+                                        <br />
+                                        Left: 10mm Right: 10mm
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="selectionCard selected margins" data-propertyVal="15">
+                                <span class="thumbnail">
+                                    <span class="thumbnail">
+                                        <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
+                                            <path fill="none" stroke="rgb(114,114,114)" d="M3,1 L17,1 L17,19 L3,19Z" />
+                                            <path fill="none" stroke="rgb(31, 138, 210)" d="M5.5,1 L5.5,19 M14.5,1 L14.5,19 M3,3.5 L17,3.5 M3,16.5 L17,16.5 " />
+                                        </svg>
+                                    </span>
+                                </span>
+                                <span class="text">
+                                    <span class="language EN">Moderate</span>
+                                    <label>
+                                        Top: 15mm Bottom: 15mm
+                                        <br />
+                                        Left: 15mm Right: 15mm
+                                    </label>
+                                </span>
+                            </div>
+                            <div class="selectionCard margins" data-propertyVal="20">
+                                <span class="thumbnail">
+                                    <span class="thumbnail">
+                                        <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
+                                            <path fill="none" stroke="rgb(114,114,114)" d="M3,1 L17,1 L17,19 L3,19Z" />
+                                            <path fill="none" stroke="rgb(31, 138, 210)" d="M7,1 L7,19 M13,1 L13,19 M3,5 L17,5 M3,15 L17,15 " />
+                                        </svg>
+                                    </span>
+                                </span>
+                                <span class="text">
+                                    <span class="language EN">Wide</span>
+                                    <label>
+                                        Top: 20mm Bottom: 20mm
+                                        <br />
+                                        Left: 20mm Right: 20mm
+                                    </label>
+                                </span>
+                            </div>
+                        </details>
+                        <details open id="fontsGroup">
+                            <summary>
+                                <span>Fonts:</span>
+                            </summary>
+                            <div class="selectionCard fonts" data-propertyVal="Arial">
+                                <span class="thumbnail" style="opacity: 0.5; font-size: 20px; font-family: 'Arial'; text-align: center; line-height: 35px">
+                                    Ab
+                                </span>
+                                <span class="text">
+                                    <span class="font Arial">Arial</span>
+                                    <label>The quick brown fox jumps over the lazy dog</label>
+                                </span>
+                            </div>
+                            <div class="selectionCard fonts selected" data-propertyVal="Book Antiqua">
+                                <span
+                                    class="thumbnail"
+                                    style="opacity: 0.5; font-size: 20px; font-family: 'Book Antiqua'; text-align: center; line-height: 35px"
+                                >
+                                    Ab
+                                </span>
+                                <span class="text">
+                                    <span class="font bookAntiqua" style="font-family: 'Book Antiqua'">Book Antiqua</span>
+                                    <label style="font-family: 'Book Antiqua'">The quick brown fox jumps over the lazy dog</label>
+                                </span>
+                            </div>
+                            <div class="selectionCard fonts" data-propertyVal="Consolas">
+                                <span class="thumbnail" style="opacity: 0.5; font-size: 20px; font-family: 'consolas'; text-align: center; line-height: 35px">
+                                    Ab
+                                </span>
+                                <span class="text">
+                                    <span class="font consoles" style="font-family: 'consolas'">Consolas</span>
+                                    <label style="font-family: 'consolas'">The quick brown fox jumps over the lazy dog</label>
+                                </span>
+                            </div>
+                        </details>
+                        <details open id="paragraphGroup">
+                            <summary>Line-height & Offsets</summary>
+                            <div class="selectionCard small noborder">
+                                <span class="thumbnail">
+                                    <svg
+                                        width="23"
+                                        height="23"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="0.5"
+                                        stroke="currentcolor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <circle cx="5" cy="5" r="2" />
+                                        <circle cx="19" cy="5" r="2" />
+                                        <circle cx="5" cy="19" r="2" />
+                                        <circle cx="19" cy="19" r="2" />
+                                        <path d="M5 7v10" />
+                                        <path d="M7 5h10" />
+                                        <path d="M7 19h10" />
+                                        <path d="M19 7v10" />
+                                        <path d="M10 10h4" />
+                                        <path d="M12 14v-4" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="selectionCard medium customInput">
+                                <label>Base Font-Size:</label>
+                                <input type="number" class="fontSize" value="9.5" />
+                                <Unit>px</Unit>
+                            </div>
+                            <br />
+                            <div class="selectionCard small noborder">
+                                <span class="thumbnail">
+                                    <svg
+                                        width="23"
+                                        height="23"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="0.5"
+                                        stroke="currentcolor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <polyline points="3 8 6 5 9 8" />
+                                        <polyline points="3 16 6 19 9 16" />
+                                        <line x1="6" y1="5" x2="6" y2="19" />
+                                        <line x1="13" y1="6" x2="20" y2="6" />
+                                        <line x1="13" y1="12" x2="20" y2="12" />
+                                        <line x1="13" y1="18" x2="20" y2="18" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="selectionCard medium customInput">
+                                <label>Header</label>
+                                <input type="number" class="headerLineHeight" value="16.0" />
+                                <Unit>px</Unit>
+                            </div>
+                            <div class="selectionCard medium customInput">
+                                <label>Profile Description</label>
+                                <input type="number" class="descriptionLineHeight" value="14.0" />
+                                <Unit>px</Unit>
+                            </div>
+                            <div class="selectionCard medium customInput">
+                                <label>Footer & Lengnd</label>
+                                <input type="number" class="footerLineHeight" value="16.0" />
+                                <Unit>px</Unit>
+                            </div>
+                            <br />
+                            <div class="selectionCard small noborder">
+                                <span class="thumbnail">
+                                    <svg
+                                        width="23"
+                                        height="23"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="0.5"
+                                        stroke="currentcolor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <line x1="4" y1="6" x2="14" y2="6" />
+                                        <line x1="4" y1="18" x2="14" y2="18" />
+                                        <path d="M4 12h17l-3 -3m0 6l3 -3" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="selectionCard medium">
+                                <label>Header Divider #1</label>
+                                <input type="number" class="headerColOffSet first" value="0.0" />
+                                <Unit>px</Unit>
+                            </div>
+                            <div class="selectionCard medium">
+                                <label>Header Divider #2</label>
+                                <input type="number" class="headerColOffSet second" value="0.0" />
+                                <Unit>px</Unit>
+                            </div>
+                            <div class="selectionCard medium">
+                                <label>Footer Divider #1</label>
+                                <input type="number" class="footerColOffSet first" value="0.0" />
+                                <Unit>px</Unit>
+                            </div>
+                            <div class="selectionCard medium">
+                                <label>Footer Divider #2</label>
+                                <input type="number" class="footerColOffSet second" value="0.0" />
+                                <Unit>px</Unit>
+                            </div>
+                        </details>
+                        <details open id="gridsGroup">
+                            <summary>Format Grids</summary>
+                            <div class="selectionCard small noborder">
+                                <span class="thumbnail">
+                                    <svg
+                                        width="23"
+                                        height="23"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="0.5"
+                                        stroke="currentcolor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6" />
+                                        <path d="M10 18h-7" />
+                                        <path d="M21 18h-7" />
+                                        <path d="M6 15l-3 3l3 3" />
+                                        <path d="M18 15l3 3l-3 3" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #1</label>
+                                <input type="number" class="colWidthPct x1" value="6.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #2</label>
+                                <input type="number" class="colWidthPct x2" value="8.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #3</label>
+                                <input type="number" class="colWidthPct x3" value="36.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #4</label>
+                                <input type="number" class="colWidthPct x4" value="6.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #5</label>
+                                <input type="number" class="colWidthPct x5" value="14.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #6</label>
+                                <input type="number" class="colWidthPct x6" value="6.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Col #7</label>
+                                <input type="number" class="colWidthPct x7" value="6.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput" style="cursor: not-allowed">
+                                <label>Col #8</label>
+                                <input type="number" class="x8" value="18.0" disabled style="color: rgb(144, 144, 144); cursor: not-allowed" />
+                                <Unit>%</Unit>
+                            </div>
+                            <br />
+                            <div class="selectionCard small noborder">
+                                <span class="thumbnail">
+                                    <svg
+                                        width="23"
+                                        height="23"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="0.5"
+                                        stroke="currentcolor"
+                                        fill="none"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                        <path d="M12 20h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h6" />
+                                        <path d="M18 14v7" />
+                                        <path d="M18 3v7" />
+                                        <path d="M15 18l3 3l3 -3" />
+                                        <path d="M15 6l3 -3l3 3" />
+                                    </svg>
+                                </span>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Row #A</label>
+                                <input type="number" class="rowHeightPct y1" value="10.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Row #B</label>
+                                <input type="number" class="rowHeightPct y2" value="2.5" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Row #C</label>
+                                <input type="number" class="rowHeightPct y3" value="9.0" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput">
+                                <label>Row #D</label>
+                                <input type="number" class="rowHeightPct y4" value="66.5" />
+                                <Unit>%</Unit>
+                            </div>
+                            <div class="selectionCard small customInput" style="cursor: not-allowed">
+                                <label>Row #F</label>
+                                <input type="number" class="y5" value="12.0" disabled style="color: rgb(144, 144, 144); cursor: not-allowed" />
+                                <Unit>%</Unit>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                <div id="codePanle">
+                    <div class="titleBar">
+                        <h>JASON OBJECT</h>
+                        <div class="placeHolder"></div>
+                        <a href="#" id="saveJsonButton" title="Add new log">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                            </svg>
+                        </a>
+                        <a href="#" id="refreshJsonButton" title="Add new log">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="inputArea">在做了在做了</div>
+                </div>
+                <div id="visualPanle">
+                    <div class="titleBar"><h>VISUALIZATION</h></div>
+                    <div class="inputArea">在做了在做了...</div>
                 </div>
             </div>
-            <div id="pageSettingPanel" >
-                <div class="titleBar">
-                    <h>PAGE SETTINGS</h>
-                    <div class="placeHolder"></div>
-                </div>
-                <div class="inputArea">
-                    <details open id="languageGroup">
-                        <summary>
-                            <span>Report Language: </span> 
-                        </summary>
-                        <div class="selectionCard language selected" data-propertyVal="EN">
-                            <span class="thumbnail">
-                                <svg viewBox="0 0 640 480" width="90%"><use xlink:href="#flag-icons-us"></svg>
-                            </span>
-                            <span class="text">
-                                <span>English</span>
-                                <label>LOG of BOREHOLE</label>
-                            </span>
-                        </div>
-                        <div class="selectionCard language" data-propertyVal="CN">
-                            <span class="thumbnail">
-                                <svg viewBox="0 0 640 480" width="90%"><use xlink:href="#flag-icons-cn"></svg>
-                            </span>
-                            <span class="text">
-                                <span>简体中文</span>
-                                <label>钻井记录</label>
-                            </span>
-                        </div>  
-                    </details>  
-                    <details open id="paperSizeGroup">
-                        <summary>
-                            <span>Paper Size: </span> 
-                        </summary>
-                        <div class="selectionCard paperSize selected" data-pageHeight_mm="297" data-pageWidth_mm="210" data-propertyVal="A4">
-                            <span class="thumbnail">
-                                <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
-                                    <path fill="none" stroke="currentColor" d="M3,1 L14,1 L14,4 L17,4 L17,19 L3,19Z M14,1 L17,4"/>
-                                </svg>
-                            </span>
-                            <span class="text">
-                                <span class="language EN">A4</span>
-                                <label>Width: 210mm <br> Height: 297mm</label>
-                            </span>
-                        </div>
-                        <div class="selectionCard paperSize"  data-pageHeight_mm="279.4" data-pageWidth_mm="215.9" data-propertyVal="Letter">
-                            <span class="thumbnail">
-                                <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25">
-                                    <path fill="none" stroke="currentColor" d="M2,2 L14,2 L14,5 L17,5 L17,18 L2,18Z M14,2 L17,5"/>
-                                </svg> 
-                            </span>
-                            <span class="text">
-                                <span class="language EN">Letter</span>
-                                <label>Width: 215.9mm <br> Height: 279.4mm</label>
-                            </span>
-                        </div>
-                        <!-- <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4" />
-                                    <line x1="14.5" y1="5.5" x2="18.5" y2="9.5" />
-                                    <polyline points="12 8 7 3 3 7 8 12" />
-                                    <line x1="7" y1="8" x2="5.5" y2="9.5" />
-                                    <polyline points="16 12 21 17 17 21 12 16" />
-                                    <line x1="16" y1="17" x2="14.5" y2="18.5" />
-                                  </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard paperSizeCustom small">
-                            <label >Width:</label>
-                            <input type="number" value="215.9">
-                            <Unit>mm</Unit>
-                        </div>
-                        <div class="selectionCard paperSizeCustom small">
-                            <label >Height:</label>
-                            <input type="number" value="279.4">
-                            <Unit>mm</Unit>
-                        </div> -->
-                    </details>   
-                    <details open id="marginsGroup">
-                        <summary>
-                            <span>Margins: </span> 
-                        </summary>
-                        <div class="selectionCard margins" data-propertyVal="10">
-                            <span class="thumbnail">
-                                <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25" >
-                                    <path fill="none" stroke="rgb(114,114,114)" d="M3,1 L17,1 L17,19 L3,19Z"/>
-                                    <path fill="none" stroke="rgb(31, 138, 210)" d="M4,1 L4,19 M16,1 L16,19 M3,2 L17,2 M3,18 L17,18 "/>
-                                </svg> 
-                            </span>
-                            <span class="text">
-                                <span class="language EN">Narrow</span>
-                                <label>Top: 10mm Bottom: 10mm <br> Left: 10mm Right: 10mm</label>
-                            </span>
-                        </div>
-                        <div class="selectionCard  selected margins" data-propertyVal="15">
-                            <span class="thumbnail">
-                                <span class="thumbnail">
-                                    <svg width="100%" viewBox="0 0 20 20" stroke-width="0.25" >
-                                        <path fill="none" stroke="rgb(114,114,114)" d="M3,1 L17,1 L17,19 L3,19Z"/>
-                                        <path fill="none" stroke="rgb(31, 138, 210)" d="M5.5,1 L5.5,19 M14.5,1 L14.5,19 M3,3.5 L17,3.5 M3,16.5 L17,16.5 "/>
-                                     </svg> 
-                                </span>
-                            </span>
-                            <span class="text">
-                                <span class="language EN">Moderate</span>
-                                <label>Top: 15mm Bottom: 15mm <br> Left: 15mm Right: 15mm</label>
-                            </span>
-                        </div>
-                        <div class="selectionCard margins" data-propertyVal="20">
-                            <span class="thumbnail">
-                                <span class="thumbnail">
-                                    <svg width="100%" viewBox="0 0 20 20"  stroke-width="0.25" >
-                                        <path fill="none" stroke="rgb(114,114,114)" d="M3,1 L17,1 L17,19 L3,19Z"/>
-                                        <path fill="none" stroke="rgb(31, 138, 210)" d="M7,1 L7,19 M13,1 L13,19 M3,5 L17,5 M3,15 L17,15 "/>
-                                     </svg> 
-                                </span>
-                            </span>
-                            <span class="text">
-                                <span class="language EN">Wide</span>
-                                <label>Top: 20mm Bottom: 20mm <br> Left: 20mm Right: 20mm</label>
-                            </span>
-                        </div>
-<!--                         
-                        <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M3 21h4l13 -13a1.5 1.5 0 0 0 -4 -4l-13 13v4" />
-                                    <line x1="14.5" y1="5.5" x2="18.5" y2="9.5" />
-                                    <polyline points="12 8 7 3 3 7 8 12" />
-                                    <line x1="7" y1="8" x2="5.5" y2="9.5" />
-                                    <polyline points="16 12 21 17 17 21 12 16" />
-                                    <line x1="16" y1="17" x2="14.5" y2="18.5" />
-                                  </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard small  marginsCustom">
-                            <label >Top:</label>
-                            <input type="number" value="15.0">
-                            <Unit>mm</Unit>
-                        </div>
-                        <div class="selectionCard small marginsCustom">
-                            <label >Bottom</label>
-                            <input type="number" value="15.0">
-                            <Unit>mm</Unit>
-                        </div>
-                        <div class="selectionCard small marginsCustom">
-                            <label >Left:</label>
-                            <input type="number" value="15.0">
-                            <Unit>mm</Unit>
-                        </div>
-                        <div class="selectionCard small marginsCustom">
-                            <label >Right:</label>
-                            <input type="number" value="15.0">
-                            <Unit>mm</Unit>
-                        </div> -->
-                    </details>
-                    <details open id="fontsGroup">
-                        <summary>
-                            <span>Fonts: </span> 
-                        </summary>
-                        <div class="selectionCard fonts"  data-propertyVal="Arial">
-                            <span class="thumbnail" style="opacity: 0.5; font-Size: 20px; font-family: 'Arial'; text-align: center; line-height: 35px;">
-                                Ab 
-                            </span>
-                            <span class="text">
-                                <span class="font Arial">Arial</span>
-                                <label>The quick brown fox jumps over the lazy dog</label>
-                            </span>
-                        </div>
-                        <div class="selectionCard fonts selected"  data-propertyVal="Book Antiqua">
-                            <span class="thumbnail" style="opacity: 0.5; font-Size: 20px; font-family: 'Book Antiqua'; text-align: center; line-height: 35px;">
-                                Ab
-                            </span>
-                            <span class="text">
-                                <span class="font bookAntiqua" style="font-family: 'Book Antiqua';">Book Antiqua</span>
-                                <label style="font-family: 'Book Antiqua';">The quick brown fox jumps over the lazy dog</label>
-                            </span>
-                        </div>
-                        <div class="selectionCard fonts"  data-propertyVal="Consolas">
-                            <span class="thumbnail" style="opacity: 0.5; font-Size: 20px; font-family: 'consolas'; text-align: center; line-height: 35px;">
-                                Ab 
-                            </span>
-                            <span class="text">
-                                <span class="font consoles" style="font-family: 'consolas';">Consolas</span>
-                                <label style="font-family: 'consolas';">The quick brown fox jumps over the lazy dog</label>
-                            </span>
-                        </div>
-                        
-                    </details>        
-                    <details open id="paragraphGroup">
-                        <summary>Line-height & Offsets</summary>
-                        <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <circle cx="5" cy="5" r="2" />
-                                    <circle cx="19" cy="5" r="2" />
-                                    <circle cx="5" cy="19" r="2" />
-                                    <circle cx="19" cy="19" r="2" />
-                                    <path d="M5 7v10" />
-                                    <path d="M7 5h10" />
-                                    <path d="M7 19h10" />
-                                    <path d="M19 7v10" />
-                                    <path d="M10 10h4" />
-                                    <path d="M12 14v-4" />
-                                  </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard medium customInput">
-                            <label >Base Font-Size:</label>
-                            <input type="number" class="fontSize" value="9.5">
-                            <Unit>px</Unit>
-                        </div>
-                        <br>
-                        <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <polyline points="3 8 6 5 9 8" />
-                                    <polyline points="3 16 6 19 9 16" />
-                                    <line x1="6" y1="5" x2="6" y2="19" />
-                                    <line x1="13" y1="6" x2="20" y2="6" />
-                                    <line x1="13" y1="12" x2="20" y2="12" />
-                                    <line x1="13" y1="18" x2="20" y2="18" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard medium customInput">
-                            <label >Header</label>
-                            <input type="number" class="headerLineHeight" value="16.0">
-                            <Unit>px</Unit>
-                        </div>
-                        <div class="selectionCard medium customInput">
-                            <label >Profile Description</label>
-                            <input type="number"  class="descriptionLineHeight" value="14.0">
-                            <Unit>px</Unit>
-                        </div>
-                        <div class="selectionCard medium customInput">
-                            <label >Footer & Lengnd</label>
-                            <input type="number"  class="footerLineHeight" value="16.0">
-                            <Unit>px</Unit>
-                        </div>
-                        <br>
-                        <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <line x1="4" y1="6" x2="14" y2="6" />
-                                    <line x1="4" y1="18" x2="14" y2="18" />
-                                    <path d="M4 12h17l-3 -3m0 6l3 -3" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard medium " >
-                            <label >Header Divider #1</label>
-                            <input type="number" class="headerColOffSet first" value="0.0">
-                            <Unit>px</Unit>
-                        </div>
-                        <div class="selectionCard medium ">
-                            <label >Header Divider #2</label>
-                            <input type="number" class="headerColOffSet second" value="0.0">
-                            <Unit>px</Unit>
-                        </div>
-                        <div class="selectionCard medium ">
-                            <label >Footer Divider #1</label>
-                            <input type="number" class="footerColOffSet first" value="0.0">
-                            <Unit>px</Unit>
-                        </div>
-                        <div class="selectionCard medium ">
-                            <label >Footer Divider #2</label>
-                            <input type="number" class="footerColOffSet second" value="0.0">
-                            <Unit>px</Unit>
-                        </div>
-                    </details>
-                    <details open id="gridsGroup">                         
-                        <summary>Format Grids</summary>
-                        <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M4 12v-6a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v6" />
-                                    <path d="M10 18h-7" />
-                                    <path d="M21 18h-7" />
-                                    <path d="M6 15l-3 3l3 3" />
-                                    <path d="M18 15l3 3l-3 3" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label >Col #1</label>
-                            <input type="number" class="colWidthPct x1" value="6.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Col #2</label>
-                            <input type="number" class="colWidthPct x2" value="8.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Col #3</label>
-                            <input type="number" class="colWidthPct x3" value="36.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Col #4</label>
-                            <input type="number" class="colWidthPct x4" value="6.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Col #5</label>
-                            <input type="number" class="colWidthPct x5" value="14.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Col #6</label>
-                            <input type="number" class="colWidthPct x6" value="6.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Col #7</label>
-                            <input type="number" class="colWidthPct x7" value="6.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput" style="cursor: not-allowed;">
-                            <label>Col #8</label>
-                            <input type="number" class="x8" value="18.0" disabled style="color: rgb(144, 144, 144); cursor: not-allowed;">
-                            <Unit>%</Unit>
-                        </div>
-                        <br>
-                        <div class="selectionCard small noborder">
-                            <span class="thumbnail">
-                                <svg width="23" height="23" viewBox="0 0 24 24" stroke-width="0.5" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                                    <path d="M12 20h-6a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h6" />
-                                    <path d="M18 14v7" />
-                                    <path d="M18 3v7" />
-                                    <path d="M15 18l3 3l3 -3" />
-                                    <path d="M15 6l3 -3l3 3" />
-                                </svg>
-                            </span>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Row #A</label>
-                            <input type="number" class="rowHeightPct y1" value="10.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Row #B</label>
-                            <input type="number" class="rowHeightPct y2" value="2.5">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Row #C</label>
-                            <input type="number" class="rowHeightPct y3" value="9.0">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput">
-                            <label>Row #D</label>
-                            <input type="number" class="rowHeightPct y4" value="66.5">
-                            <Unit>%</Unit>
-                        </div>
-                        <div class="selectionCard small customInput" style="cursor: not-allowed;">
-                            <label>Row #F</label>
-                            <input type="number" class="y5" value="12.0" disabled style="color: rgb(144, 144, 144); cursor: not-allowed;">
-                            <Unit>%</Unit>
-                        </div>
-                    </details> 
-                </div>
 
-            </div>
-            <div id="codePanle">
-                <div class="titleBar">
-                    <h>JASON OBJECT</h>
-                    <div class="placeHolder"></div>
-                    <a href="#" id="saveJsonButton" title="Add new log">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
-                        </svg>
-                    </a>
-                    <a href="#" id="refreshJsonButton" title="Add new log">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
-                    </a>
+            <div id="resizeBar"></div>
+
+            <div id="previewPanel">
+                <span id="tempHolder"></span>
+                <div id="pageSelecter">
+                    <div id="viewLocation"></div>
+                    <div id="pageLinks"></div>
                 </div>
-                <div class="inputArea">
-                    在做了在做了    
+                <div id="scaleHolder"></div>
+                <div id="download">
+                    <div class="pdf" title="save as pdf" onclick="alert('在做了在做了...')">
+                        <svg viewBox="0 0 16 16" height="20">
+                            <use xlink:href="#icon-PDF"></use>
+                        </svg>
+                    </div>
+                    <div class="html" title="save as html" onclick="exportHTML()">
+                        <svg viewBox="0 0 16 16" height="20">
+                            <use xlink:href="#icon-HTML"></use>
+                        </svg>
+                    </div>
+                    <div class="txt" title="save as txt" onclick="alert('在做了在做了...')">
+                        <svg viewBox="0 0 16 16" height="20">
+                            <use xlink:href="#icon-TXT"></use>
+                        </svg>
+                    </div>
+                    <div class="icon">
+                        <svg viewBox="0 0 24 24" height="24">
+                            <use xlink:href="#icon-download"></use>
+                        </svg>
+                    </div>
                 </div>
-            </div>
-            <div id="visualPanle">
-                <div class="titleBar"><h>VISUALIZATION</h></div>
-                <div class="inputArea">在做了在做了...</div>
             </div>
         </div>
 
-        <div id="resizeBar"></div>
-
-        <div id="previewPanel">
-            <span id="tempHolder" ></span>
-            <div id="pageSelecter">
-                <div id="viewLocation"></div>
-                <div id="pageLinks"></div>
-            </div>
-            <div id="scaleHolder">
-            </div>            
-            <div id="download">
-                <div class="pdf" title="save as pdf" onclick="alert('在做了在做了...')">
-                    <svg viewBox="0 0 16 16" height="20"><use xlink:href="#icon-PDF"></use></svg>
-                </div>
-                <div class="html" title="save as html" onclick="exportHTML()">
-                    <svg viewBox="0 0 16 16" height="20"><use xlink:href="#icon-HTML"></use></svg>
-                </div>    
-                <div class="txt" title="save as txt" onclick="alert('在做了在做了...')">
-                    <svg viewBox="0 0 16 16"  height="20"><use xlink:href="#icon-TXT"></use></svg>
-                </div>              
-                <div class="icon">
-                    <svg viewBox="0 0 24 24" height="24"><use xlink:href="#icon-download"></use></svg>
-                </div>
-            </div>
+        <div id="statusBar">
+            <span id="probleCheck" title="No problem found">
+                <svg height="12" width="16">
+                    <use xlink:href="#icon-x-circle" />
+                </svg>
+                <span id="problem#">Errors: 0</span>
+            </span>
+            <span id="probleCheck" title="System status">
+                <svg height="12" width="16">
+                    <use xlink:href="#icon-link" />
+                </svg>
+                <span>Status:</span>
+                <span id="systatus">Ready</span>
+            </span>
+            <span id="zoomFactorHolder" class="right">
+                <output id="zoomFactor" for="zoomSlider">100%</output>
+            </span>
+            <span id="zoomSliderHolder" class="right">
+                <span id="zoomOutButtom">-</span>
+                <input id="zoomSlider" type="range" min="50" max="150" step="1" value="100" />
+                <span id="zoomInButtom">+</span>
+            </span>
+            <span class="right">
+                Paper Size:
+                <span id="paperSize">A4</span>
+            </span>
+            <span class="right">
+                Page
+                <span id="currentPageNo">NULL</span>
+                of
+                <span id="totalPageNo">NULL</span>
+            </span>
         </div>
-    </div>
 
-    <div id="statusBar">
-        <span id="probleCheck" title="No problem found">
-            <svg height="12" width="16"><use xlink:href="#icon-x-circle"></svg>
-            <span id="problem#">Errors: 0</span>
-        </span>
-        <span id="probleCheck" title="System status">
-            <svg height="12" width="16"><use xlink:href="#icon-status"></svg>
-            <Span>Status: </Span>
-            <span id="systatus">Ready</span>
-        </span>
-        <span id="zoomFactorHolder" class="right">  
-            <output id="zoomFactor" for="zoomSlider">100%</output>
-        </span>
-        <span id="zoomSliderHolder" class="right">
-            <span id="zoomOutButtom">-</span>
-            <input id="zoomSlider" type="range" min="50" max="150" step="1" value="100"/>
-            <span id="zoomInButtom">+</span>
-        </span>
-        <span class="right">Paper Size: 
-            <span id="paperSize">A4</span>
-        </span>
-        <span class="right">Page 
-            <span id="currentPageNo">NULL</span> of 
-            <span id="totalPageNo">NULL</span>
-        </span>
-    </div>
+        <div id="dataTableContainer" style="display: none">
+            <!--style="display:none" -->
+            <div id="dataTableView">
+                <div class="dataTableControler top">
+                    <div class="placeHolder">REPORT SUMMARY</div>
+                    <!-- 
+                    <div class="searchBox" onclick="alert('在做了在做了...')">
+                        <input type="text" value="Search" />
+                        <span class="bottom">
+                            <svg
+                                width="30"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                stroke-width="1"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <circle cx="10" cy="10" r="7" />
+                                <line x1="21" y1="21" x2="15" y2="15" />
+                            </svg>
+                        </span>
+                    </div> -->
 
-    <div id="dataTableContainer" style="display:none" ><!-- -->
-        <div id="dataTableView">
-            <div class="dataTableControler top">
-                <div class="placeHolder">REPORT SUMMARY</div>
-                <div class="searchBox">
-                    <input type="text" value="Search">
-                    <span class="bottom">
-                        <svg width="30" height="20" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/><circle cx="10" cy="10" r="7" /><line x1="21" y1="21" x2="15" y2="15" />
+                    <!-- <span class="button refresh">
+                        <svg viewBox="0 0 24 24" height="20">
+                            <use xlink:href="#icon-refresh"></use>
+                        </svg>
+                    </span> -->
+
+                    <span class="button save" title="save and exit">
+                        <svg
+                            viewBox="0 0 24 24"
+                            height="20"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2" />
+                            <circle cx="12" cy="14" r="2" />
+                            <polyline points="14 4 14 8 8 8 8 4" />
+                        </svg>
+                    </span>
+
+                    <span class="button exit" title="discard and exit">
+                        <svg
+                            viewBox="0 0 24 24"
+                            height="20"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
                         </svg>
                     </span>
                 </div>
-                <span class="bottom refresh" onclick="alert('在做了在做了...')">
-                    <svg viewBox="0 0 24 24" height="20"><use xlink:href="#icon-refresh"></use></svg>
-                </span>
-                <span class="bottom" onclick="alert('在做了在做了...')">
-                    <svg viewBox="0 0 24 24" height="20"><use xlink:href="#icon-download"></use></svg>
-                </span>
-            </div>
 
-            <div class="dataTableControler filter">
-                <span class="filterGroup selected" data-filter="all">All Fields</span>
-                <span class="filterGroup" data-filter="filterProject">Project Detail</span>
-                <span class="filterGroup" data-filter="filterReview">Authors</span>
-                <span class="filterGroup" data-filter="filterCoord">Coordinates</span>
-                <span class="filterGroup" data-filter="filterBorehole">Drilling Info</span>
-                <span class="filterGroup" data-filter="filterWell">Well Construction</span>
-            </div>
-            
-            <div class="tableDisplay">
-                <table id="logSummary">
-                    <colgroup>
-                        <col span="1">
-                        <col span="3" class="filterProject">
-                        <col span="3" class="filterReview">
-                        <col span="3" class="filterCoord">
-                        <col span="5" class="filterBorehole">
-                        <col span="10" class="filterWell">
-                    </colgroup>
+                <div class="dataTableControler filter">
+                    <span class="filterGroup selected" data-filter="all">All Fields</span>
+                    <span class="filterGroup" data-filter="filterProject">Project Detail</span>
+                    <span class="filterGroup" data-filter="filterReview">Authors</span>
+                    <span class="filterGroup" data-filter="filterCoord">Coordinates</span>
+                    <span class="filterGroup" data-filter="filterBorehole">Drilling Info</span>
+                    <span class="filterGroup" data-filter="filterWell">Well Construction</span>
+                </div>
 
-                    <thead>
-                        <tr>
-                            <th > Location ID</th>
-                            <th > Project No</th>
-                            <th > Project Title</th>
-                            <th > Client</th>
-                            <th > Logged By</th>
-                            <th > Reviewed By</th>
-                            <th > Approved By</th>
-                            <th > Coord.Sys</th>
-                            <th > X Coord.</th>
-                            <th > Y Coord.</th>
-                            <th > Borehole Dia.<br><unit>mm</unit></th>
-                            <th > Initial GWL<br><unit>m bgs</unit></th>
-                            <th > Driller Name</th>
-                            <th > Drill Method</th>
-                            <th > Drill Date</th>
-                            <th > Well Installed<br><unit>1(yes)/0(no)</unit></th>
-                            <th > Wellhead Type</th>
-                            <th > Casing Dia.<br><unit>mm</unit></th>
-                            <th > Well Depth<br><unit>m bgs</unit></th>
-                            <th > Sealing Depth<br><unit>m bgs</unit></th>
-                            <th > Screen intvl.<br><unit>From, m bgs</unit></th>
-                            <th > Screen intvl.<br><unit>To, m bgs</unit></th>
-                            <th > TOC Elev.<br><unit>m RL</unit></th>
-                            <th > Ground Elev.<br><unit>m RL</unit></th>
-                            <th > Static GWL<br><unit>m BTOC</unit></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="dataTableControler bottom">
-                <div class="placeHolder"></div>
-                <div class="discard button">DISCARD</div>
-                <div class="save button">SAVE</div>
+                <div class="tableDisplay">
+                    <table id="logSummary">
+                        <colgroup>
+                            <col span="1" />
+                            <col span="3" class="filterProject" />
+                            <col span="3" class="filterReview" />
+                            <col span="3" class="filterCoord" />
+                            <col span="5" class="filterBorehole" />
+                            <col span="10" class="filterWell" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Location ID</th>
+                                <th>Project No</th>
+                                <th>Project Title</th>
+                                <th>Client</th>
+                                <th>Logged By</th>
+                                <th>Reviewed By</th>
+                                <th>Approved By</th>
+                                <th>Coord.Sys</th>
+                                <th>X Coord.</th>
+                                <th>Y Coord.</th>
+                                <th>
+                                    Borehole Dia.
+                                    <br />
+                                    <unit>mm</unit>
+                                </th>
+                                <th>
+                                    Initial GWL
+                                    <br />
+                                    <unit>m bgs</unit>
+                                </th>
+                                <th>Driller Name</th>
+                                <th>Drill Method</th>
+                                <th>Drill Date</th>
+                                <th>
+                                    Well Installed
+                                    <br />
+                                    <unit>1(yes)/0(no)</unit>
+                                </th>
+                                <th>Wellhead Type</th>
+                                <th>
+                                    Casing Dia.
+                                    <br />
+                                    <unit>mm</unit>
+                                </th>
+                                <th>
+                                    Well Depth
+                                    <br />
+                                    <unit>m bgs</unit>
+                                </th>
+                                <th>
+                                    Sealing Depth
+                                    <br />
+                                    <unit>m bgs</unit>
+                                </th>
+                                <th>
+                                    Screen From.
+                                    <br />
+                                    <unit>m bgs</unit>
+                                </th>
+                                <th>
+                                    Screen To
+                                    <br />
+                                    <unit>m bgs</unit>
+                                </th>
+                                <th>
+                                    TOC Elev.
+                                    <br />
+                                    <unit>m RL</unit>
+                                </th>
+                                <th>
+                                    Ground Elev.
+                                    <br />
+                                    <unit>m RL</unit>
+                                </th>
+                                <th>
+                                    Static GWL
+                                    <br />
+                                    <unit>m BTOC</unit>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
 
+                <div class="dataTableControler bottom">
+                    <span class="upload button" onclick="document.querySelector('input#inputUpload').click()">
+                        <svg
+                            viewBox="-3 -3 30 30"
+                            height="20"
+                            width="20"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <polyline points="7 9 12 4 17 9" />
+                            <line x1="12" y1="4" x2="12" y2="16" />
+                        </svg>
+                        Upload (.kml/.csv)
+                        <input type="file" id="inputUpload" title="Upload (.kml/.csv/.Jason)" style="display: none" />
+                    </span>
+                    <span class="downloadTemp button" title="download as .csv" onclick="fileProcessor.downloadCSV(summaryTable.exportCsvStr())">
+                        <svg
+                            viewBox="-3 -3 30 30"
+                            height="20"
+                            width="20"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                            <polyline points="7 11 12 16 17 11" />
+                            <line x1="12" y1="4" x2="12" y2="16" />
+                        </svg>
+                    </span>
+                    <div class="placeHolder"></div>
+                    <span class="apply button">
+                        <svg
+                            viewBox="0 0 24 24"
+                            height="20"
+                            width="20"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="12" y1="10" x2="12" y2="20" />
+                            <line x1="12" y1="10" x2="16" y2="14" />
+                            <line x1="12" y1="10" x2="8" y2="14" />
+                            <line x1="4" y1="4" x2="20" y2="4" />
+                        </svg>
+                    </span>
+                    <span class="externalDatatableToggle button show">
+                        <svg
+                            viewBox="0 0 24 24"
+                            height="20"
+                            width="20"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <ellipse cx="12" cy="6" rx="8" ry="3"></ellipse>
+                            <path d="M4 6v6a8 3 0 0 0 16 0v-6" />
+                            <path d="M4 12v6a8 3 0 0 0 16 0v-6" />
+                        </svg>
+                    </span>
+                </div>
+
+                <div class="dataTableControler externalDataContainer" style="display: none">
+                    <!-- style="display: none;" -->
+                    <div class="externalDatatable">
+                        <table id="externalData">
+                            <!-- <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>A</th>
+                                    <th>B</th>
+                                    <th>C</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="append">
+                                    <td class="index">1</td>
+                                    <td contenteditable>MW-2</td>
+                                    <td>23.2166460422738</td>
+                                    <td>113.179775809924</td>
+                                </tr>
+                                <tr>
+                                    <td class="index">2</td>
+                                    <td>MW-3</td>
+                                    <td>23.2155935828419</td>
+                                    <td>113.179494973731</td>
+                                </tr>
+                                <tr class="overwrite">
+                                    <td class="index">13</td>
+                                    <td>MW-4</td>
+                                    <td>23.2149487157859</td>
+                                    <td>113.180422281932</td>
+                                </tr>
+                            </tbody> -->
+                        </table>
+
+                        <div class="legend">
+                            <span class="overwrite">Overwrite</span>
+                            <span class="append">Append</span>
+                            <span class="ignore">Ignore</span>
+                        </div>
+                    </div>
+                    |||
+                    <div class="externalDataSettings">
+                        <!-- <div class="dataLinks">
+                            <span class="externalCol colName">Column A</span>
+                            <span class="linkButton">
+                                <svg height="12" width="16">
+                                    <use xlink:href="#icon-link" />
+                                </svg>
+                            </span>
+                            <select class="targetCol colName">
+                                <option value="">--Relate Field--</option>
+                                <option value="locationId">Location ID</option>
+                                <option value="projectNo">Project No</option>
+                                <option value="projectTitle">Project Title</option>
+                                <option value="client">Client</option>
+                                <option value="loggedBy">Logged By</option>
+                                <option value="reviewedBy">Reviewed By</option>
+                                <option value="approvedBy">Approved By</option>
+                                <option value="coordSys">Coord.Sys</option>
+                                <option value="xCoord">X Coord.</option>
+                                <option value="yCoord">Y Coord.</option>
+                                <option value="holeSize">Borehole Dia.</option>
+                                <option value="initialWaterLevel">Initial GWL</option>
+                                <option value="drilledBy">Driller Name</option>
+                                <option value="drillMethod">Drill Method</option>
+                                <option value="drillDate">Drill Date</option>
+                                <option value="wellInstalled">Well Installed</option>
+                                <option value="wellHead">Wellhead Type</option>
+                                <option value="casingSize">Casing Dia.</option>
+                                <option value="totalWellDepth">Well Depth</option>
+                                <option value="bentoniteSealingDepth">Sealing Depth</option>
+                                <option value="screenIntervalFrom">Screen From</option>
+                                <option value="screenIntervalTo">Screen To</option>
+                                <option value="topOfCasingElevation">TOC Elev.</option>
+                                <option value="groundElevation">Ground Elev.</option>
+                                <option value="staticWaterLevel">Static GWL</option>
+                            </select>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="menu" style="display: none">
+                    <div class="defautVals"></div>
+                    <span class="autoFill applicable">
+                        <svg viewBox="0 0 24 24" transform="rotate(90)">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M6 4l-3 3l3 3" />
+                            <path d="M18 4l3 3l-3 3" />
+                            <rect x="4" y="14" width="16" height="6" rx="2" />
+                            <path d="M10 7h-7" />
+                            <path d="M21 7h-7" />
+                        </svg>
+                        <span class="caption">Fill column with</span>
+                    </span>
+                    <span class="convert" onclick="alert('在做了在做了...')">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="21" y1="7" x2="3" y2="7" />
+                            <path d="M18 10l3 -3l-3 -3" />
+                            <path d="M6 20l-3 -3l3 -3" />
+                            <line x1="3" y1="17" x2="21" y2="17" />
+                        </svg>
+                        <span class="caption">Convert</span>
+                    </span>
+                    <hr />
+                    <span class="deleteLine applicable" onclick="alert('在做了在做了...')">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <line x1="4" y1="7" x2="20" y2="7" />
+                            <line x1="10" y1="11" x2="10" y2="17" />
+                            <line x1="14" y1="11" x2="14" y2="17" />
+                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                        </svg>
+                        <span class="caption">Delete Line</span>
+                    </span>
+                    <span class="addLine applicable" onclick="alert('在做了在做了...')">
+                        <svg viewBox="0 0 24 24">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <rect x="4" y="4" width="16" height="16" rx="2" />
+                            <line x1="9" y1="12" x2="15" y2="12" />
+                            <line x1="12" y1="9" x2="12" y2="15" />
+                        </svg>
+                        <span class="caption">Add Line</span>
+                    </span>
+                </div>
             </div>
         </div>
-    </div>
 
-    <script type="text/javascript" src="main.js" defer="defer"></script>
-    <script type="text/javascript" src="previewPanel.js" defer="defer"></script>
-    <script type="text/javascript" src="filePanel.js" defer="defer"></script>
-    <script type="text/javascript" src="pageSetting.js" defer="defer"></script>
-    <script type="text/javascript" src="tablePanel.js" defer="defer"></script>
-    <script type="text/javascript" src="test.js" defer="defer"></script>
-    <script type="text/javascript" src="renderjson.js" defer="defer"></script>
-    
-
-</body>
+        <script type="text/javascript" src="main.js" defer="defer"></script>
+        <script type="text/javascript" src="previewPanel.js" defer="defer"></script>
+        <script type="text/javascript" src="filePanel.js" defer="defer"></script>
+        <script type="text/javascript" src="pageSetting.js" defer="defer"></script>
+        <script type="text/javascript" src="tablePanel.js" defer="defer"></script>
+        <script type="text/javascript" src="test.js" defer="defer"></script>
+        <script type="text/javascript" src="renderjson.js" defer="defer"></script>
+    </body>
 </html>

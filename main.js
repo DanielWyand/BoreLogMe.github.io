@@ -30,19 +30,11 @@ Date.prototype.format = function (fmt) {
         S: this.getMilliseconds(),
     };
     if (/(y+)/.test(fmt)) {
-        fmt = fmt.replace(
-            RegExp.$1,
-            (this.getFullYear() + "").substr(4 - RegExp.$1.length)
-        );
+        fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
     }
     for (var k in o) {
         if (new RegExp("(" + k + ")").test(fmt)) {
-            fmt = fmt.replace(
-                RegExp.$1,
-                RegExp.$1.length == 1
-                    ? o[k]
-                    : ("00" + o[k]).substr(("" + o[k]).length)
-            );
+            fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
         }
     }
     return fmt;
@@ -50,15 +42,8 @@ Date.prototype.format = function (fmt) {
 
 document.querySelector("a#saveJsonButton").addEventListener("click", () => {
     var elementA = document.createElement("a");
-    elementA.setAttribute(
-        "href",
-        "data:text/plain;charset=utf-8," +
-            JSON.stringify(LogCollection, null, "    ")
-    );
-    elementA.setAttribute(
-        "download",
-        "BoringTool-" + new Date().format("yyyy-MM-dd") + ".txt"
-    );
+    elementA.setAttribute("href", "data:text/plain;charset=utf-8," + JSON.stringify(LogCollection, null, "    "));
+    elementA.setAttribute("download", "BoringTool-" + new Date().format("yyyy-MM-dd") + ".txt");
     elementA.style.display = "none";
     document.body.appendChild(elementA);
     elementA.click();
@@ -68,31 +53,30 @@ document.querySelector("a#saveJsonButton").addEventListener("click", () => {
 
 /**************************scaleHodler observer**********************/
 //init an observer when new page added
-var scaleHolderObserver = new MutationObserver(
-    (updateLogList = () => {
-        document.querySelector("div#logList").innerHTML = ""; //dump the logList
-        document.querySelector("div#pageLinks").innerHTML = ""; //dump the pageLinks
-        let logs = document.querySelector("div#scaleHolder").children;
-        for (i = 0, len = logs.length; i < len; i++) {
-            //prepare new logList
-            let logId = logs[i].id;
-            let logName = logs[i].dataset.name;
-            let newDiv1 = document.createElement("div");
-            newDiv1.dataset.logId = logId;
-            newDiv1.innerHTML = `<span class="locationId">${logName}</span><span class="delete"><svg viewBox="0 3 24 21"><use xlink:href="#icon-deleteLog"></svg></span>`;
-            document.querySelector("#logList").appendChild(newDiv1);
-            //prepare new pageLinks
-            let newDiv2 = document.createElement("div");
-            newDiv2.dataset.logId = logId;
-            newDiv2.innerHTML = `<a onclick="report.activeLog('${logId}')">${logName}</a>`;
-            // newDiv2.innerHTML = `<a href=#${logId}>${logName}</a>`;
-            document.querySelector("#pageLinks").appendChild(newDiv2);
-        }
-    })
-);
+var scaleHolderObserver = new MutationObserver(updateLogList);
 // set the observer on scaleHolder
 scaleHolderObserver.observe(scaleHolder, { childList: true });
 // observer.disconnect();
+function updateLogList() {
+    document.querySelector("div#logList").innerHTML = ""; //dump the logList
+    document.querySelector("div#pageLinks").innerHTML = ""; //dump the pageLinks
+    let logs = document.querySelector("div#scaleHolder").children;
+    for (i = 0, len = logs.length; i < len; i++) {
+        //prepare new logList
+        let logId = logs[i].id;
+        let logName = logs[i].dataset.name;
+        let newDiv1 = document.createElement("div");
+        newDiv1.dataset.logId = logId;
+        newDiv1.innerHTML = `<span class="locationId">${logName}</span><span class="delete"><svg viewBox="0 3 24 21"><use xlink:href="#icon-deleteLog"></svg></span>`;
+        document.querySelector("#logList").appendChild(newDiv1);
+        //prepare new pageLinks
+        let newDiv2 = document.createElement("div");
+        newDiv2.dataset.logId = logId;
+        newDiv2.innerHTML = `<a onclick="report.activeLog('${logId}')">${logName}</a>`;
+        // newDiv2.innerHTML = `<a href=#${logId}>${logName}</a>`;
+        document.querySelector("#pageLinks").appendChild(newDiv2);
+    }
+}
 /********************************************************************/
 
 /***************************Update PageNo****************************/
@@ -106,37 +90,29 @@ function updatePageNo() {
         let scrollHeight = previewPanel.scrollHeight;
         let clientHeight = previewPanel.clientHeight;
         let heightPerPage = scrollHeight / pageTotal;
-        let PageNo = Math.floor(
-            (scrollTop + heightPerPage * 0.3) / heightPerPage
-        );
+        let PageNo = Math.floor((scrollTop + heightPerPage * 0.3) / heightPerPage);
         document.querySelector("#currentPageNo").innerHTML = PageNo + 1;
         document.querySelector("#totalPageNo").innerHTML = pageTotal;
         //also update page location
         let pageLinksHeight = pageTotal * 20;
-        viewLocation.style.height =
-            (clientHeight / scrollHeight) * pageLinksHeight + "px";
-        viewLocation.style.top =
-            (scrollTop / scrollHeight) * pageLinksHeight + "px";
+        viewLocation.style.height = (clientHeight / scrollHeight) * pageLinksHeight + "px";
+        viewLocation.style.top = (scrollTop / scrollHeight) * pageLinksHeight + "px";
     }
 }
 //call function when scrolled
-document
-    .querySelector("#previewPanel")
-    .addEventListener("scroll", debounce(updatePageNo, 50));
+document.querySelector("#previewPanel").addEventListener("scroll", debounce(updatePageNo, 50));
 /********************************************************************/
 
 /***************************Scale Pages******************************/
 //miuns 5% when click zoomInButtom
 document.querySelector("#zoomOutButtom").addEventListener("click", (e) => {
-    let newZoomFactor =
-        parseInt(document.querySelector("#zoomSlider").value) - 5;
+    let newZoomFactor = parseInt(document.querySelector("#zoomSlider").value) - 5;
     if (newZoomFactor < 50) newZoomFactor = 50;
     updateZoom(newZoomFactor);
 });
 //plus 5% when click zoomInButtom
 document.querySelector("#zoomInButtom").addEventListener("click", (e) => {
-    let newZoomFactor =
-        parseInt(document.querySelector("#zoomSlider").value) + 5;
+    let newZoomFactor = parseInt(document.querySelector("#zoomSlider").value) + 5;
     if (newZoomFactor > 150) newZoomFactor = 150;
     updateZoom(newZoomFactor);
 });
@@ -152,9 +128,7 @@ document.querySelector("#zoomFactor").addEventListener("dblclick", () => {
 function updateZoom(newZoomFactor) {
     document.querySelector("#zoomFactor").innerHTML = newZoomFactor + "%";
     document.querySelector("#zoomSlider").value = newZoomFactor;
-    document.querySelector("#scaleHolder").style.transform = `scale(${
-        newZoomFactor / 100
-    })`;
+    document.querySelector("#scaleHolder").style.transform = `scale(${newZoomFactor / 100})`;
 }
 /********************************************************************/
 
@@ -162,20 +136,9 @@ function updateZoom(newZoomFactor) {
 document.querySelector("ul#navLinks").addEventListener("click", (e) => {
     // if Li tag is clicked and is not 'seleted'
     if (e.target.tagName == "LI" && !e.target.hasAttribute("selected")) {
-        document
-            .querySelector(
-                `div#${
-                    document.querySelector("ul#navLinks > li.active")
-                        .classList[0]
-                }`
-            )
-            .classList.toggle("active"); //hide the panel is currently shown, the Lis class name stores corresponding panel id}
-        document
-            .querySelector(`div#${e.target.classList[0]}`)
-            .classList.toggle("active"); // unhide panel tobe displayed
-        document
-            .querySelector("ul#navLinks > li.active")
-            .classList.toggle("active"); //remove selected Attribute from currently shown li
+        document.querySelector(`div#${document.querySelector("ul#navLinks > li.active").classList[0]}`).classList.toggle("active"); //hide the panel is currently shown, the Lis class name stores corresponding panel id}
+        document.querySelector(`div#${e.target.classList[0]}`).classList.toggle("active"); // unhide panel tobe displayed
+        document.querySelector("ul#navLinks > li.active").classList.toggle("active"); //remove selected Attribute from currently shown li
         e.target.classList.toggle("active"); // add new selected li Attribute
 
         //navBarMove
@@ -195,11 +158,9 @@ document.querySelector("ul#navLinks").addEventListener("click", (e) => {
         } `;
         } else {
             navBarMove.querySelector("style").innerHTML = `
-        @keyframes myMove${thisTop + 7} {
+            @keyframes myMove${thisTop + 7} {
             0%{top:${lastTop}px;}
-            30%{top:${thisTop + 7}px; height: ${
-                -thisTop + lastTop + height - 7
-            }px;}
+            30%{top:${thisTop + 7}px; height: ${-thisTop + lastTop + height - 7}px;}
             100%{top:${thisTop + 7}px;}
         } `;
         }
@@ -221,30 +182,22 @@ document.querySelector("li#themeToggle").addEventListener("click", () => {
     }
 });
 //change with browers theme
-window
-    .matchMedia("(prefers-color-scheme: dark)")
-    .addEventListener("change", () => {
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-            setDarkMode();
-        } else {
-            setLightMode();
-        }
-    });
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        setDarkMode();
+    } else {
+        setLightMode();
+    }
+});
 function setDarkMode() {
     document.documentElement.setAttribute("darkTheme", "true");
-    document
-        .querySelector("li#themeToggle")
-        .setAttribute("title", "Change to Light Theme");
-    document.querySelector("li#themeToggle").innerHTML =
-        '<svg><use xlink:href="#icon-darkTheme"></svg>';
+    document.querySelector("li#themeToggle").setAttribute("title", "Change to Light Theme");
+    document.querySelector("li#themeToggle").innerHTML = '<svg><use xlink:href="#icon-darkTheme"></svg>';
 }
 function setLightMode() {
     document.documentElement.removeAttribute("darkTheme");
-    document
-        .querySelector("li#themeToggle")
-        .setAttribute("title", "Change to Dark Theme");
-    document.querySelector("li#themeToggle").innerHTML =
-        '<svg><use xlink:href="#icon-lightTheme"></svg>';
+    document.querySelector("li#themeToggle").setAttribute("title", "Change to Dark Theme");
+    document.querySelector("li#themeToggle").innerHTML = '<svg><use xlink:href="#icon-lightTheme"></svg>';
 }
 /********************************************************************/
 
@@ -274,9 +227,7 @@ document.querySelector("div#resizeBar").onmousedown = (e) => {
     let resizeBar = document.getElementById("resizeBar");
 
     let startX = e.clientX;
-    let controlPanel_width = parseFloat(
-        window.getComputedStyle(controlPanel)["width"]
-    );
+    let controlPanel_width = parseFloat(window.getComputedStyle(controlPanel)["width"]);
 
     document.onmousemove = (e) => {
         let endX = e.clientX;
@@ -300,10 +251,7 @@ function printLog(data) {
 
     var export_blob = new Blob([data]);
 
-    var save_link = document.createElementNS(
-        "http://www.w3.org/1999/xhtml",
-        "a"
-    );
+    var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
     save_link.href = urlObject.createObjectURL(export_blob);
     save_link.download = "test.html";
 }
@@ -316,10 +264,7 @@ function exportHTML() {
     }
     console.log("Generating Link");
     var urlObject = window.URL || window.webkitURL || window;
-    let elementA = document.createElementNS(
-        "http://www.w3.org/1999/xhtml",
-        "a"
-    );
+    let elementA = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
     let data = document.querySelector("div#scaleHolder").innerHTML;
     let head = `<!DOCTYPE html><html><head><title>${filename}</title><style>body{padding: 0; margin: 0; font-size:0}</style></head><body>`;
     let foot = "</body>";

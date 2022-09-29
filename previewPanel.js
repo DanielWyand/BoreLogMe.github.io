@@ -29,11 +29,6 @@ const report = {
                 if (receiver[property] !== value) {
                     console.log(property, "is changed to", value);
                     receiver[property] = value;
-                    // if (isNaN(parseFloat(value))) {
-                    //     receiver[property] = value;
-                    // } else {
-                    //     receiver[property] = parseFloat(value);
-                    // }
 
                     clearTimeout(receiver.timer);
                     receiver.timer = setTimeout(function () {
@@ -72,12 +67,7 @@ const report = {
         drillMethod: "Direct Push",
         subsurfaceProfile: [
             ["0.00", "0.30", "Concrete", "concrete pavement"],
-            [
-                "0.30",
-                "3.00",
-                "Fill",
-                "grey, mainly sand, silty clay and gravels, dry, dense to medium dense. No stain or odor noted.",
-            ],
+            ["0.30", "3.00", "Fill", "grey, mainly sand, silty clay and gravels, dry, dense to medium dense. No stain or odor noted."],
             [
                 "3.00",
                 "6.00",
@@ -95,45 +85,42 @@ const report = {
     },
 
     addNew() {
-        let newLogId =
-            "log" + Date.now() + Math.random().toString(36).substring(2, 6);
-        let tempLocationId = `UNTITLED_${
-            config.container.childElementCount + 1
-        }`;
-        this.logCollection[newLogId] = new Proxy(
-            new Log(newLogId, tempLocationId),
-            {
-                set: function (receiver, property, value) {
-                    if (
-                        JSON.stringify(receiver[property]) !==
-                        JSON.stringify(value)
-                    ) {
-                        console.log(
-                            property,
-                            "of log:",
-                            receiver.locationId,
-                            "is changed from",
-                            receiver[property],
-                            "to",
-                            value
-                        );
-                        receiver[property] = value;
-                        clearTimeout(receiver.timer);
-                        receiver.timer = setTimeout(function () {
-                            inputControler.updateAxis();
-                            receiver.refresh();
-                            console.log("refresh");
-                        }, 100);
+        let newLogId = "log" + Date.now() + Math.random().toString(36).substring(2, 6);
+        let tempLocationId = `UNTITLED_${config.container.childElementCount + 1}`;
+        this.logCollection[newLogId] = new Proxy(new Log(newLogId, tempLocationId), {
+            set: function (receiver, property, value) {
+                if (JSON.stringify(receiver[property]) !== JSON.stringify(value)) {
+                    console.log(property, "of log:", receiver.locationId, "is changed from", receiver[property], "to", value);
+                    receiver[property] = value;
+                    clearTimeout(receiver.timer);
+                    receiver.timer = setTimeout(function () {
+                        inputControler.logId = receiver.logId;
+                        inputControler.updateAxis();
+                        receiver.refresh();
+                        console.log("refresh");
+                    }, 100);
+
+                    if (property == "locationId") {
+                        //set svg Log data tag
+                        document.querySelector(`svg#${receiver.logId}`).dataset.name = value;
+                        //update loaction id in logList
+                        document.querySelector(`div#logList div[data-log-id=${receiver.logId}] .locationId`).innerHTML = value;
+                        //and also update pageliks
+                        document.querySelector(`div#pageLinks div[data-log-id=${receiver.logId}] a`).innerHTML = value;
+                        //change data selector input
+                        if (logSelector.logId == receiver.logId) {
+                            logSelector.logNameInput.value = value;
+                        }
                     }
-                },
-            }
-        );
+                }
+            },
+        });
         return newLogId;
     },
 
     remove(logId) {
         document.querySelector(`svg#${logId}`).remove();
-        delete logCollection.logId6;
+        delete report.logCollection[logId];
     },
 
     activeLog(logId) {
@@ -172,11 +159,7 @@ const config = {
 
     getBorderGrids: function () {
         this.tempHolder.style.width = "200mm";
-        let mmTopxRatio =
-            parseFloat(
-                getComputedStyle(document.querySelector("span#tempHolder"))
-                    .width
-            ) / 200;
+        let mmTopxRatio = parseFloat(getComputedStyle(document.querySelector("span#tempHolder")).width) / 200;
         this.tempHolder.style.width = "";
         //paper size in px
         let pageWidth = report.pageSetting.pageWidth_mm * mmTopxRatio;
@@ -188,51 +171,24 @@ const config = {
         let marginRight = report.pageSetting.marginRight_mm * mmTopxRatio;
         //InnerBorder offset 2px from outerborder
         let ContentInnerBorderWidth = pageWidth - marginLeft - marginRight - 4;
-        let ContentInnerBorderHeight =
-            pageHeight - marginBottom - marginTop - 4;
+        let ContentInnerBorderHeight = pageHeight - marginBottom - marginTop - 4;
         // row y in px
         this.gridLines.y0 = marginTop + 2;
-        this.gridLines.y1 =
-            this.gridLines.y0 +
-            ContentInnerBorderHeight * report.pageSetting.rowHeightPct[0];
-        this.gridLines.y2 =
-            this.gridLines.y1 +
-            ContentInnerBorderHeight * report.pageSetting.rowHeightPct[1];
-        this.gridLines.y3 =
-            this.gridLines.y2 +
-            ContentInnerBorderHeight * report.pageSetting.rowHeightPct[2];
-        this.gridLines.y4 =
-            this.gridLines.y3 +
-            ContentInnerBorderHeight * report.pageSetting.rowHeightPct[3];
-        this.gridLines.y5 =
-            this.gridLines.y4 +
-            ContentInnerBorderHeight * report.pageSetting.rowHeightPct[4];
+        this.gridLines.y1 = this.gridLines.y0 + ContentInnerBorderHeight * report.pageSetting.rowHeightPct[0];
+        this.gridLines.y2 = this.gridLines.y1 + ContentInnerBorderHeight * report.pageSetting.rowHeightPct[1];
+        this.gridLines.y3 = this.gridLines.y2 + ContentInnerBorderHeight * report.pageSetting.rowHeightPct[2];
+        this.gridLines.y4 = this.gridLines.y3 + ContentInnerBorderHeight * report.pageSetting.rowHeightPct[3];
+        this.gridLines.y5 = this.gridLines.y4 + ContentInnerBorderHeight * report.pageSetting.rowHeightPct[4];
         // col x in px
         this.gridLines.x0 = marginLeft + 2;
-        this.gridLines.x1 =
-            this.gridLines.x0 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[0];
-        this.gridLines.x2 =
-            this.gridLines.x1 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[1];
-        this.gridLines.x3 =
-            this.gridLines.x2 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[2];
-        this.gridLines.x4 =
-            this.gridLines.x3 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[3];
-        this.gridLines.x5 =
-            this.gridLines.x4 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[4];
-        this.gridLines.x6 =
-            this.gridLines.x5 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[5];
-        this.gridLines.x7 =
-            this.gridLines.x6 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[6];
-        this.gridLines.x8 =
-            this.gridLines.x7 +
-            ContentInnerBorderWidth * report.pageSetting.colWidthPct[7];
+        this.gridLines.x1 = this.gridLines.x0 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[0];
+        this.gridLines.x2 = this.gridLines.x1 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[1];
+        this.gridLines.x3 = this.gridLines.x2 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[2];
+        this.gridLines.x4 = this.gridLines.x3 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[3];
+        this.gridLines.x5 = this.gridLines.x4 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[4];
+        this.gridLines.x6 = this.gridLines.x5 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[5];
+        this.gridLines.x7 = this.gridLines.x6 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[6];
+        this.gridLines.x8 = this.gridLines.x7 + ContentInnerBorderWidth * report.pageSetting.colWidthPct[7];
     },
 
     getLable: function () {
@@ -248,66 +204,18 @@ const config = {
             this.lable.loggedBy = "Logged By: ";
             this.lable.reviewedBy = "Reviewed By: ";
             this.lable.approvedBy = "Approved By: ";
-            this.lable.coltitle.r2c1 = [
-                "SUBSURFACE PROFILE",
-                (GL.x0 + GL.x4) / 2,
-                (GL.y1 + GL.y2) / 2,
-            ];
-            this.lable.coltitle.r2c2 = [
-                "SAMPLE",
-                (GL.x4 + GL.x7) / 2,
-                (GL.y1 + GL.y2) / 2,
-            ];
-            this.lable.coltitle.r2c3 = [
-                "WELL",
-                (GL.x7 + GL.x8) / 2,
-                (GL.y1 + GL.y3) / 2 - 12,
-            ];
-            this.lable.coltitle.r2c4 = [
-                "CONSTRUCTION",
-                (GL.x7 + GL.x8) / 2,
-                (GL.y1 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r2c5 = [
-                "DETAILS",
-                (GL.x7 + GL.x8) / 2,
-                (GL.y1 + GL.y3) / 2 + 12,
-            ];
-            this.lable.coltitle.r3c1 = [
-                "Depth (m)",
-                (GL.x0 + GL.x1) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c2 = [
-                "Symbol",
-                (GL.x1 + GL.x2) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c3 = [
-                "Description",
-                (GL.x2 + GL.x3) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c4 = [
-                "Elev / Depth (m)",
-                (GL.x3 + GL.x4) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c5 = [
-                "Sample ID",
-                (GL.x4 + GL.x5) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c6 = [
-                "PID (ppm)",
-                (GL.x5 + GL.x6) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c7 = [
-                "Lab Analysis",
-                (GL.x6 + GL.x7) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
+            this.lable.coltitle.r2c1 = ["SUBSURFACE PROFILE", (GL.x0 + GL.x4) / 2, (GL.y1 + GL.y2) / 2];
+            this.lable.coltitle.r2c2 = ["SAMPLE", (GL.x4 + GL.x7) / 2, (GL.y1 + GL.y2) / 2];
+            this.lable.coltitle.r2c3 = ["WELL", (GL.x7 + GL.x8) / 2, (GL.y1 + GL.y3) / 2 - 12];
+            this.lable.coltitle.r2c4 = ["CONSTRUCTION", (GL.x7 + GL.x8) / 2, (GL.y1 + GL.y3) / 2];
+            this.lable.coltitle.r2c5 = ["DETAILS", (GL.x7 + GL.x8) / 2, (GL.y1 + GL.y3) / 2 + 12];
+            this.lable.coltitle.r3c1 = ["Depth (m)", (GL.x0 + GL.x1) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c2 = ["Symbol", (GL.x1 + GL.x2) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c3 = ["Description", (GL.x2 + GL.x3) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c4 = ["Elev / Depth (m)", (GL.x3 + GL.x4) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c5 = ["Sample ID", (GL.x4 + GL.x5) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c6 = ["PID (ppm)", (GL.x5 + GL.x6) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c7 = ["Lab Analysis", (GL.x6 + GL.x7) / 2, (GL.y2 + GL.y3) / 2];
         } else {
             this.lable.locationId = "钻孔记录:   ";
             this.lable.projectNo = "项目编号: ";
@@ -319,56 +227,16 @@ const config = {
             this.lable.loggedBy = "记录: ";
             this.lable.reviewedBy = "审阅: ";
             this.lable.approvedBy = "批准: ";
-            this.lable.coltitle.r2c1 = [
-                "土层剖面",
-                (GL.x0 + GL.x4) / 2,
-                (GL.y1 + GL.y2) / 2,
-            ];
-            this.lable.coltitle.r2c2 = [
-                "样品采集",
-                (GL.x4 + GL.x7) / 2,
-                (GL.y1 + GL.y2) / 2,
-            ];
-            this.lable.coltitle.r2c4 = [
-                "监测井结构",
-                (GL.x7 + GL.x8) / 2,
-                (GL.y1 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c1 = [
-                "深度(米)",
-                (GL.x0 + GL.x1) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c2 = [
-                "符号",
-                (GL.x1 + GL.x2) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c3 = [
-                "描述",
-                (GL.x2 + GL.x3) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c4 = [
-                "高程/深度(米)",
-                (GL.x3 + GL.x4) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c5 = [
-                "土样编号",
-                (GL.x4 + GL.x5) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c6 = [
-                "PID读数(ppm)",
-                (GL.x5 + GL.x6) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
-            this.lable.coltitle.r3c7 = [
-                "实验室分析",
-                (GL.x6 + GL.x7) / 2,
-                (GL.y2 + GL.y3) / 2,
-            ];
+            this.lable.coltitle.r2c1 = ["土层剖面", (GL.x0 + GL.x4) / 2, (GL.y1 + GL.y2) / 2];
+            this.lable.coltitle.r2c2 = ["样品采集", (GL.x4 + GL.x7) / 2, (GL.y1 + GL.y2) / 2];
+            this.lable.coltitle.r2c4 = ["监测井结构", (GL.x7 + GL.x8) / 2, (GL.y1 + GL.y3) / 2];
+            this.lable.coltitle.r3c1 = ["深度(米)", (GL.x0 + GL.x1) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c2 = ["符号", (GL.x1 + GL.x2) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c3 = ["描述", (GL.x2 + GL.x3) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c4 = ["高程/深度(米)", (GL.x3 + GL.x4) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c5 = ["土样编号", (GL.x4 + GL.x5) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c6 = ["PID读数(ppm)", (GL.x5 + GL.x6) / 2, (GL.y2 + GL.y3) / 2];
+            this.lable.coltitle.r3c7 = ["实验室分析", (GL.x6 + GL.x7) / 2, (GL.y2 + GL.y3) / 2];
         }
     },
 
@@ -385,14 +253,8 @@ const config = {
 
     convertMbgsToPxy: function (maxTrickDepth, mbgs) {
         let drawPadding = report.pageSetting.headSpace;
-        let minDepth_y =
-            this.gridLines.y3 +
-            (this.gridLines.y4 - this.gridLines.y3) * drawPadding;
-        let pxy =
-            minDepth_y +
-            (((this.gridLines.y4 - this.gridLines.y3) * (1 - 2 * drawPadding)) /
-                maxTrickDepth) *
-                mbgs;
+        let minDepth_y = this.gridLines.y3 + (this.gridLines.y4 - this.gridLines.y3) * drawPadding;
+        let pxy = minDepth_y + (((this.gridLines.y4 - this.gridLines.y3) * (1 - 2 * drawPadding)) / maxTrickDepth) * mbgs;
         return pxy;
     },
 };
@@ -427,8 +289,8 @@ class Log {
         this.drillDate = "NULL";
         this.drillMethod = "NULL";
         this.subsurfaceProfile = [];
-        (this.soilSample = []), //..[from,to,sampleID,PID,Lab]..
-            (this.maxTrickDepth = "6");
+        this.soilSample = []; //..[from,to,sampleID,PID,Lab]..
+        this.maxTrickDepth = "6";
         this.majorTrick = "1";
         this.init();
     }
@@ -462,10 +324,7 @@ class Log {
         let svg_log = document.createElementNS(svgNS, "svg");
         svg_log.setAttribute("id", this.logId);
         svg_log.setAttribute("class", "logs");
-        svg_log.setAttribute(
-            "data-name",
-            `UNTITLED_${config.container.childElementCount + 1}`
-        );
+        svg_log.setAttribute("data-name", `UNTITLED_${config.container.childElementCount + 1}`);
         svg_log.setAttribute("xmlns", svgNS);
         svg_log.setAttribute("version", "1.1");
         svg_log.setAttribute("width", `${report.pageSetting.pageWidth_mm}mm`);
@@ -489,20 +348,14 @@ class Log {
         g_borderLine.setAttribute("fill", "none");
         g_borderLine.setAttribute("stroke", "black");
         g_borderLine.innerHTML = `<path d="
-                M ${GL.x0 - 2} ${GL.y0 - 2} L ${GL.x8 + 2} ${GL.y0 - 2} L ${
-            GL.x8 + 2
-        } ${GL.y5 + 2} L ${GL.x0 - 2} ${GL.y5 + 2} Z 
-                M ${GL.x0} ${GL.y0} L ${GL.x8} ${GL.y0} L ${GL.x8} ${GL.y5} L ${
-            GL.x0
-        } ${GL.y5} Z
+                M ${GL.x0 - 2} ${GL.y0 - 2} L ${GL.x8 + 2} ${GL.y0 - 2} L ${GL.x8 + 2} ${GL.y5 + 2} L ${GL.x0 - 2} ${GL.y5 + 2} Z 
+                M ${GL.x0} ${GL.y0} L ${GL.x8} ${GL.y0} L ${GL.x8} ${GL.y5} L ${GL.x0} ${GL.y5} Z
                 M ${GL.x0} ${GL.y1} L ${GL.x8} ${GL.y1}
                 M ${GL.x0} ${GL.y2} L ${GL.x7} ${GL.y2}
                 M ${GL.x0} ${GL.y3} L ${GL.x8} ${GL.y3}
                 M ${GL.x0} ${GL.y4} L ${GL.x8} ${GL.y4}
                 M ${GL.x1} ${GL.y2} L ${GL.x1} ${GL.y4}
-                M ${GL.x2} ${GL.y0} L ${GL.x2} ${GL.y1} M ${GL.x2} ${GL.y2} L ${
-            GL.x2
-        } ${GL.y4}
+                M ${GL.x2} ${GL.y0} L ${GL.x2} ${GL.y1} M ${GL.x2} ${GL.y2} L ${GL.x2} ${GL.y4}
                 M ${GL.x3} ${GL.y2} L ${GL.x3} ${GL.y4}
                 M ${GL.x4} ${GL.y1} L ${GL.x4} ${GL.y4}
                 M ${GL.x5} ${GL.y2} L ${GL.x5} ${GL.y4}
@@ -532,15 +385,9 @@ class Log {
             let text = document.createElementNS(svgNS, "text");
             text.innerHTML = config.lable.coltitle[key][0];
             text.setAttribute("x", `${config.lable.coltitle[key][1]}`);
-            text.setAttribute(
-                "y",
-                `${config.lable.coltitle[key][2] + lineheight / 2}`
-            );
+            text.setAttribute("y", `${config.lable.coltitle[key][2] + lineheight / 2}`);
             if (config.lable.coltitle[key][2] == (GL.y2 + GL.y3) / 2) {
-                text.setAttribute(
-                    "transform",
-                    `rotate(-90 ${config.lable.coltitle[key][1]} ${config.lable.coltitle[key][2]})`
-                );
+                text.setAttribute("transform", `rotate(-90 ${config.lable.coltitle[key][1]} ${config.lable.coltitle[key][2]})`);
             }
             g_colTitle.appendChild(text);
         });
@@ -563,16 +410,10 @@ class Log {
         let logoWidth = g_companyLogo.getBBox().width;
         let allowedHeight = GL.y1 - GL.y0 - PS.contentInnerBorderPadding * 2;
         let allowedWidth = GL.x2 - GL.x0 - PS.contentInnerBorderPadding * 2;
-        let scale = Math.min(
-            allowedHeight / logoHeight,
-            allowedWidth / logoWidth
-        );
+        let scale = Math.min(allowedHeight / logoHeight, allowedWidth / logoWidth);
         let logoOffset_X = (GL.x2 + GL.x0) * 0.5 - 0.5 * scale * logoWidth;
         let logoOffset_y = (GL.y1 + GL.y0) * 0.5 - 0.5 * scale * logoHeight;
-        g_companyLogo.setAttribute(
-            "transform",
-            `translate(${logoOffset_X},${logoOffset_y}), scale(${scale})`
-        );
+        g_companyLogo.setAttribute("transform", `translate(${logoOffset_X},${logoOffset_y}), scale(${scale})`);
     }
 
     updateHeader() {
@@ -594,10 +435,8 @@ class Log {
         let text_x3 = text_x1 + colwidth * 2 + PS.headerColOffSet[1];
 
         let text_y1 = GL.y0 + PS.contentInnerBorderPadding;
-        let text_y2 =
-            GL.y1 - PS.contentInnerBorderPadding - PS.headerLineHeight * 2;
-        let text_y3 =
-            GL.y1 - PS.contentInnerBorderPadding - PS.headerLineHeight;
+        let text_y2 = GL.y1 - PS.contentInnerBorderPadding - PS.headerLineHeight * 2;
+        let text_y3 = GL.y1 - PS.contentInnerBorderPadding - PS.headerLineHeight;
         let text_y4 = GL.y1 - PS.contentInnerBorderPadding;
 
         let deltax;
@@ -617,13 +456,8 @@ class Log {
         text_locationIdValue.setAttribute("font-size", `170%`);
         text_locationIdValue.setAttribute("font-weight", "bold");
         text_locationIdValue.setAttribute("text-decoration", "underline");
-        text_locationIdValue.innerHTML = `<tspan class="locationId" x="${
-            text_x1 + deltax
-        }" y="${text_y1}">${this.locationId}</tspan>`;
-        g_tableTitleCol0.setAttribute(
-            "transform",
-            `translate(0,${g_tableTitleCol0.getBBox().height})`
-        );
+        text_locationIdValue.innerHTML = `<tspan class="locationId" x="${text_x1 + deltax}" y="${text_y1}">${this.locationId}</tspan>`;
+        g_tableTitleCol0.setAttribute("transform", `translate(0,${g_tableTitleCol0.getBBox().height})`);
 
         let g_tableTitleCol1 = document.createElementNS(svgNS, "g");
         g_tableTitleCol1.setAttribute("class", "tableTitleCol1");
@@ -642,15 +476,9 @@ class Log {
         text_projectDetialValue.setAttribute("class", "dataValue");
         text_projectDetialValue.setAttribute("text-decoration", "underline");
         text_projectDetialValue.innerHTML = `
-                <tspan class="projectNo" x="${
-                    text_x1 + deltax
-                }" y="${text_y2}">${this.projectNo}</tspan>
-                <tspan class="projectTitle" x="${
-                    text_x1 + deltax
-                }" y="${text_y3}">${this.projectTitle}</tspan>
-                <tspan class="client" x="${text_x1 + deltax}" y="${text_y4}">${
-            this.client
-        }</tspan>
+                <tspan class="projectNo" x="${text_x1 + deltax}" y="${text_y2}">${this.projectNo}</tspan>
+                <tspan class="projectTitle" x="${text_x1 + deltax}" y="${text_y3}">${this.projectTitle}</tspan>
+                <tspan class="client" x="${text_x1 + deltax}" y="${text_y4}">${this.client}</tspan>
                 `;
 
         let g_tableTitleCol2 = document.createElementNS(svgNS, "g");
@@ -670,15 +498,9 @@ class Log {
         text_coordDetialValue.setAttribute("class", "dataValue");
         text_coordDetialValue.setAttribute("text-decoration", "underline");
         text_coordDetialValue.innerHTML = `
-                <tspan class="coordSys" x="${
-                    text_x2 + deltax
-                }" y="${text_y2}">${this.coordSys}</tspan>
-                <tspan class="xCoord" x="${text_x2 + deltax}" y="${text_y3}">${
-            this.xCoord
-        }</tspan>
-                <tspan class="yCoord" x="${text_x2 + deltax}" y="${text_y4}">${
-            this.yCoord
-        }</tspan>
+                <tspan class="coordSys" x="${text_x2 + deltax}" y="${text_y2}">${this.coordSys}</tspan>
+                <tspan class="xCoord" x="${text_x2 + deltax}" y="${text_y3}">${this.xCoord}</tspan>
+                <tspan class="yCoord" x="${text_x2 + deltax}" y="${text_y4}">${this.yCoord}</tspan>
                 `;
 
         let g_tableTitleCol3 = document.createElementNS(svgNS, "g");
@@ -698,15 +520,9 @@ class Log {
         text_reviewListValue.setAttribute("class", "dataValue");
         text_reviewListValue.setAttribute("text-decoration", "underline");
         text_reviewListValue.innerHTML = `
-                <tspan class="loggedBy" x="${
-                    text_x3 + deltax
-                }" y="${text_y2}">${this.loggedBy}</tspan>
-                <tspan class="reviewedBy" x="${
-                    text_x3 + deltax
-                }" y="${text_y3}">${this.reviewedBy}</tspan>
-                <tspan class="approvedBy" x="${
-                    text_x3 + deltax
-                }" y="${text_y4}">${this.approvedBy}</tspan>
+                <tspan class="loggedBy" x="${text_x3 + deltax}" y="${text_y2}">${this.loggedBy}</tspan>
+                <tspan class="reviewedBy" x="${text_x3 + deltax}" y="${text_y3}">${this.reviewedBy}</tspan>
+                <tspan class="approvedBy" x="${text_x3 + deltax}" y="${text_y4}">${this.approvedBy}</tspan>
                 `;
     }
 
@@ -759,38 +575,21 @@ class Log {
         text_legendCol1Value.setAttribute("text-decoration", "underline");
         text_legendCol1Value.setAttribute("text-anchor", "end");
         text_legendCol1Value.innerHTML = `
-            <tspan class="holeSize" x="${text_x1 + deltax}" y="${text_y1}">${
-            this.holeSize
-        }</tspan>
-            <tspan class="casingSize" x="${text_x1 + deltax}" y="${text_y2}">${
-            this.wellInstalled ? this.casingSize : "N/A"
-        }</tspan>
-            <tspan class="totalWellDepth" x="${
-                text_x1 + deltax
-            }" y="${text_y3}">${
-            this.wellInstalled ? this.totalWellDepth : "N/A"
-        } </tspan>
+            <tspan class="holeSize" x="${text_x1 + deltax}" y="${text_y1}">${this.holeSize}</tspan>
+            <tspan class="casingSize" x="${text_x1 + deltax}" y="${text_y2}">${this.wellInstalled ? this.casingSize : "N/A"}</tspan>
+            <tspan class="totalWellDepth" x="${text_x1 + deltax}" y="${text_y3}">${this.wellInstalled ? this.totalWellDepth : "N/A"} </tspan>
             `;
         deltax = text_legendCol1Value.getBBox().width + 10;
-        text_legendCol1Value.setAttribute(
-            "transform",
-            `translate(${deltax},0)`
-        );
+        text_legendCol1Value.setAttribute("transform", `translate(${deltax},0)`);
 
         deltax = g_legendCol1.getBBox().width + 5;
         let text_legendCol1Unit = document.createElementNS(svgNS, "text");
         g_legendCol1.appendChild(text_legendCol1Unit);
         text_legendCol1Unit.setAttribute("class", "dataUnit");
         text_legendCol1Unit.innerHTML = `
-            <tspan class="holeSize" x="${
-                text_x1 + deltax
-            }" y="${text_y1}">mm</tspan>
-            <tspan class="casingSize" x="${
-                text_x1 + deltax
-            }" y="${text_y2}">mm</tspan>
-            <tspan class="totalWellDepth" x="${
-                text_x1 + deltax
-            }" y="${text_y3}">m bgs</tspan>
+            <tspan class="holeSize" x="${text_x1 + deltax}" y="${text_y1}">mm</tspan>
+            <tspan class="casingSize" x="${text_x1 + deltax}" y="${text_y2}">mm</tspan>
+            <tspan class="totalWellDepth" x="${text_x1 + deltax}" y="${text_y3}">m bgs</tspan>
             `;
 
         //Col2 lable, value, unit
@@ -814,57 +613,29 @@ class Log {
         text_legendCol2Value.setAttribute("text-decoration", "underline");
         text_legendCol2Value.setAttribute("text-anchor", "end");
         text_legendCol2Value.innerHTML = `
-            <tspan class="screenInterval" x="${
-                text_x2 + deltax
-            }" y="${text_y1}">
+            <tspan class="screenInterval" x="${text_x2 + deltax}" y="${text_y1}">
             <tspan class="screenIntervalFrom">${
-                this.wellInstalled
-                    ? parseFloat(this.screenIntervalFrom).toFixed(1)
-                    : "N/A"
-            }</tspan> - <tspan class="screenIntervalTo">${
-            this.wellInstalled
-                ? parseFloat(this.screenIntervalTo).toFixed(1)
-                : "N/A"
-        }</tspan>
+                this.wellInstalled ? parseFloat(this.screenIntervalFrom).toFixed(1) : "N/A"
+            }</tspan> - <tspan class="screenIntervalTo">${this.wellInstalled ? parseFloat(this.screenIntervalTo).toFixed(1) : "N/A"}</tspan>
             </tspan>
-            <tspan class="initialWaterLevel" x="${
-                text_x2 + deltax
-            }" y="${text_y2}">${
-            isNaN(this.initialWaterLevel)
-                ? "N/A"
-                : parseFloat(this.initialWaterLevel).toFixed(1)
+            <tspan class="initialWaterLevel" x="${text_x2 + deltax}" y="${text_y2}">${
+            isNaN(this.initialWaterLevel) ? "N/A" : parseFloat(this.initialWaterLevel).toFixed(1)
         }</tspan>
-            <tspan class="staticWaterLevel" x="${
-                text_x2 + deltax
-            }" y="${text_y3}">${
-            this.wellInstalled
-                ? parseFloat(
-                      this.staticWaterLevel -
-                          (this.topOfCasingElevation - this.groundElevation)
-                  ).toFixed(3)
-                : "N/A"
+            <tspan class="staticWaterLevel" x="${text_x2 + deltax}" y="${text_y3}">${
+            this.wellInstalled ? parseFloat(this.staticWaterLevel - (this.topOfCasingElevation - this.groundElevation)).toFixed(3) : "N/A"
         }</tspan>
             `;
         deltax = text_legendCol2Value.getBBox().width + 10;
-        text_legendCol2Value.setAttribute(
-            "transform",
-            `translate(${deltax},0)`
-        );
+        text_legendCol2Value.setAttribute("transform", `translate(${deltax},0)`);
 
         deltax = g_legendCol2.getBBox().width + 5;
         let text_legendCol2Unit = document.createElementNS(svgNS, "text");
         g_legendCol2.appendChild(text_legendCol2Unit);
         text_legendCol2Unit.setAttribute("class", "dataUnit");
         text_legendCol2Unit.innerHTML = `
-            <tspan class="screenInterval" x="${
-                text_x2 + deltax
-            }" y="${text_y1}">m bgs</tspan>
-            <tspan class="initialWaterLevel" x="${
-                text_x2 + deltax
-            }" y="${text_y2}">m bgs</tspan>
-            <tspan class="staticWaterLevel" x="${
-                text_x2 + deltax
-            }" y="${text_y3}">m bgs</tspan>
+            <tspan class="screenInterval" x="${text_x2 + deltax}" y="${text_y1}">m bgs</tspan>
+            <tspan class="initialWaterLevel" x="${text_x2 + deltax}" y="${text_y2}">m bgs</tspan>
+            <tspan class="staticWaterLevel" x="${text_x2 + deltax}" y="${text_y3}">m bgs</tspan>
             `;
 
         //Col3 lable, value
@@ -887,15 +658,9 @@ class Log {
         text_legendCol3Value.setAttribute("class", "dataValue");
         text_legendCol3Value.setAttribute("text-decoration", "underline");
         text_legendCol3Value.innerHTML = `
-            <tspan class="drilledBy" x="${text_x3 + deltax}" y="${text_y1}">${
-            this.drilledBy
-        }</tspan>
-            <tspan class="drillDate" x="${
-                text_x3 + deltax
-            }" y="${text_y2}">NULL</tspan>
-            <tspan class="drillMethod" x="${text_x3 + deltax}" y="${text_y3}">${
-            this.drillMethod
-        }</tspan>
+            <tspan class="drilledBy" x="${text_x3 + deltax}" y="${text_y1}">${this.drilledBy}</tspan>
+            <tspan class="drillDate" x="${text_x3 + deltax}" y="${text_y2}">${this.drillDate}</tspan>
+            <tspan class="drillMethod" x="${text_x3 + deltax}" y="${text_y3}">${this.drillMethod}</tspan>
             `;
 
         let g_note = document.createElementNS(svgNS, "g");
@@ -913,42 +678,28 @@ class Log {
         let a = lineheight / 2;
         let g_inital = document.createElementNS(svgNS, "g");
         g_note.appendChild(g_inital);
-        g_inital.setAttribute(
-            "transform",
-            `translate(${text_x2},${text_y5 - lineheight})`
-        );
+        g_inital.setAttribute("transform", `translate(${text_x2},${text_y5 - lineheight})`);
         g_inital.innerHTML = `
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" stroke="#2F5597" fill="#FFF" d=
-            "M${a},${a + 2} L${0.5},${0.25 * a + 2} L${2 * a - 0.5},${
-            0.25 * a + 2
-        }Z
+            "M${a},${a + 2} L${0.5},${0.25 * a + 2} L${2 * a - 0.5},${0.25 * a + 2}Z
             M${0.5},${a + 2} L${2 * a - 0.5},${a + 2}
             M${0.4 * a},${1.3 * a + 2} L${1.6 * a},${1.3 * a + 2}
             M${0.7 * a},${1.6 * a + 2} L${1.3 * a},${1.6 * a + 2}"
             ></path>
-            <text x="${
-                1.5 * lineheight
-            }" y="${lineheight}">Initial Groundwater Level</text>
+            <text x="${1.5 * lineheight}" y="${lineheight}">Initial Groundwater Level</text>
             `;
 
         let g_static = document.createElementNS(svgNS, "g");
         g_note.appendChild(g_static);
-        g_static.setAttribute(
-            "transform",
-            `translate(${text_x2},${text_y6 - lineheight})`
-        );
+        g_static.setAttribute("transform", `translate(${text_x2},${text_y6 - lineheight})`);
         g_static.innerHTML = `
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" stroke="#2F5597" fill="#2F5597" d=
-            "M${a},${a + 2} L${0.5},${0.25 * a + 2} L${2 * a - 0.5},${
-            0.25 * a + 2
-        }Z
+            "M${a},${a + 2} L${0.5},${0.25 * a + 2} L${2 * a - 0.5},${0.25 * a + 2}Z
             M${0.5},${a + 2} L${2 * a - 0.5},${a + 2}
             M${0.4 * a},${1.3 * a + 2} L${1.6 * a},${1.3 * a + 2}
             M${0.7 * a},${1.6 * a + 2} L${1.3 * a},${1.6 * a + 2}"
             ></path>
-            <text x="${
-                1.5 * lineheight
-            }" y="${lineheight}">Static Groundwater Level</text>
+            <text x="${1.5 * lineheight}" y="${lineheight}">Static Groundwater Level</text>
             `;
     }
 
@@ -971,22 +722,14 @@ class Log {
 
         let minorTrick = majorTrick / 10;
 
-        for (
-            let i = 0, tricks = Math.floor(maxTrickDepth / minorTrick);
-            i < tricks + 1;
-            i++
-        ) {
+        for (let i = 0, tricks = Math.floor(maxTrickDepth / minorTrick); i < tricks + 1; i++) {
             if (i % 10) {
                 //minorTrick) % majorTrick){
                 let path = document.createElementNS(svgNS, "path");
                 let doubleTrick = i % 5 == 0 ? 1 : 0;
-                let path_x =
-                    GL.x1 - (GL.x1 - GL.x0) * 0.125 * (1 + doubleTrick);
+                let path_x = GL.x1 - (GL.x1 - GL.x0) * 0.125 * (1 + doubleTrick);
                 let path_y = config.convertMbgsToPxy(tricks, i);
-                path.setAttribute(
-                    "d",
-                    `M ${path_x} ${path_y} L ${GL.x1} ${path_y}`
-                );
+                path.setAttribute("d", `M ${path_x} ${path_y} L ${GL.x1} ${path_y}`);
                 path.setAttribute("stroke-width", 0.5);
                 path.setAttribute("fill", "none");
                 path.setAttribute("stroke", "black");
@@ -995,10 +738,7 @@ class Log {
                 let path = document.createElementNS(svgNS, "path");
                 let path_x = GL.x1 - (GL.x1 - GL.x0) * 1;
                 let path_y = config.convertMbgsToPxy(tricks, i);
-                path.setAttribute(
-                    "d",
-                    `M ${path_x} ${path_y} L ${GL.x1} ${path_y}`
-                );
+                path.setAttribute("d", `M ${path_x} ${path_y} L ${GL.x1} ${path_y}`);
                 path.setAttribute("stroke-width", 0.5);
                 path.setAttribute("fill", "none");
                 path.setAttribute("stroke", "black");
@@ -1015,10 +755,7 @@ class Log {
         var text = document.createElementNS(svgNS, "text");
         text.innerHTML = "GROUND SURFACE";
         text.setAttribute("x", `${(GL.x2 + GL.x3) / 2}`);
-        text.setAttribute(
-            "y",
-            `${config.convertMbgsToPxy(maxTrickDepth, 0) - 3}`
-        );
+        text.setAttribute("y", `${config.convertMbgsToPxy(maxTrickDepth, 0) - 3}`);
         text.setAttribute("text-anchor", "middle");
         g_axis.appendChild(text);
     }
@@ -1065,10 +802,7 @@ class Log {
         let g_material = document.createElementNS(svgNS, "g");
         g_material.setAttribute("class", "material");
         g_note.appendChild(g_material);
-        g_material.setAttribute(
-            "transform",
-            `translate(${g_note.getBBox().width + text_x1 + 20},0)`
-        );
+        g_material.setAttribute("transform", `translate(${g_note.getBBox().width + text_x1 + 20},0)`);
         let legendx = 0;
         let legendy;
 
@@ -1078,12 +812,7 @@ class Log {
             let materialType = record[2];
             let description = record[3];
 
-            if (
-                isNaN(depthFrom) ||
-                isNaN(depthTo) ||
-                depthFrom < 0 ||
-                depthTo < 0
-            ) {
+            if (isNaN(depthFrom) || isNaN(depthTo) || depthFrom < 0 || depthTo < 0) {
                 return;
             }
 
@@ -1091,14 +820,9 @@ class Log {
             g_subsurfaceProfile.appendChild(g_record);
             g_record.setAttribute("class", `layer${index + 1}`);
 
-            let record_y =
-                (((GL.y4 - GL.y3) * 0.85) / this.maxTrickDepth) * depthFrom;
-            let record_y2 =
-                (((GL.y4 - GL.y3) * 0.85) / this.maxTrickDepth) * depthTo;
-            let adjusted_y = Math.max(
-                record_y,
-                usedSpace_y + PS.descriptionLineHeight / 2
-            );
+            let record_y = (((GL.y4 - GL.y3) * 0.85) / this.maxTrickDepth) * depthFrom;
+            let record_y2 = (((GL.y4 - GL.y3) * 0.85) / this.maxTrickDepth) * depthTo;
+            let adjusted_y = Math.max(record_y, usedSpace_y + PS.descriptionLineHeight / 2);
 
             let patternId;
             if (record[4]) {
@@ -1123,11 +847,9 @@ class Log {
             path_symbol.setAttribute("opacity", "0.99");
             path_symbol.setAttribute(
                 "d",
-                `M ${GL.x1 + 1} ${minDepth_y + record_y + 1} L ${GL.x2 - 1} ${
-                    minDepth_y + record_y + 1
-                } L ${GL.x2 - 1} ${minDepth_y + record_y2 - 1} L ${GL.x1 + 1} ${
-                    minDepth_y + record_y2 - 1
-                }`
+                `M ${GL.x1 + 1} ${minDepth_y + record_y + 1} L ${GL.x2 - 1} ${minDepth_y + record_y + 1} L ${GL.x2 - 1} ${minDepth_y + record_y2 - 1} L ${
+                    GL.x1 + 1
+                } ${minDepth_y + record_y2 - 1}`
             );
 
             let path_leadingLine = document.createElementNS(svgNS, "path");
@@ -1135,9 +857,7 @@ class Log {
             path_leadingLine.setAttribute("class", "descroptionLeadingLine");
             path_leadingLine.setAttribute(
                 "d",
-                `M ${GL.x1} ${minDepth_y + record_y} L ${GL.x2} ${
-                    minDepth_y + record_y
-                } L ${GL.x2 + 4} ${minDepth_y + adjusted_y} L ${GL.x4} ${
+                `M ${GL.x1} ${minDepth_y + record_y} L ${GL.x2} ${minDepth_y + record_y} L ${GL.x2 + 4} ${minDepth_y + adjusted_y} L ${GL.x4} ${
                     minDepth_y + adjusted_y
                 }`
             );
@@ -1149,10 +869,7 @@ class Log {
             g_record.appendChild(text_depth);
             text_depth.innerHTML = depthFrom.toFixed(3);
             text_depth.setAttribute("x", `${(GL.x3 + GL.x4) / 2}`); //path_x - 2
-            text_depth.setAttribute(
-                "y",
-                `${minDepth_y + adjusted_y + lineheight}`
-            );
+            text_depth.setAttribute("y", `${minDepth_y + adjusted_y + lineheight}`);
             text_depth.setAttribute("text-anchor", "middle");
 
             //material type and legend
@@ -1170,16 +887,10 @@ class Log {
             <text x="${legendx + 25}" y="${legendy}">${materialType}</text>
             `;
 
-            if (
-                this.wellInstalled &&
-                !isNaN(this.groundElevation) &&
-                this.groundElevation != ""
-            ) {
+            if (this.wellInstalled && !isNaN(this.groundElevation) && this.groundElevation != "") {
                 let text_elev = document.createElementNS(svgNS, "text");
                 g_record.appendChild(text_elev);
-                text_elev.innerHTML = (
-                    this.groundElevation - depthFrom
-                ).toFixed(3);
+                text_elev.innerHTML = (this.groundElevation - depthFrom).toFixed(3);
                 text_elev.setAttribute("x", `${(GL.x3 + GL.x4) / 2}`);
                 text_elev.setAttribute("y", `${minDepth_y + adjusted_y - 3}`);
                 text_elev.setAttribute("text-anchor", "middle");
@@ -1188,68 +899,44 @@ class Log {
             let g_record_des = document.createElementNS(svgNS, "g");
             g_record.appendChild(g_record_des);
 
-            let line1y =
-                minDepth_y +
-                adjusted_y +
-                PS.descriptionLineHeight / 2 +
-                lineheight;
+            let line1y = minDepth_y + adjusted_y + PS.descriptionLineHeight / 2 + lineheight;
             let line1x = GL.x2 + 8;
 
             let text_materialType = document.createElementNS(svgNS, "text");
             g_record_des.appendChild(text_materialType);
 
             text_materialType.innerHTML = `
-                <tspan font-weight='bold' x="${line1x}" y="${line1y}">${materialType}, ${depthFrom.toFixed(
-                2
-            )} - ${depthTo.toFixed(2)} m bgs;</tspan>
-                <tspan x="${line1x}" y="${
-                line1y + PS.descriptionLineHeight
-            }"></tspan>`;
+                <tspan font-weight='bold' x="${line1x}" y="${line1y}">${materialType}, ${depthFrom.toFixed(2)} - ${depthTo.toFixed(2)} m bgs;</tspan>
+                <tspan x="${line1x}" y="${line1y + PS.descriptionLineHeight}"></tspan>`;
 
             let lineCount = 1;
             description.split(" ").forEach((word) => {
                 let cache = text_materialType.innerHTML.slice(0, -8);
                 text_materialType.innerHTML = cache + (" " + word);
-                if (
-                    text_materialType.lastChild.getBBox().width >
-                        GL.x3 - GL.x2 - 16 ||
-                    word.indexOf("\n") != -1
-                ) {
+                if (text_materialType.lastChild.getBBox().width > GL.x3 - GL.x2 - 16 || word.indexOf("\n") != -1) {
                     lineCount++;
                     text_materialType.innerHTML =
                         cache +
                         `</tspan>
-                        <tspan x="${line1x}" y="${
-                            line1y + lineCount * PS.descriptionLineHeight
-                        }">
+                        <tspan x="${line1x}" y="${line1y + lineCount * PS.descriptionLineHeight}">
                         ` +
                         word +
                         "</tspan>";
                 }
             });
 
-            usedSpace_y =
-                adjusted_y +
-                g_record_des.getBBox().height +
-                PS.descriptionLineHeight / 2 +
-                lineheight / 2;
+            usedSpace_y = adjusted_y + g_record_des.getBBox().height + PS.descriptionLineHeight / 2 + lineheight / 2;
 
             if (index == this.subsurfaceProfile.length - 1) {
-                let record_y =
-                    (((GL.y4 - GL.y3) * 0.85) / this.maxTrickDepth) * depthTo;
-                let adjusted_y = Math.max(
-                    record_y,
-                    usedSpace_y + PS.descriptionLineHeight / 2
-                );
+                let record_y = (((GL.y4 - GL.y3) * 0.85) / this.maxTrickDepth) * depthTo;
+                let adjusted_y = Math.max(record_y, usedSpace_y + PS.descriptionLineHeight / 2);
 
                 let path_leadingLine = document.createElementNS(svgNS, "path");
                 g_record.appendChild(path_leadingLine);
                 path_leadingLine.setAttribute("id", "descroptionPath");
                 path_leadingLine.setAttribute(
                     "d",
-                    `M ${GL.x1} ${minDepth_y + record_y} L ${GL.x2} ${
-                        minDepth_y + record_y
-                    } L ${GL.x2 + 4} ${minDepth_y + adjusted_y} L ${GL.x4} ${
+                    `M ${GL.x1} ${minDepth_y + record_y} L ${GL.x2} ${minDepth_y + record_y} L ${GL.x2 + 4} ${minDepth_y + adjusted_y} L ${GL.x4} ${
                         minDepth_y + adjusted_y
                     }`
                 );
@@ -1261,37 +948,22 @@ class Log {
                 g_record.appendChild(text_depth);
                 text_depth.innerHTML = depthTo.toFixed(3);
                 text_depth.setAttribute("x", `${(GL.x3 + GL.x4) / 2}`); //path_x - 2
-                text_depth.setAttribute(
-                    "y",
-                    `${minDepth_y + adjusted_y + lineheight}`
-                );
+                text_depth.setAttribute("y", `${minDepth_y + adjusted_y + lineheight}`);
                 text_depth.setAttribute("text-anchor", "middle");
 
-                if (
-                    this.wellInstalled &&
-                    !isNaN(this.groundElevation) &&
-                    this.groundElevation != ""
-                ) {
+                if (this.wellInstalled && !isNaN(this.groundElevation) && this.groundElevation != "") {
                     let text_elev = document.createElementNS(svgNS, "text");
                     g_record.appendChild(text_elev);
-                    text_elev.innerHTML = (
-                        this.groundElevation - depthTo
-                    ).toFixed(3);
+                    text_elev.innerHTML = (this.groundElevation - depthTo).toFixed(3);
                     text_elev.setAttribute("x", `${(GL.x3 + GL.x4) / 2}`); //path_x - 2
-                    text_elev.setAttribute(
-                        "y",
-                        `${minDepth_y + adjusted_y - 3}`
-                    );
+                    text_elev.setAttribute("y", `${minDepth_y + adjusted_y - 3}`);
                     text_elev.setAttribute("text-anchor", "middle");
                 }
 
                 var text = document.createElementNS(svgNS, "text");
                 text.innerHTML = "END of BOREHOLE";
                 text.setAttribute("x", `${(GL.x2 + GL.x3) / 2}`);
-                text.setAttribute(
-                    "y",
-                    `${minDepth_y + adjusted_y + lineheight}`
-                );
+                text.setAttribute("y", `${minDepth_y + adjusted_y + lineheight}`);
                 text.setAttribute("text-anchor", "middle");
                 g_record.appendChild(text);
             }
@@ -1318,10 +990,7 @@ class Log {
             let depthFrom = parseFloat(record[0]);
             let depthTo = parseFloat(record[1]);
             let sampleID = record[2];
-            let pid =
-                parseFloat(record[3]) >= 100
-                    ? parseFloat(record[3]).toFixed(0)
-                    : parseFloat(record[3]).toFixed(1);
+            let pid = parseFloat(record[3]) >= 100 ? parseFloat(record[3]).toFixed(0) : parseFloat(record[3]).toFixed(1);
             let lab = record[4] ? "√" : "";
 
             let depth = (depthTo + depthFrom) * 0.5;
@@ -1407,22 +1076,10 @@ class Log {
         let xZero = (GL.x7 + GL.x8) / 2;
         let yZero = config.convertMbgsToPxy(1, 0);
         let unitL = (GL.x8 - GL.x7) / 9 / 2; //1/9 col width->casing size, 1/2 casing size ->unit lenth
-        let yBentonite = config.convertMbgsToPxy(
-            this.maxTrickDepth,
-            this.bentoniteSealingDepth
-        );
-        let yWellDepth = config.convertMbgsToPxy(
-            this.maxTrickDepth,
-            this.totalWellDepth
-        );
-        let yScreenFrom = config.convertMbgsToPxy(
-            this.maxTrickDepth,
-            this.screenIntervalFrom
-        );
-        let yScreenTo = config.convertMbgsToPxy(
-            this.maxTrickDepth,
-            this.screenIntervalTo
-        );
+        let yBentonite = config.convertMbgsToPxy(this.maxTrickDepth, this.bentoniteSealingDepth);
+        let yWellDepth = config.convertMbgsToPxy(this.maxTrickDepth, this.totalWellDepth);
+        let yScreenFrom = config.convertMbgsToPxy(this.maxTrickDepth, this.screenIntervalFrom);
+        let yScreenTo = config.convertMbgsToPxy(this.maxTrickDepth, this.screenIntervalTo);
 
         let g_backfill = document.createElementNS(svgNS, "g");
         g_wellDetail.appendChild(g_backfill);
@@ -1434,31 +1091,21 @@ class Log {
             L${xZero + 3 * unitL},${yBentonite} ${xZero + 3 * unitL},${yZero}">
             </path>
             <path class="silicaSand" stroke="none" fill="url(#pattern-silica)" opacity='0.99' d=
-            "M${xZero - 3 * unitL},${yBentonite} L${xZero - 3 * unitL},${
-            yWellDepth + unitL
-        }
-            L${xZero + 3 * unitL},${yWellDepth + unitL} L${
-            xZero + 3 * unitL
-        },${yBentonite}">
+            "M${xZero - 3 * unitL},${yBentonite} L${xZero - 3 * unitL},${yWellDepth + unitL}
+            L${xZero + 3 * unitL},${yWellDepth + unitL} L${xZero + 3 * unitL},${yBentonite}">
             </path>
             <path class="bentoniteSealing" stroke="black" fill="none" d=
             "M${xZero - 3 * unitL},${yZero} L${xZero - 3 * unitL},${yBentonite}
             L${xZero + 3 * unitL},${yBentonite} ${xZero + 3 * unitL},${yZero}">
             </path>
             <path class="silicaSand" stroke="black" fill="none" d=
-            "M${xZero - 3 * unitL},${yBentonite} L${xZero - 3 * unitL},${
-            yWellDepth + unitL
-        }
-            L${xZero + 3 * unitL},${yWellDepth + unitL} L${
-            xZero + 3 * unitL
-        },${yBentonite}">
+            "M${xZero - 3 * unitL},${yBentonite} L${xZero - 3 * unitL},${yWellDepth + unitL}
+            L${xZero + 3 * unitL},${yWellDepth + unitL} L${xZero + 3 * unitL},${yBentonite}">
             </path>
             `;
         let screen_d = "";
         for (let i = yScreenFrom; i <= yScreenTo; i += 5) {
-            screen_d =
-                screen_d +
-                `M${xZero - unitL + 2},${i} L${xZero + unitL - 2},${i} `;
+            screen_d = screen_d + `M${xZero - unitL + 2},${i} L${xZero + unitL - 2},${i} `;
         }
 
         let g_casing = document.createElementNS(svgNS, "g");
@@ -1466,9 +1113,7 @@ class Log {
         g_casing.setAttribute("class", "casing");
         g_casing.innerHTML = `
             <path class="casingUncapped" fill="white" stroke="#000" stroke-width='0.5' d=
-            "M${xZero - unitL},${yZero} L${xZero - unitL},${yWellDepth}L${
-            xZero + unitL
-        },${yWellDepth} L${xZero + unitL},${yZero}">
+            "M${xZero - unitL},${yZero} L${xZero - unitL},${yWellDepth}L${xZero + unitL},${yWellDepth} L${xZero + unitL},${yZero}">
             </path>
             <path class="screen" d="${screen_d}" stroke="#aaa" stroke-width='0.5'</path>
             `;
@@ -1480,111 +1125,59 @@ class Log {
             case "Protective Standpipe":
                 g_wellHead.innerHTML = `
                 <path class="concretepattern" stroke="none" fill="url(#pattern-concrete)"  opacity='0.99' d=
-                "M${xZero - 5 * unitL},${yZero - 1 * unitL} L${
-                    xZero - 5 * unitL
-                },${yZero + 0 * unitL} L${xZero - 1 * unitL},${
-                    yZero + 0.5 * unitL
-                }
-                L${xZero + 1 * unitL},${yZero + 0.5 * unitL} L${
-                    xZero + 5 * unitL
-                },${yZero + 0 * unitL} L${xZero + 5 * unitL},${
-                    yZero - 1 * unitL
-                }Z">
+                "M${xZero - 5 * unitL},${yZero - 1 * unitL} L${xZero - 5 * unitL},${yZero + 0 * unitL} L${xZero - 1 * unitL},${yZero + 0.5 * unitL}
+                L${xZero + 1 * unitL},${yZero + 0.5 * unitL} L${xZero + 5 * unitL},${yZero + 0 * unitL} L${xZero + 5 * unitL},${yZero - 1 * unitL}Z">
                 </path>
                 <path class="concrete" stroke="black" fill="none" d=
-                "M${xZero - 5 * unitL},${yZero - 1 * unitL} L${
-                    xZero - 5 * unitL
-                },${yZero + 0 * unitL} L${xZero - 1 * unitL},${
-                    yZero + 0.5 * unitL
-                }
-                L${xZero + 1 * unitL},${yZero + 0.5 * unitL} L${
-                    xZero + 5 * unitL
-                },${yZero + 0 * unitL} L${xZero + 5 * unitL},${
-                    yZero - 1 * unitL
-                }Z">
+                "M${xZero - 5 * unitL},${yZero - 1 * unitL} L${xZero - 5 * unitL},${yZero + 0 * unitL} L${xZero - 1 * unitL},${yZero + 0.5 * unitL}
+                L${xZero + 1 * unitL},${yZero + 0.5 * unitL} L${xZero + 5 * unitL},${yZero + 0 * unitL} L${xZero + 5 * unitL},${yZero - 1 * unitL}Z">
                 </path>
                 <path class="groundsurface" stroke="black" d=
-                "M${xZero - 9 * unitL},${yZero} L${xZero - 5 * unitL},${
-                    yZero - 0 * unitL
-                } M${xZero + 9 * unitL},${yZero} L${xZero + 5 * unitL},${
+                "M${xZero - 9 * unitL},${yZero} L${xZero - 5 * unitL},${yZero - 0 * unitL} M${xZero + 9 * unitL},${yZero} L${xZero + 5 * unitL},${
                     yZero - 0 * unitL
                 }">
                 </path>
                 <path class="manHoleSteelpattern" stroke="none" fill="url(#pattern-steel)"  opacity='0.99'  d=
-                "M${xZero - 2 * unitL},${yZero} L${xZero - 2 * unitL},${
-                    yZero - 5 * unitL
-                } L${xZero + 2 * unitL},${yZero - 5 * unitL} L${
+                "M${xZero - 2 * unitL},${yZero} L${xZero - 2 * unitL},${yZero - 5 * unitL} L${xZero + 2 * unitL},${yZero - 5 * unitL} L${
                     xZero + 2 * unitL
                 },${yZero} 
-                L${xZero + 1.8 * unitL},${yZero} L${xZero + 1.8 * unitL},${
-                    yZero - 5 * unitL
-                } L${xZero - 1.8 * unitL},${yZero - 5 * unitL} L${
+                L${xZero + 1.8 * unitL},${yZero} L${xZero + 1.8 * unitL},${yZero - 5 * unitL} L${xZero - 1.8 * unitL},${yZero - 5 * unitL} L${
                     xZero - 1.8 * unitL
                 },${yZero}Z">
                 </path>
                 <path class="manHoleSteel" stroke="black" fill="none"  d=
-                "M${xZero - 2 * unitL},${yZero} L${xZero - 2 * unitL},${
-                    yZero - 5 * unitL
-                } L${xZero + 2 * unitL},${yZero - 5 * unitL} L${
+                "M${xZero - 2 * unitL},${yZero} L${xZero - 2 * unitL},${yZero - 5 * unitL} L${xZero + 2 * unitL},${yZero - 5 * unitL} L${
                     xZero + 2 * unitL
                 },${yZero} 
-                L${xZero + 1.8 * unitL},${yZero} L${xZero + 1.8 * unitL},${
-                    yZero - 5 * unitL
-                } L${xZero - 1.8 * unitL},${yZero - 5 * unitL} L${
+                L${xZero + 1.8 * unitL},${yZero} L${xZero + 1.8 * unitL},${yZero - 5 * unitL} L${xZero - 1.8 * unitL},${yZero - 5 * unitL} L${
                     xZero - 1.8 * unitL
                 },${yZero}Z">
                 </path>
                 <path class="manHoleCover" stroke="none" fill="url(#pattern-steel)"  opacity='0.99' d=
-                "M${xZero - 1.9 * unitL},${yZero - 4.8 * unitL} L${
-                    xZero - 2.1 * unitL
-                },${yZero - 5 * unitL} L${xZero - 2.1 * unitL},${
-                    yZero - 5.2 * unitL
-                }
-                L${xZero + 2.1 * unitL},${yZero - 5.2 * unitL} L${
-                    xZero + 2.1 * unitL
-                },${yZero - 5 * unitL} L${xZero + 1.9 * unitL},${
-                    yZero - 4.8 * unitL
-                }Z">
+                "M${xZero - 1.9 * unitL},${yZero - 4.8 * unitL} L${xZero - 2.1 * unitL},${yZero - 5 * unitL} L${xZero - 2.1 * unitL},${yZero - 5.2 * unitL}
+                L${xZero + 2.1 * unitL},${yZero - 5.2 * unitL} L${xZero + 2.1 * unitL},${yZero - 5 * unitL} L${xZero + 1.9 * unitL},${yZero - 4.8 * unitL}Z">
                 </path>
                 <path class="manHoleCover" stroke="black" fill="none" d=
-                "M${xZero - 1.9 * unitL},${yZero - 4.8 * unitL} L${
-                    xZero - 2.1 * unitL
-                },${yZero - 5 * unitL} L${xZero - 2.1 * unitL},${
-                    yZero - 5.2 * unitL
-                }
-                L${xZero + 2.1 * unitL},${yZero - 5.2 * unitL} L${
-                    xZero + 2.1 * unitL
-                },${yZero - 5 * unitL} L${xZero + 1.9 * unitL},${
-                    yZero - 4.8 * unitL
-                }Z">
+                "M${xZero - 1.9 * unitL},${yZero - 4.8 * unitL} L${xZero - 2.1 * unitL},${yZero - 5 * unitL} L${xZero - 2.1 * unitL},${yZero - 5.2 * unitL}
+                L${xZero + 2.1 * unitL},${yZero - 5.2 * unitL} L${xZero + 2.1 * unitL},${yZero - 5 * unitL} L${xZero + 1.9 * unitL},${yZero - 4.8 * unitL}Z">
                 </path>
                 <path class="casing" fill="white" stroke="#000" d=
-                "M${xZero - unitL},${yZero + unitL} L${xZero - unitL},${
-                    yZero - 3 * unitL
-                } L${xZero + unitL},${yZero - 3 * unitL} L${xZero + unitL},${
+                "M${xZero - unitL},${yZero + unitL} L${xZero - unitL},${yZero - 3 * unitL} L${xZero + unitL},${yZero - 3 * unitL} L${xZero + unitL},${
                     yZero + unitL
                 }">
                 </path>
                 <path class="casingPvcCap" fill="white" stroke="#000" d=
-                "M${xZero - unitL - 1.5},${yZero - 3 * unitL} L${
-                    xZero - unitL - 1.5
-                },${yZero + 3 - 4 * unitL} Q${xZero - unitL - 1.5},${
-                    yZero - 4 * unitL
-                } ${xZero - 3},${yZero - 4 * unitL} 
-                L${xZero + 3},${yZero - 4 * unitL} Q${xZero + unitL + 1.5},${
-                    yZero - 4 * unitL
-                } ${xZero + unitL + 1.5},${yZero + 3 - 4 * unitL} L${
+                "M${xZero - unitL - 1.5},${yZero - 3 * unitL} L${xZero - unitL - 1.5},${yZero + 3 - 4 * unitL} Q${xZero - unitL - 1.5},${yZero - 4 * unitL} ${
+                    xZero - 3
+                },${yZero - 4 * unitL} 
+                L${xZero + 3},${yZero - 4 * unitL} Q${xZero + unitL + 1.5},${yZero - 4 * unitL} ${xZero + unitL + 1.5},${yZero + 3 - 4 * unitL} L${
                     xZero + unitL + 1.5
                 },${yZero - 3 * unitL}Z">
                 </path>
                 <path stroke="#000" fill="none" d=
-                "M${xZero - 6.5 * unitL},${yZero - 2 * unitL} h${
-                    +4 * unitL
-                }" marker-end="url(#marker-arrow)">
+                "M${xZero - 6.5 * unitL},${yZero - 2 * unitL} h${+4 * unitL}" marker-end="url(#marker-arrow)">
                 </path>
-                <text x=${xZero - 6.5 * unitL} y=${
-                    yZero - 4 * unitL
-                } transform="rotate(-90 ${xZero - 6.5 * unitL} ${
+                <text x=${xZero - 6.5 * unitL} y=${yZero - 4 * unitL} transform="rotate(-90 ${xZero - 6.5 * unitL} ${
                     yZero - 4 * unitL
                 })" text-anchor='end' font-size='70%' paint-order="stroke" stroke="#FFF" stroke-width="3">
                 Protective Standpipe
@@ -1594,132 +1187,70 @@ class Log {
             case "Flush-Mounted Manhole":
                 g_wellHead.innerHTML = `
                 <path class="whiteBackg" stroke="white" fill="white" d=
-                "M${xZero - 3 * unitL - 1},${yZero + 2.5 * unitL} L${
-                    xZero - 3 * unitL - 1
-                },${yZero - 0.25 * unitL} L${xZero + 3 * unitL + 1},${
+                "M${xZero - 3 * unitL - 1},${yZero + 2.5 * unitL} L${xZero - 3 * unitL - 1},${yZero - 0.25 * unitL} L${xZero + 3 * unitL + 1},${
                     yZero - 0.25 * unitL
                 } L${xZero + 3 * unitL + 1},${yZero + 2.5 * unitL}">
                 </path>
                 <path class="concrete" stroke="none" fill="url(#pattern-concrete)" opacity='0.99' d=
-                "M${xZero - 3 * unitL},${yZero + 1.5 * unitL} L${
-                    xZero - 3 * unitL
-                },${yZero - 0.5 * unitL} L${xZero - 5 * unitL},${
-                    yZero - 0.25 * unitL
-                } L${xZero - 5 * unitL},${yZero + 0.25 * unitL} L${
-                    xZero - 4 * unitL
-                },${yZero + 0.5 * unitL} L${xZero - 3.5 * unitL},${
-                    yZero + 2.5 * unitL
-                }
-                L${xZero + 3.5 * unitL},${yZero + 2.5 * unitL} L${
-                    xZero + 4 * unitL
-                },${yZero + 0.5 * unitL} L${xZero + 5 * unitL},${
-                    yZero + 0.25 * unitL
-                } L${xZero + 5 * unitL},${yZero - 0.25 * unitL} L${
-                    xZero + 3 * unitL
-                },${yZero - 0.5 * unitL} L${xZero + 3 * unitL},${
-                    yZero + 1.5 * unitL
-                }Z">
+                "M${xZero - 3 * unitL},${yZero + 1.5 * unitL} L${xZero - 3 * unitL},${yZero - 0.5 * unitL} L${xZero - 5 * unitL},${yZero - 0.25 * unitL} L${
+                    xZero - 5 * unitL
+                },${yZero + 0.25 * unitL} L${xZero - 4 * unitL},${yZero + 0.5 * unitL} L${xZero - 3.5 * unitL},${yZero + 2.5 * unitL}
+                L${xZero + 3.5 * unitL},${yZero + 2.5 * unitL} L${xZero + 4 * unitL},${yZero + 0.5 * unitL} L${xZero + 5 * unitL},${yZero + 0.25 * unitL} L${
+                    xZero + 5 * unitL
+                },${yZero - 0.25 * unitL} L${xZero + 3 * unitL},${yZero - 0.5 * unitL} L${xZero + 3 * unitL},${yZero + 1.5 * unitL}Z">
                 </path>
                 <path class="concrete" stroke="black" fill="none" d=
-                "M${xZero - 3 * unitL},${yZero + 1.5 * unitL} L${
-                    xZero - 3 * unitL
-                },${yZero - 0.5 * unitL} L${xZero - 5 * unitL},${
-                    yZero - 0.25 * unitL
-                } L${xZero - 5 * unitL},${yZero + 0.25 * unitL} L${
-                    xZero - 4 * unitL
-                },${yZero + 0.5 * unitL} L${xZero - 3.5 * unitL},${
-                    yZero + 2.5 * unitL
-                }
-                L${xZero + 3.5 * unitL},${yZero + 2.5 * unitL} L${
-                    xZero + 4 * unitL
-                },${yZero + 0.5 * unitL} L${xZero + 5 * unitL},${
-                    yZero + 0.25 * unitL
-                } L${xZero + 5 * unitL},${yZero - 0.25 * unitL} L${
-                    xZero + 3 * unitL
-                },${yZero - 0.5 * unitL} L${xZero + 3 * unitL},${
-                    yZero + 1.5 * unitL
-                }Z">
+                "M${xZero - 3 * unitL},${yZero + 1.5 * unitL} L${xZero - 3 * unitL},${yZero - 0.5 * unitL} L${xZero - 5 * unitL},${yZero - 0.25 * unitL} L${
+                    xZero - 5 * unitL
+                },${yZero + 0.25 * unitL} L${xZero - 4 * unitL},${yZero + 0.5 * unitL} L${xZero - 3.5 * unitL},${yZero + 2.5 * unitL}
+                L${xZero + 3.5 * unitL},${yZero + 2.5 * unitL} L${xZero + 4 * unitL},${yZero + 0.5 * unitL} L${xZero + 5 * unitL},${yZero + 0.25 * unitL} L${
+                    xZero + 5 * unitL
+                },${yZero - 0.25 * unitL} L${xZero + 3 * unitL},${yZero - 0.5 * unitL} L${xZero + 3 * unitL},${yZero + 1.5 * unitL}Z">
                 </path>
                 <path class="groundsurface" stroke="black" d=
-                "M${xZero - 9 * unitL},${yZero} L${xZero - 5 * unitL},${
-                    yZero - 0 * unitL
-                } M${xZero + 9 * unitL},${yZero} L${xZero + 5 * unitL},${
+                "M${xZero - 9 * unitL},${yZero} L${xZero - 5 * unitL},${yZero - 0 * unitL} M${xZero + 9 * unitL},${yZero} L${xZero + 5 * unitL},${
                     yZero - 0 * unitL
                 }">
                 </path>
                 <path class="manHoleSteel" stroke="none" fill="url(#pattern-steel)" opacity='0.99' d=
-                "M${xZero - 4 * unitL},${yZero - 0.5 * unitL} L${
-                    xZero - 4 * unitL
-                },${yZero} L${xZero - 3.5 * unitL},${yZero} L${
-                    xZero - 3.25 * unitL
-                },${yZero + 2 * unitL} L${xZero - 3 * unitL},${
+                "M${xZero - 4 * unitL},${yZero - 0.5 * unitL} L${xZero - 4 * unitL},${yZero} L${xZero - 3.5 * unitL},${yZero} L${xZero - 3.25 * unitL},${
                     yZero + 2 * unitL
-                } L${xZero - 3 * unitL},${yZero - 0.5 * unitL}
-                L${xZero + 3 * unitL},${yZero - 0.5 * unitL} L${
-                    xZero + 3 * unitL
-                },${yZero + 2 * unitL} L${xZero + 3.25 * unitL},${
-                    yZero + 2 * unitL
-                } L${xZero + 3.5 * unitL},${yZero} L${
-                    xZero + 4 * unitL
-                },${yZero} L${xZero + 4 * unitL},${yZero - 0.5 * unitL}Z">
+                } L${xZero - 3 * unitL},${yZero + 2 * unitL} L${xZero - 3 * unitL},${yZero - 0.5 * unitL}
+                L${xZero + 3 * unitL},${yZero - 0.5 * unitL} L${xZero + 3 * unitL},${yZero + 2 * unitL} L${xZero + 3.25 * unitL},${yZero + 2 * unitL} L${
+                    xZero + 3.5 * unitL
+                },${yZero} L${xZero + 4 * unitL},${yZero} L${xZero + 4 * unitL},${yZero - 0.5 * unitL}Z">
                 </path>
                 <path class="manHoleSteel" stroke="black" fill="none"  d=
-                "M${xZero - 4 * unitL},${yZero - 0.5 * unitL} L${
-                    xZero - 4 * unitL
-                },${yZero} L${xZero - 3.5 * unitL},${yZero} L${
-                    xZero - 3.25 * unitL
-                },${yZero + 2 * unitL} L${xZero - 3 * unitL},${
+                "M${xZero - 4 * unitL},${yZero - 0.5 * unitL} L${xZero - 4 * unitL},${yZero} L${xZero - 3.5 * unitL},${yZero} L${xZero - 3.25 * unitL},${
                     yZero + 2 * unitL
-                } L${xZero - 3 * unitL},${yZero - 0.5 * unitL}
-                L${xZero + 3 * unitL},${yZero - 0.5 * unitL} L${
-                    xZero + 3 * unitL
-                },${yZero + 2 * unitL} L${xZero + 3.25 * unitL},${
-                    yZero + 2 * unitL
-                } L${xZero + 3.5 * unitL},${yZero} L${
-                    xZero + 4 * unitL
-                },${yZero} L${xZero + 4 * unitL},${yZero - 0.5 * unitL}Z">
+                } L${xZero - 3 * unitL},${yZero + 2 * unitL} L${xZero - 3 * unitL},${yZero - 0.5 * unitL}
+                L${xZero + 3 * unitL},${yZero - 0.5 * unitL} L${xZero + 3 * unitL},${yZero + 2 * unitL} L${xZero + 3.25 * unitL},${yZero + 2 * unitL} L${
+                    xZero + 3.5 * unitL
+                },${yZero} L${xZero + 4 * unitL},${yZero} L${xZero + 4 * unitL},${yZero - 0.5 * unitL}Z">
                 </path>
                 <path class="manHoleCover" stroke="none" fill="url(#pattern-steel)" opacity='0.99' d=
-                "M${xZero - 3.25 * unitL},${yZero - 0.6 * unitL} L${
-                    xZero - 3.25 * unitL
-                },${yZero - 0.25 * unitL} L${xZero + 3.25 * unitL},${
+                "M${xZero - 3.25 * unitL},${yZero - 0.6 * unitL} L${xZero - 3.25 * unitL},${yZero - 0.25 * unitL} L${xZero + 3.25 * unitL},${
                     yZero - 0.25 * unitL
                 } L${xZero + 3.25 * unitL},${yZero - 0.6 * unitL}Z">
                 </path>
                 <path class="manHoleCover" stroke="black" fill="none" d=
-                "M${xZero - 3.25 * unitL},${yZero - 0.6 * unitL} L${
-                    xZero - 3.25 * unitL
-                },${yZero - 0.25 * unitL} L${xZero + 3.25 * unitL},${
+                "M${xZero - 3.25 * unitL},${yZero - 0.6 * unitL} L${xZero - 3.25 * unitL},${yZero - 0.25 * unitL} L${xZero + 3.25 * unitL},${
                     yZero - 0.25 * unitL
                 } L${xZero + 3.25 * unitL},${yZero - 0.6 * unitL}Z">
                 </path>
                 <path class="casing" fill="white" stroke="#000" d=
-                "M${xZero - unitL},${yZero + 2.5 * unitL + 1} L${
-                    xZero - unitL
-                },${yZero + 1 * unitL} L${xZero + unitL},${
-                    yZero + 1 * unitL
-                } L${xZero + unitL},${yZero + 2.5 * unitL + 1}">
+                "M${xZero - unitL},${yZero + 2.5 * unitL + 1} L${xZero - unitL},${yZero + 1 * unitL} L${xZero + unitL},${yZero + 1 * unitL} L${xZero + unitL},${
+                    yZero + 2.5 * unitL + 1
+                }">
                 </path>
                 <path class="casingPvcCap" fill="white" stroke="#000" d=
-                "M${xZero - unitL - 1.5},${yZero + 1 * unitL} L${
-                    xZero - unitL - 1.5
-                },${yZero + 3} Q${xZero - unitL - 1.5},${yZero} ${
-                    xZero - 3
-                },${yZero} 
-                L${xZero + 3},${yZero} Q${xZero + unitL + 1.5},${yZero} ${
-                    xZero + unitL + 1.5
-                },${yZero + 3} L${xZero + unitL + 1.5},${yZero + 1 * unitL}Z">
+                "M${xZero - unitL - 1.5},${yZero + 1 * unitL} L${xZero - unitL - 1.5},${yZero + 3} Q${xZero - unitL - 1.5},${yZero} ${xZero - 3},${yZero} 
+                L${xZero + 3},${yZero} Q${xZero + unitL + 1.5},${yZero} ${xZero + unitL + 1.5},${yZero + 3} L${xZero + unitL + 1.5},${yZero + 1 * unitL}Z">
                 </path>
                 <path stroke="#000" fill="none" d=
-                "M${xZero - 6.5 * unitL},${yZero - 2 * unitL} h${
-                    +5 * unitL
-                } L${xZero} ${
-                    yZero - 0.8 * unitL
-                }" marker-end="url(#marker-arrow)">
+                "M${xZero - 6.5 * unitL},${yZero - 2 * unitL} h${+5 * unitL} L${xZero} ${yZero - 0.8 * unitL}" marker-end="url(#marker-arrow)">
                 </path>
-                <text x=${xZero - 6.5 * unitL} y=${
-                    yZero - 4 * unitL
-                } transform="rotate(-90 ${xZero - 6.5 * unitL} ${
+                <text x=${xZero - 6.5 * unitL} y=${yZero - 4 * unitL} transform="rotate(-90 ${xZero - 6.5 * unitL} ${
                     yZero - 4 * unitL
                 })" text-anchor='end' font-size='70%' paint-order="stroke" stroke="#FFF" stroke-width="3">
                 Flush-mounted Manhole
@@ -1729,80 +1260,46 @@ class Log {
             case "None":
                 g_wellHead.innerHTML = `
                 <path class="groundsurface" stroke="black" d=
-                "M${xZero - 9 * unitL},${yZero} L${
-                    xZero - 3.5 * unitL
-                },${yZero} M${xZero + 9 * unitL},${yZero} L${
-                    xZero + 3.5 * unitL
-                },${yZero}">
+                "M${xZero - 9 * unitL},${yZero} L${xZero - 3.5 * unitL},${yZero} M${xZero + 9 * unitL},${yZero} L${xZero + 3.5 * unitL},${yZero}">
                 </path>
                 <path class="bentoniteSealing" stroke="none" fill="url(#pattern-ben)" opacity='0.99' d=
                 "M${xZero - 3 * unitL},${yZero + 1 * unitL} 
-                Q${xZero - 3 * unitL},${yZero + 0.25 * unitL} ${
-                    xZero - 3.5 * unitL
-                },${yZero - 0 * unitL} 
+                Q${xZero - 3 * unitL},${yZero + 0.25 * unitL} ${xZero - 3.5 * unitL},${yZero - 0 * unitL} 
                 L${xZero - 3.5 * unitL},${yZero - 0 * unitL} 
-                Q${xZero - 4 * unitL},${yZero - 0.0 * unitL} ${
-                    xZero - 4 * unitL
-                },${yZero - 0.25 * unitL} 
+                Q${xZero - 4 * unitL},${yZero - 0.0 * unitL} ${xZero - 4 * unitL},${yZero - 0.25 * unitL} 
                 L${xZero - 4 * unitL},${yZero - 0.25 * unitL} 
-                Q${xZero - 4 * unitL},${yZero - 1 * unitL} ${xZero - unitL},${
-                    yZero - 1.5 * unitL
-                }
+                Q${xZero - 4 * unitL},${yZero - 1 * unitL} ${xZero - unitL},${yZero - 1.5 * unitL}
                 L${xZero + unitL},${yZero - 1.5 * unitL}
-                Q${xZero + 4 * unitL},${yZero - 1 * unitL} ${
-                    xZero + 4 * unitL
-                },${yZero - 0.25 * unitL}
+                Q${xZero + 4 * unitL},${yZero - 1 * unitL} ${xZero + 4 * unitL},${yZero - 0.25 * unitL}
                 L${xZero + 4 * unitL},${yZero - 0.25 * unitL} 
-                Q${xZero + 4 * unitL},${yZero - 0 * unitL} ${
-                    xZero + 3.5 * unitL
-                },${yZero - 0 * unitL}  
+                Q${xZero + 4 * unitL},${yZero - 0 * unitL} ${xZero + 3.5 * unitL},${yZero - 0 * unitL}  
                 L${xZero + 3.5 * unitL},${yZero - 0 * unitL} 
-                Q${xZero + 3 * unitL},${yZero - 0 * unitL} ${
-                    xZero + 3 * unitL
-                },${yZero + 1 * unitL}  ">
+                Q${xZero + 3 * unitL},${yZero - 0 * unitL} ${xZero + 3 * unitL},${yZero + 1 * unitL}  ">
                 </path>
                 <path class="bentoniteSealing" stroke="black" fill="none"  d=
                 "M${xZero - 3 * unitL},${yZero + 1 * unitL} 
-                Q${xZero - 3 * unitL},${yZero + 0.25 * unitL} ${
-                    xZero - 3.5 * unitL
-                },${yZero - 0 * unitL} 
+                Q${xZero - 3 * unitL},${yZero + 0.25 * unitL} ${xZero - 3.5 * unitL},${yZero - 0 * unitL} 
                 L${xZero - 3.5 * unitL},${yZero - 0 * unitL} 
-                Q${xZero - 4 * unitL},${yZero - 0.0 * unitL} ${
-                    xZero - 4 * unitL
-                },${yZero - 0.25 * unitL} 
+                Q${xZero - 4 * unitL},${yZero - 0.0 * unitL} ${xZero - 4 * unitL},${yZero - 0.25 * unitL} 
                 L${xZero - 4 * unitL},${yZero - 0.25 * unitL} 
-                Q${xZero - 4 * unitL},${yZero - 1 * unitL} ${xZero - unitL},${
-                    yZero - 1.5 * unitL
-                }
+                Q${xZero - 4 * unitL},${yZero - 1 * unitL} ${xZero - unitL},${yZero - 1.5 * unitL}
                 L${xZero + unitL},${yZero - 1.5 * unitL}
-                Q${xZero + 4 * unitL},${yZero - 1 * unitL} ${
-                    xZero + 4 * unitL
-                },${yZero - 0.25 * unitL}
+                Q${xZero + 4 * unitL},${yZero - 1 * unitL} ${xZero + 4 * unitL},${yZero - 0.25 * unitL}
                 L${xZero + 4 * unitL},${yZero - 0.25 * unitL} 
-                Q${xZero + 4 * unitL},${yZero - 0 * unitL} ${
-                    xZero + 3.5 * unitL
-                },${yZero - 0 * unitL}  
+                Q${xZero + 4 * unitL},${yZero - 0 * unitL} ${xZero + 3.5 * unitL},${yZero - 0 * unitL}  
                 L${xZero + 3.5 * unitL},${yZero - 0 * unitL} 
-                Q${xZero + 3 * unitL},${yZero - 0 * unitL} ${
-                    xZero + 3 * unitL
-                },${yZero + 1 * unitL}  ">
+                Q${xZero + 3 * unitL},${yZero - 0 * unitL} ${xZero + 3 * unitL},${yZero + 1 * unitL}  ">
                 </path>
                 <path class="casing" fill="white" stroke="#000" d=
-                "M${xZero - unitL},${yZero + unitL} L${xZero - unitL},${
-                    yZero - 3 * unitL
-                } L${xZero + unitL},${yZero - 3 * unitL} L${xZero + unitL},${
+                "M${xZero - unitL},${yZero + unitL} L${xZero - unitL},${yZero - 3 * unitL} L${xZero + unitL},${yZero - 3 * unitL} L${xZero + unitL},${
                     yZero + unitL
                 }">
                 </path>
                 <path class="casingPvcCap" fill="white" stroke="#000" d=
-                "M${xZero - unitL - 1.5},${yZero - 3 * unitL} L${
-                    xZero - unitL - 1.5
-                },${yZero + 3 - 4 * unitL} Q${xZero - unitL - 1.5},${
-                    yZero - 4 * unitL
-                } ${xZero - 3},${yZero - 4 * unitL} 
-                L${xZero + 3},${yZero - 4 * unitL} Q${xZero + unitL + 1.5},${
-                    yZero - 4 * unitL
-                } ${xZero + unitL + 1.5},${yZero + 3 - 4 * unitL} L${
+                "M${xZero - unitL - 1.5},${yZero - 3 * unitL} L${xZero - unitL - 1.5},${yZero + 3 - 4 * unitL} Q${xZero - unitL - 1.5},${yZero - 4 * unitL} ${
+                    xZero - 3
+                },${yZero - 4 * unitL} 
+                L${xZero + 3},${yZero - 4 * unitL} Q${xZero + unitL + 1.5},${yZero - 4 * unitL} ${xZero + unitL + 1.5},${yZero + 3 - 4 * unitL} L${
                     xZero + unitL + 1.5
                 },${yZero - 3 * unitL}Z">
                 </path>
@@ -1829,36 +1326,11 @@ class Log {
 
         //well detail captions, [lable, anchorX, anchorY, arrowlength]
         let caption = [
-            [
-                "Bentonite Sealing",
-                xZero + 6 * unitL,
-                0.75 * yBentonite + 0.25 * yZero,
-                -3 * unitL,
-            ],
-            [
-                "Silica Sand Pack",
-                xZero + 6 * unitL,
-                0.5 * (yBentonite + yWellDepth),
-                -3 * unitL,
-            ],
-            [
-                "Casing",
-                xZero - 5 * unitL,
-                0.5 * (yBentonite + yScreenFrom),
-                4 * unitL,
-            ],
-            [
-                "Screen Section",
-                xZero - 5 * unitL,
-                0.5 * (yScreenTo + yScreenFrom),
-                4 * unitL,
-            ],
-            [
-                "Sediment Sump",
-                xZero - 5 * unitL,
-                0.5 * (yScreenTo + yWellDepth),
-                4 * unitL,
-            ],
+            ["Bentonite Sealing", xZero + 6 * unitL, 0.75 * yBentonite + 0.25 * yZero, -3 * unitL],
+            ["Silica Sand Pack", xZero + 6 * unitL, 0.5 * (yBentonite + yWellDepth), -3 * unitL],
+            ["Casing", xZero - 5 * unitL, 0.5 * (yBentonite + yScreenFrom), 4 * unitL],
+            ["Screen Section", xZero - 5 * unitL, 0.5 * (yScreenTo + yScreenFrom), 4 * unitL],
+            ["Sediment Sump", xZero - 5 * unitL, 0.5 * (yScreenTo + yWellDepth), 4 * unitL],
         ];
         caption.forEach((element) => {
             g_arrow.innerHTML += `
@@ -1888,10 +1360,7 @@ class Log {
         let unitL = (GL.x8 - GL.x7) / 9 / 2; //1/9 col width->casing size, 1/2 casing size ->unit lenth
 
         if (!isNaN(this.initialWaterLevel) && this.initialWaterLevel != "") {
-            let inital = config.convertMbgsToPxy(
-                this.maxTrickDepth,
-                this.initialWaterLevel
-            );
+            let inital = config.convertMbgsToPxy(this.maxTrickDepth, this.initialWaterLevel);
             if (inital) {
                 let g_inital = document.createElementNS(svgNS, "g");
                 g_waterLevel.appendChild(g_inital);
@@ -1899,28 +1368,16 @@ class Log {
                 g_inital.setAttribute("stroke-width", 0.5);
                 g_inital.innerHTML = `
                 <path class="initialWaterLevel-bg" stroke="#FFF" fill="#FFF" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round" d=
-                "M${xZero},${inital} L${xZero - unitL + 1},${
-                    inital - 0.75 * unitL
-                } L${xZero + unitL - 1},${inital - 0.75 * unitL}Z
+                "M${xZero},${inital} L${xZero - unitL + 1},${inital - 0.75 * unitL} L${xZero + unitL - 1},${inital - 0.75 * unitL}Z
                 M${xZero - unitL + 1},${inital} L${xZero + unitL - 1},${inital}
-                M${xZero - 0.6 * unitL},${inital + 0.3 * unitL} L${
-                    xZero + 0.6 * unitL
-                },${inital + 0.3 * unitL}
-                M${xZero - 0.3 * unitL},${inital + 0.6 * unitL} L${
-                    xZero + 0.3 * unitL
-                },${inital + 0.6 * unitL}
+                M${xZero - 0.6 * unitL},${inital + 0.3 * unitL} L${xZero + 0.6 * unitL},${inital + 0.3 * unitL}
+                M${xZero - 0.3 * unitL},${inital + 0.6 * unitL} L${xZero + 0.3 * unitL},${inital + 0.6 * unitL}
                 "></path>
                 <path class="initialWaterLevel-fg" stroke="#2F5597" fill="#FFF" d=
-                "M${xZero},${inital} L${xZero - unitL + 1.5},${
-                    inital - 0.75 * unitL
-                } L${xZero + unitL - 1.5},${inital - 0.75 * unitL}Z
+                "M${xZero},${inital} L${xZero - unitL + 1.5},${inital - 0.75 * unitL} L${xZero + unitL - 1.5},${inital - 0.75 * unitL}Z
                 M${xZero - unitL + 1},${inital} L${xZero + unitL - 1},${inital}
-                M${xZero - 0.6 * unitL},${inital + 0.3 * unitL} L${
-                    xZero + 0.6 * unitL
-                },${inital + 0.3 * unitL}
-                M${xZero - 0.3 * unitL},${inital + 0.6 * unitL} L${
-                    xZero + 0.3 * unitL
-                },${inital + 0.6 * unitL}
+                M${xZero - 0.6 * unitL},${inital + 0.3 * unitL} L${xZero + 0.6 * unitL},${inital + 0.3 * unitL}
+                M${xZero - 0.3 * unitL},${inital + 0.6 * unitL} L${xZero + 0.3 * unitL},${inital + 0.6 * unitL}
                 "></path>
                 `;
             }
@@ -1930,43 +1387,23 @@ class Log {
             return 0;
         }
         if (!isNaN(this.staticWaterLevel) && this.staticWaterLevel != "") {
-            let staticlevel = config.convertMbgsToPxy(
-                this.maxTrickDepth,
-                this.staticWaterLevel -
-                    (this.topOfCasingElevation - this.groundElevation)
-            );
+            let staticlevel = config.convertMbgsToPxy(this.maxTrickDepth, this.staticWaterLevel - (this.topOfCasingElevation - this.groundElevation));
             if (staticlevel) {
                 let g_static = document.createElementNS(svgNS, "g");
                 g_waterLevel.appendChild(g_static);
                 g_static.setAttribute("class", "staticlWaterLevel");
                 g_static.innerHTML = `
                 <path class="staticlWaterLevel-bg" stroke="#FFF" fill="#FFF" stroke-width="2.0" stroke-linecap="round" stroke-linejoin="round"d=
-                "M${xZero},${staticlevel} L${xZero - unitL + 1},${
-                    staticlevel - 0.75 * unitL
-                } L${xZero + unitL - 1},${staticlevel - 0.75 * unitL}Z
-                M${xZero - unitL + 1},${staticlevel} L${
-                    xZero + unitL - 1
-                },${staticlevel}
-                M${xZero - 0.6 * unitL},${staticlevel + 0.3 * unitL} L${
-                    xZero + 0.6 * unitL
-                },${staticlevel + 0.3 * unitL}
-                M${xZero - 0.3 * unitL},${staticlevel + 0.6 * unitL} L${
-                    xZero + 0.3 * unitL
-                },${staticlevel + 0.6 * unitL}
+                "M${xZero},${staticlevel} L${xZero - unitL + 1},${staticlevel - 0.75 * unitL} L${xZero + unitL - 1},${staticlevel - 0.75 * unitL}Z
+                M${xZero - unitL + 1},${staticlevel} L${xZero + unitL - 1},${staticlevel}
+                M${xZero - 0.6 * unitL},${staticlevel + 0.3 * unitL} L${xZero + 0.6 * unitL},${staticlevel + 0.3 * unitL}
+                M${xZero - 0.3 * unitL},${staticlevel + 0.6 * unitL} L${xZero + 0.3 * unitL},${staticlevel + 0.6 * unitL}
                 "></path>
                 <path class="staticlWaterLevel-fg" stroke="#2F5597" fill="#2F5597" stroke-width="0.5" d=
-                "M${xZero},${staticlevel} L${xZero - unitL + 1.5},${
-                    staticlevel - 0.75 * unitL
-                } L${xZero + unitL - 1.5},${staticlevel - 0.75 * unitL}Z
-                M${xZero - unitL + 1},${staticlevel} L${
-                    xZero + unitL - 1
-                },${staticlevel}
-                M${xZero - 0.6 * unitL},${staticlevel + 0.3 * unitL} L${
-                    xZero + 0.6 * unitL
-                },${staticlevel + 0.3 * unitL}
-                M${xZero - 0.3 * unitL},${staticlevel + 0.6 * unitL} L${
-                    xZero + 0.3 * unitL
-                },${staticlevel + 0.6 * unitL}
+                "M${xZero},${staticlevel} L${xZero - unitL + 1.5},${staticlevel - 0.75 * unitL} L${xZero + unitL - 1.5},${staticlevel - 0.75 * unitL}Z
+                M${xZero - unitL + 1},${staticlevel} L${xZero + unitL - 1},${staticlevel}
+                M${xZero - 0.6 * unitL},${staticlevel + 0.3 * unitL} L${xZero + 0.6 * unitL},${staticlevel + 0.3 * unitL}
+                M${xZero - 0.3 * unitL},${staticlevel + 0.6 * unitL} L${xZero + 0.3 * unitL},${staticlevel + 0.6 * unitL}
                 "></path>
                 `;
             }
@@ -1981,10 +1418,7 @@ class Log {
             if (index == 0) {
                 if (parseFloat(record[0]) != 0) {
                     errorCount++;
-                    soilDescriber
-                        .children(index)
-                        .querySelector("input.depthFrom")
-                        .setAttribute("validation", "invalid");
+                    soilDescriber.children(index).querySelector("input.depthFrom").setAttribute("validation", "invalid");
                 }
             }
         });
@@ -2316,15 +1750,9 @@ const pattern = {
         let UUID = Math.random().toString(36).substring(2, 6);
         if (this[name]) {
             let patternStr = this[name];
-            patternStr = patternStr.replace(
-                `id="${name}"`,
-                `id="${name + UUID}"`
-            );
+            patternStr = patternStr.replace(`id="${name}"`, `id="${name + UUID}"`);
             if (color && color != "undefined") {
-                patternStr = patternStr.replace(
-                    `stroke="#000"`,
-                    `stroke="${color}"`
-                );
+                patternStr = patternStr.replace(`stroke="#000"`, `stroke="${color}"`);
             }
             svgDef.innerHTML = patternStr;
             return { id: name + UUID, pattern: svgDef.children[0] };
