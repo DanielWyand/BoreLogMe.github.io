@@ -295,7 +295,7 @@
             </ul>
         </div>
 
-        <div id="mainContent">
+        <div id="mainContent" class="print">
             <div id="controlPanel">
                 <div id="filePanel" class="active">
                     <div class="titleBar">
@@ -1096,15 +1096,15 @@
 
             <div id="resizeBar"></div>
 
-            <div id="previewPanel">
+            <div id="previewPanel" class="print">
                 <span id="tempHolder"></span>
                 <div id="pageSelecter">
                     <div id="viewLocation"></div>
                     <div id="pageLinks"></div>
                 </div>
-                <div id="scaleHolder"></div>
+                <div id="scaleHolder" class="print"></div>
                 <div id="download">
-                    <div class="pdf" title="save as pdf" onclick="alert('在做了在做了...')">
+                    <div class="pdf" title="save as pdf" onclick="window.print()">
                         <svg viewBox="0 0 16 16" height="20">
                             <use xlink:href="#icon-PDF"></use>
                         </svg>

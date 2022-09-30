@@ -430,9 +430,9 @@ div#dataTableView .tableDisplay {
 }
 
 div#dataTableView .tableDisplay.ondrop::after {
-    content: "Drag and Drop (kml, cvs, txt)";
-    position: absolute;
-    top: 5px;
+    content: "Drag and Drop (kml, cvs)";
+    position: sticky;
+    top: 0px;
     left: 5px;
     box-sizing: border-box;
     display: flex;
@@ -440,7 +440,7 @@ div#dataTableView .tableDisplay.ondrop::after {
     align-items: center;
     background-color: var(--navBar-bgcolor);
     width: calc(100% - 5px);
-    height: calc(100% - 5px);
+    height: calc(100% - 40px);
     border: 2px dashed rgb(114, 114, 114);
     z-index: 999;
     font-size: 30px;
@@ -2293,6 +2293,36 @@ svg.logs.active {
     box-shadow: 0 0 0 3px var(--previewPanel-bgcolor), 0 0 0 5px rgb(114, 114, 114, 0.7);
 }
 
+@media print {
+    * {
+        font: 0;
+        margin: 0;
+        padding: 0;
+    }
+
+    #navBar,
+    #statusBar,
+    #dataTableContainer,
+    #controlPanel,
+    #resizeBar,
+    #tempHolder,
+    #pageSelecter,
+    #download {
+        display: none;
+    }
+    body,
+    #mainContent,
+    #previewPanel,
+    #scaleHolder {
+        all: unset;
+    }
+    svg.logs,
+    svg.logs.active {
+        margin: 0;
+        box-shadow: none;
+    }
+}
+
 :root[darkTheme="true"] svg.logs > g {
     filter: invert(1) grayscale(1);
 }
@@ -2328,8 +2358,3 @@ svg.logs.active {
 .renderjson .array.syntax {
     color: lightsalmon;
 }
-
-div.noprint {
-    display: none;
-}
-/* svg.logs {display: block;} */
